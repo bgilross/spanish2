@@ -1,17 +1,17 @@
 function Sentence({ sentence }) {
 	// Split the sentence into words
-	const words = sentence.text.split(" ")
+	const words = sentence?.sentence?.split(" ")
 
 	// Function to check if a word is within any highlight range
 	const getHighlightInfo = (index) => {
-		return sentence.highlights.find(
+		return sentence.translate.find(
 			(highlight) => index >= highlight.start && index <= highlight.end
 		)
 	}
 
 	return (
 		<p>
-			{words.map((word, index) => {
+			{words?.map((word, index) => {
 				const highlightInfo = getHighlightInfo(index)
 
 				if (highlightInfo) {
@@ -32,15 +32,4 @@ function Sentence({ sentence }) {
 	)
 }
 
-export default function App() {
-	return (
-		<div className="p-4">
-			{sentences.map((sentence) => (
-				<Sentence
-					key={sentence.id}
-					sentence={sentence}
-				/>
-			))}
-		</div>
-	)
-}
+export default Sentence

@@ -12,6 +12,22 @@
 	--true-blue: theme(colors.true_blue);
 	--blue-light: theme(colors.blue_light);
 }
+.block-gradient {
+	font-weight: 900;
+	text-shadow: 2px 2px 0 #ff007f, /* Pink shadow */ 4px 4px 0 #ff006f,
+		/* Darker pink shadow */ 6px 6px 0 #ff005f,
+		/* Even darker pink shadow */ 8px 8px 0 #ff004f,
+		/* Deep pink shadow */ 10px 10px 15px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
+}
+.glow {
+	text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+		0 0 20px rgba(255, 0, 255, 0.6), 0 0 30px rgba(255, 0, 255, 0.6),
+		0 0 40px rgba(255, 0, 255, 0.6), 0 0 50px rgba(255, 0, 255, 0.6);
+}
+
+.three-d {
+	text-shadow: 3px 3px 0px #ff69b4, 6px 6px 0px #ff1493, 9px 9px 0px #c71585;
+}
 
 /* .inset-input {
 	background-color: var(--secondary);
