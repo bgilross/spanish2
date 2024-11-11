@@ -1,14 +1,10 @@
 "use client"
-import spanishData from "@/lib/spanishData"
-import { useState } from "react"
 
-const Sentence = ({
-	sentenceData,
-	markedWords,
-	setMarkedWords,
-	currentIndex,
-	translatedWords,
-}) => {
+import { useTranslation } from "@/lib/TranslationContext"
+
+const Sentence = ({}) => {
+	const { sentenceData, currentIndex, translatedWords } = useTranslation()
+
 	if (!sentenceData) return null
 	return (
 		<div className="text-6xl text-primary">
@@ -22,12 +18,16 @@ const Sentence = ({
 					{word.word}
 				</span>
 			))}
-			<div className="text-5xl mt-6 text-secondary text-center">
+			<div className="text-5xl mt-6 text-center">
 				{sentenceData?.data?.map((word, index) => (
 					<span
 						key={index}
 						className={`mr-2 ${
-							!word.translation ? translatedWords[index] : "text-green-700"
+							!word.translation
+								? "text-secondary"
+								: translatedWords[index]
+								? "text-green-700"
+								: "border-b-4 border-red-500"
 						}`}
 					>
 						{word.translation ? translatedWords[index] || "_____" : word.word}

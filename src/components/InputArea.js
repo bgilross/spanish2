@@ -2,15 +2,17 @@ import { current } from "tailwindcss/colors"
 import InsetInput from "./InsetInput"
 import TiltCard from "./TiltCard"
 import { useState } from "react"
+import { useTranslation } from "@/lib/TranslationContext"
 
-const InputArea = ({
-	currentIndex,
-	sentenceData,
-	setTranslatedWords,
-	translatedWords,
-	setCurrentIndex,
-	findNextHighlightedIndex,
-}) => {
+const InputArea = ({}) => {
+	const {
+		currentIndex,
+		sentenceData,
+		setTranslatedWords,
+		translatedWords,
+		setCurrentIndex,
+		findNextHighlightedIndex,
+	} = useTranslation()
 	const [userInput, setUserInput] = useState("")
 
 	const handleClick = () => {

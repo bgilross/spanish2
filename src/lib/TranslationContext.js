@@ -10,6 +10,16 @@ export const TranslationProvider = ({ children }) => {
 	const [sentenceData, setSentenceData] = useState({})
 	const [currentIndex, setCurrentIndex] = useState(0)
 
+	useEffect(() => {
+		setSentenceData(spanishData.lesson1.sentences[0])
+	}, [])
+
+	useEffect(() => {
+		const index = findNextHighlightedIndex()
+		console.log("index is: ", index)
+		setCurrentIndex(index)
+	}, [sentenceData])
+
 	const findNextHighlightedIndex = () => {
 		console.log("running find next highlight")
 		console.log("translatedWords: ", translatedWords)

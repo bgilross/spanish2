@@ -7,24 +7,10 @@ import { useTranslation } from "@/lib/TranslationContext"
 
 export default function Main() {
 	const {
-		setSentenceData,
-		sentenceData,
 		translatedWords,
-		setTranslatedWords,
-		setCurrentIndex,
-		findNextHighlightedIndex,
+
 		currentIndex,
 	} = useTranslation()
-
-	useEffect(() => {
-		setSentenceData(spanishData.lesson1.sentences[0])
-	}, [])
-
-	useEffect(() => {
-		const index = findNextHighlightedIndex()
-		console.log("index is: ", index)
-		setCurrentIndex(index)
-	}, [sentenceData])
 
 	return (
 		<div className="h-full w-full flex flex-col justify-center items-center">
@@ -37,22 +23,9 @@ export default function Main() {
 				Check
 			</button>
 			<div className="w-full h-full flex flex-col justify-center items-center">
-				<Sentence
-					sentenceData={sentenceData}
-					translatedWords={translatedWords}
-					setTranslatedWords={setTranslatedWords}
-					currentIndex={currentIndex}
-					setCurrentIndex={setCurrentIndex}
-				/>
+				<Sentence />
 			</div>
-			<InputArea
-				translatedWords={translatedWords}
-				currentIndex={currentIndex}
-				setTranslatedWords={setTranslatedWords}
-				sentenceData={sentenceData}
-				setCurrentIndex={setCurrentIndex}
-				findNextHighlightedIndex={findNextHighlightedIndex}
-			/>
+			<InputArea />
 		</div>
 	)
 }
