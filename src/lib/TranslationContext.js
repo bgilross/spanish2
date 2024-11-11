@@ -1,5 +1,5 @@
 "use client"
-import React, { createContext, useState, useContext } from "react"
+import React, { createContext, useState, useContext, useEffect } from "react"
 import spanishData from "@/lib/spanishData"
 
 const TranslationContext = createContext()
@@ -11,10 +11,18 @@ export const TranslationProvider = ({ children }) => {
 	const [currentIndex, setCurrentIndex] = useState(0)
 
 	const findNextHighlightedIndex = () => {
-		return sentenceData?.data?.findIndex(
+		console.log("running find next highlight")
+		console.log("translatedWords: ", translatedWords)
+		if (!sentenceData || !sentenceData.data) return -1
+		return sentenceData.data.findIndex(
 			(word, index) => word.translation && !(index in translatedWords)
 		)
 	}
+
+	useEffect(() => {
+		const index = findNextHighlightedIndex()
+		setCurrentIndex(index)
+	}, [translatedWords])
 
 	return (
 		<TranslationContext.Provider

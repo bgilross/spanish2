@@ -3,25 +3,35 @@ import InsetInput from "./InsetInput"
 import TiltCard from "./TiltCard"
 import { useState } from "react"
 
-const InputArea = ({ currentIndex, sentenceData, setTranslatedWords }) => {
-	const [inputText, setInputText] = useState("Type Here")
+const InputArea = ({
+	currentIndex,
+	sentenceData,
+	setTranslatedWords,
+	translatedWords,
+	setCurrentIndex,
+	findNextHighlightedIndex,
+}) => {
+	const [userInput, setUserInput] = useState("")
 
 	const handleClick = () => {
-		console.log(inputText)
+		console.log(userInput)
 
+		if (!sentenceData || currentIndex === -1) return
 		if (currentIndex === -1) return
 
 		const currentWord = sentenceData.data[currentIndex]
 
 		if (
-			inputText.toLowerCase() ===
-			currentWord.translation.translation.toLowerCase()
+			userInput.toLowerCase() ===
+			currentWord.translation?.translation.toLowerCase()
 		) {
 			setTranslatedWords({
-				...setTranslatedWords,
+				...translatedWords,
 				[currentIndex]: currentWord.translation.translation,
 			})
-			setInputText("")
+			setUserInput("")
+			const index = findNextHighlightedIndex()
+			setCurrentIndex(index)
 		}
 	}
 
@@ -43,8 +53,8 @@ const InputArea = ({ currentIndex, sentenceData, setTranslatedWords }) => {
 			</div> */}
 			<div className="flex p-4 h-1/3 flex-col w-[80%] space-x-4 justify-center items-center">
 				<InsetInput
-					inputText={inputText}
-					setInputText={setInputText}
+					inputText={userInput}
+					setInputText={setUserInput}
 				/>
 			</div>
 			<div className="h-1/3 flex justify-end w-[80%]">

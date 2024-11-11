@@ -28,6 +28,14 @@ export default function Main() {
 
 	return (
 		<div className="h-full w-full flex flex-col justify-center items-center">
+			<button
+				onClick={() => {
+					console.log("currentIndex: ", currentIndex)
+					console.log("translatedWords: ", translatedWords)
+				}}
+			>
+				Check
+			</button>
 			<div className="w-full h-full flex flex-col justify-center items-center">
 				<Sentence
 					sentenceData={sentenceData}
@@ -42,6 +50,8 @@ export default function Main() {
 				currentIndex={currentIndex}
 				setTranslatedWords={setTranslatedWords}
 				sentenceData={sentenceData}
+				setCurrentIndex={setCurrentIndex}
+				findNextHighlightedIndex={findNextHighlightedIndex}
 			/>
 		</div>
 	)
