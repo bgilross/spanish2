@@ -1,39 +1,56 @@
-const { transform } = require('next/dist/build/swc')
+const { transform } = require("next/dist/build/swc")
+const colors = require("tailwindcss/colors")
+const plugin = require("tailwindcss/plugin")
+
+const basePrimaryColor = "red"
+const baseSecondaryColor = "amber"
+const baseAccentColor = "violet"
+const baseWarningColor = "blue"
+
+const ultraViolet = "#52489c"
+const wisteria = "#8E3BFF"
+const trueBlue = "#4062bb"
+const sunset = "#f0c987"
+const champagne = "#F8E7C9"
+const persianRed = "#c3423f"
+const lightCoral = "#DD9492"
+const cornellRed = "#b3001b"
+const vistaBlue = "#95A8DB"
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
-  theme: {
-    extend: {
-      keyframes: {
-        wiggle: {
-          '0%, 100%': { transform: 'rotate(-3deg)' },
-          '50%': { transform: 'rotate(3deg)' },
-        },
-        expand: {
-          '0%': { transform: 'scale(1)' },
-          '100%': { transform: 'scale(1.2)' },
-        },
-        slide: {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(90%)' },
-        },
-      },
-      animation: {
-        wiggle: 'wiggle 0.5s ease-in-out infinite',
-        expand: 'expand 0.3s ease-in-out forwards',
-        marquee: 'marquee 10s linear infinite',
-        slide: 'slide .5s ease-in-out forwards',
-      },
-      colors: {
-        background: 'var(--background)',
-        foreground: 'var(--foreground)',
-      },
-    },
-  },
-  plugins: [],
+	content: [
+		"./src/**/*.{js,ts,jsx,tsx,mdx}",
+		"./components/**/*.{js,ts,jsx,tsx,mdx}",
+		"./pages/**/*.{js,ts,jsx,tsx,mdx}",
+		"./app/**/*.{js,ts,jsx,tsx,mdx}",
+	],
+	theme: {
+		extend: {
+			colors: {
+				primary: "#c3423f",
+				primary_light: lightCoral,
+				secondary: sunset,
+				secondary_light: champagne,
+				accent: ultraViolet,
+				accent_light: wisteria,
+				true_blue: trueBlue,
+				blue_light: vistaBlue,
+			},
+		},
+	},
+	plugins: [
+		plugin(function ({ addBase, theme }) {
+			const cssVariables = Object.entries(theme("colors")).reduce(
+				(vars, [key, value]) => {
+					vars[`--${key}`] = value
+					return vars
+				},
+				{}
+			)
+			addBase({
+				":root": cssVariables,
+			})
+		}),
+	],
 }

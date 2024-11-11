@@ -8,7 +8,7 @@ const Footer = () => {
 	return (
 		<AppBar
 			position="static"
-			className="bg-blue-600 shadow-2xl shadow-blue-900"
+			className="bg-primary shadow-2xl shadow-red-900 text-secondary"
 			sx={{
 				borderTopLeftRadius: "1rem",
 				borderTopRightRadius: "1rem",
@@ -17,19 +17,11 @@ const Footer = () => {
 		>
 			<Toolbar className="flex justify-between px-6 py-4">
 				{/* Left: Logo or Text */}
-				<Box className="w-1/3">
-					<Typography
-						variant="h6"
-						className="text-green-200"
-					></Typography>
-				</Box>
+				<Box className="w-1/3"></Box>
 
 				{/* Right: Additional Links or Icons */}
 				<Box className="w-1/3">
-					<Typography
-						variant="body2"
-						className="text-green-200"
-					>
+					<Typography variant="body2">
 						{/* You can add more links here */}
 						<a
 							href="#"
@@ -48,10 +40,7 @@ const Footer = () => {
 				</Box>
 
 				<Box>
-					<Typography
-						variant="h6"
-						className="text-green-200"
-					>
+					<Typography variant="h6">
 						Set Lister © {new Date().getFullYear()}
 					</Typography>
 				</Box>

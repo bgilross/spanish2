@@ -1,0 +1,22 @@
+.inset-input {
+	background-color: var(--secondary);
+	color: var(--primary);
+	box-shadow: inset 4px 4px 10px var(--primary),
+		inset -4px -4px 10px rgba(255, 255, 255, 0.7);
+	border: none;
+	border-radius: 10px;
+	transition: box-shadow 0.3s ease, background-color 0.3s ease;
+	font-weight: 600;
+}
+
+.inset-input:focus {
+	background-color: var(--secondary);
+	box-shadow: inset 6px 6px 15px var(--primary),
+		inset -6px -6px 15px rgba(255, 255, 255, 0.9);
+	outline: none;
+}
+
+.inset-input::placeholder {
+	color: var(--primary);
+	opacity: 0.7;
+}

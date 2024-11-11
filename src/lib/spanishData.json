@@ -1,0 +1,48 @@
+{
+	"lesson1": [
+		{
+			"wordBank": [
+				{
+					"pos": "conjunction",
+					"word": "and",
+					"translation": "y",
+					"audio": "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=and&tl=es&total=1&idx=0&textlen=3"
+				},
+				{
+					"pos": "pronoun",
+					"word": "that",
+					"translation": "eso",
+					"audio": "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=that&tl=es&total=1&idx=0&textlen=4"
+				},
+				{
+					"pos": "conjunction",
+					"word": "that",
+					"translation": "que",
+					"audio": "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=that&tl=es&total=1&idx=0&textlen=4"
+				}
+			]
+		},
+
+		{
+			"sentences": [
+				{
+					"id": 1,
+					"sentence": "She and I want that",
+					"translation": "She y I want eso",
+					"translate": [
+						{
+							"start": 1,
+							"end": 1,
+							"translation": "y"
+						},
+						{
+							"start": 4,
+							"end": 4,
+							"translation": "eso"
+						}
+					]
+				}
+			]
+		}
+	]
+}
