@@ -5,36 +5,16 @@ import { useState } from "react"
 import { useTranslation } from "@/lib/TranslationContext"
 
 const InputArea = ({}) => {
-	const {
-		currentIndex,
-		sentenceData,
-		setTranslatedWords,
-		translatedWords,
-		setCurrentIndex,
-		findNextHighlightedIndex,
-	} = useTranslation()
+	const { handleSubmit } = useTranslation()
 	const [userInput, setUserInput] = useState("")
 
-	const handleClick = () => {
-		console.log(userInput)
+	const submit = (event) => {
+		event.preventDefault()
+		console.log("submitting")
 
-		if (!sentenceData || currentIndex === -1) return
-		if (currentIndex === -1) return
-
-		const currentWord = sentenceData.data[currentIndex]
-
-		if (
-			userInput.toLowerCase() ===
-			currentWord.translation?.translation.toLowerCase()
-		) {
-			setTranslatedWords({
-				...translatedWords,
-				[currentIndex]: currentWord.translation.translation,
-			})
-			setUserInput("")
-			const index = findNextHighlightedIndex()
-			setCurrentIndex(index)
-		}
+		handleSubmit(userInput)
+		setUserInput("")
+		console.log("done submitting")
 	}
 
 	return (
@@ -46,23 +26,20 @@ const InputArea = ({}) => {
 				<TiltCard>Button2</TiltCard>
 				<TiltCard>Button3</TiltCard>
 			</div>
-			{/* <div className="flex flex-col items-center justify-center p-4 rounded-2xl">
-				<input
-					type="text"
-					placeholder="Enter text here..."
-					className="inset-input w-96 p-4 text-primary placeholder-primary_light"
-				/>
-			</div> */}
-			<div className="flex p-4 h-1/3 flex-col w-[80%] space-x-4 justify-center items-center">
+
+			<form
+				onSubmit={submit}
+				className="flex p-4 h-1/3 flex-col w-[80%] space-x-4 justify-center items-center"
+			>
 				<InsetInput
 					inputText={userInput}
 					setInputText={setUserInput}
 				/>
-			</div>
+			</form>
 			<div className="h-1/3 flex justify-end w-[80%]">
 				<TiltCard
 					className="w-[110px] h-[75px] bg-primary text-secondary font-bold rounded-2xl"
-					onClick={handleClick}
+					onClick={submit}
 				>
 					Submit!
 				</TiltCard>

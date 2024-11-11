@@ -41,7 +41,7 @@ const Footer = () => {
 
 				<Box>
 					<Typography variant="h6">
-						Set Lister © {new Date().getFullYear()}
+						SpanishTester © {new Date().getFullYear()}
 					</Typography>
 				</Box>
 			</Toolbar>

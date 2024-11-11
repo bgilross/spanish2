@@ -39,6 +39,18 @@ const spanishData = {
 					{ word: "that", translation: eso },
 				],
 			},
+			{
+				id: 1,
+				sentence: "She and I want that",
+				translation: "She y I want eso",
+				data: [
+					{ word: "She" },
+					{ word: "and", translation: y },
+					{ word: "I" },
+					{ word: "want" },
+					{ word: "that", translation: eso },
+				],
+			},
 		],
 	},
 }
