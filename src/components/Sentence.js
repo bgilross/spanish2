@@ -11,24 +11,26 @@ const Sentence = ({
 }) => {
 	if (!sentenceData) return null
 	return (
-		<div className="text-6xl">
+		<div className="text-6xl text-primary">
 			{sentenceData?.data?.map((word, index) => (
 				<span
 					key={index}
-					className={`mr-2 ${
-						word.translation ? "text-blue-500 font-bold" : ""
-					} ${index === currentIndex ? "border-b-4 border-red-500" : ""}`}
+					className={`mr-2 ${word.translation ? "text-accent font-bold" : ""} ${
+						index === currentIndex ? "border-4 border-true_blue" : ""
+					} ${translatedWords[index] ? "text-green-700" : ""}`}
 				>
 					{word.word}
 				</span>
 			))}
-			<div className="text-4xl mt-6 text-green-600">
+			<div className="text-5xl mt-6 text-secondary text-center">
 				{sentenceData?.data?.map((word, index) => (
 					<span
 						key={index}
-						className="mr-2"
+						className={`mr-2 ${
+							!word.translation ? translatedWords[index] : "text-green-700"
+						}`}
 					>
-						{word.translation ? translatedWords[index] || "______" : word.word}
+						{word.translation ? translatedWords[index] || "_____" : word.word}
 					</span>
 				))}
 			</div>
