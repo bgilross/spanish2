@@ -37,7 +37,12 @@ export default function Main() {
 					setCurrentIndex={setCurrentIndex}
 				/>
 			</div>
-			<InputArea />
+			<InputArea
+				translatedWords={translatedWords}
+				currentIndex={currentIndex}
+				setTranslatedWords={setTranslatedWords}
+				sentenceData={sentenceData}
+			/>
 		</div>
 	)
 }

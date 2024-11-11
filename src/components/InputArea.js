@@ -1,7 +1,30 @@
+import { current } from "tailwindcss/colors"
 import InsetInput from "./InsetInput"
 import TiltCard from "./TiltCard"
+import { useState } from "react"
 
-const InputArea = () => {
+const InputArea = ({ currentIndex, sentenceData, setTranslatedWords }) => {
+	const [inputText, setInputText] = useState("Type Here")
+
+	const handleClick = () => {
+		console.log(inputText)
+
+		if (currentIndex === -1) return
+
+		const currentWord = sentenceData.data[currentIndex]
+
+		if (
+			inputText.toLowerCase() ===
+			currentWord.translation.translation.toLowerCase()
+		) {
+			setTranslatedWords({
+				...setTranslatedWords,
+				[currentIndex]: currentWord.translation.translation,
+			})
+			setInputText("")
+		}
+	}
+
 	return (
 		<div className="bg-secondary rounded-t-2xl w-[95%] h-full flex flex-col items-center justify-center shadow-2xl shadow-primary">
 			<div className="flex justify-around w-full h-1/3">
@@ -19,10 +42,16 @@ const InputArea = () => {
 				/>
 			</div> */}
 			<div className="flex p-4 h-1/3 flex-col w-[80%] space-x-4 justify-center items-center">
-				<InsetInput />
+				<InsetInput
+					inputText={inputText}
+					setInputText={setInputText}
+				/>
 			</div>
 			<div className="h-1/3 flex justify-end w-[80%]">
-				<TiltCard className="w-[110px] h-[75px] bg-primary text-secondary font-bold rounded-2xl">
+				<TiltCard
+					className="w-[110px] h-[75px] bg-primary text-secondary font-bold rounded-2xl"
+					onClick={handleClick}
+				>
 					Submit!
 				</TiltCard>
 			</div>
