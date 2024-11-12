@@ -7,13 +7,7 @@ import { useTranslation } from "@/lib/TranslationContext"
 import "../styles/flashOverlay.css"
 
 export default function Main() {
-	const {
-		translatedWords,
-		flashRedScreen,
-		currentIndex,
-		sentenceIndex,
-		sentenceData,
-	} = useTranslation()
+	const { logData } = useTranslation()
 
 	const RedFlashOverlay = () => {
 		const { showRedFlash } = useTranslation()
@@ -29,16 +23,7 @@ export default function Main() {
 		<div className="h-full w-full flex flex-col justify-center items-center">
 			<RedFlashOverlay />
 			<GreenFlashOverlay />
-			<button
-				onClick={() => {
-					console.log("currentIndex: ", currentIndex)
-					console.log("translatedWords: ", translatedWords)
-					console.log("sentenceIndex: ", sentenceIndex)
-					console.log("sentenceData: ", sentenceData)
-				}}
-			>
-				Check
-			</button>
+			<button onClick={logData}>Check</button>
 			<div className="w-full h-full flex flex-col justify-center items-center">
 				<Sentence />
 			</div>

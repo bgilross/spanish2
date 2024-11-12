@@ -10,29 +10,58 @@ export const TranslationProvider = ({ children }) => {
 	const [sentenceData, setSentenceData] = useState({})
 	const [currentIndex, setCurrentIndex] = useState(0)
 	const [sentenceIndex, setSentenceIndex] = useState(0)
-	const [score, setScore] = useState({})
+	const [score, setScore] = useState({ errors: [] })
 	const [showRedFlash, setShowRedFlash] = useState(false)
 	const [showGreenFlash, setShowGreenFlash] = useState(false)
+	const [ready, setReady] = useState(false)
 
+	const logData = () => {
+		console.log("translatedWords: ", translatedWords)
+		console.log("sentenceData: ", sentenceData)
+		console.log("currentIndex: ", currentIndex)
+		console.log("sentenceIndex: ", sentenceIndex)
+		console.log("score: ", score)
+	}
+	//if sentence index changes, update sentence data with next sentence, maybe reset should happen here too?
 	useEffect(() => {
+		setTranslatedWords({})
+		console.log(
+			"sentence index use effect running, sentence index: ",
+			sentenceIndex
+		)
 		setSentenceData(spanishData.lesson1.sentences[sentenceIndex])
 	}, [sentenceIndex])
 
+	//if sentence data changes, update index with next word to translates index
+	//also set ready variable
 	useEffect(() => {
-		const index = findNextHighlightedIndex()
-		console.log("index is: ", index)
-		setCurrentIndex(index)
+		if (ready) {
+			const index = findNextHighlightedIndex()
+			console.log("index is: ", index)
+			setCurrentIndex(index)
+		}
+		if (sentenceData) {
+			setReady(true)
+		} else {
+			setReady(false)
+		}
 	}, [sentenceData])
 
+	//if translated words changes, i.e. a word has been successfully translated get next word to translate
+	//also check if word is completely translated, then increase the sentence index.
 	useEffect(() => {
 		console.log(
 			"sentence index use effect running, sentence index: ",
 			sentenceIndex
 		)
-		if (sentenceData && findNextHighlightedIndex() === -1)
+		if (sentenceData && ready && findNextHighlightedIndex() === -1)
 			setSentenceIndex(sentenceIndex + 1)
+
+		const index = findNextHighlightedIndex()
+		setCurrentIndex(index)
 	}, [translatedWords])
 
+	//find the next word to translate index
 	const findNextHighlightedIndex = () => {
 		console.log("running find next highlight")
 		console.log("translatedWords: ", translatedWords)
@@ -46,11 +75,7 @@ export const TranslationProvider = ({ children }) => {
 		)
 	}
 
-	useEffect(() => {
-		const index = findNextHighlightedIndex()
-		setCurrentIndex(index)
-	}, [translatedWords])
-
+	//check user answer
 	const handleSubmit = (userInput) => {
 		if (!sentenceData || currentIndex === -1) return
 		if (currentIndex === -1) return
@@ -68,18 +93,28 @@ export const TranslationProvider = ({ children }) => {
 			console.log("about to find next highlight index")
 			const index = findNextHighlightedIndex()
 			console.log("index is: ", index)
-			// if (index === -1) {
-			// 	console.log("no more words to translate")
-			// 	setSentenceIndex(sentenceIndex + 1)
-			// 	setTranslatedWords({})
-			// }
+
 			setCurrentIndex(index)
 			flashGreenScreen()
 			return
 		} else {
 			console.log("else")
 			flashRedScreen()
+			trackError(userInput, currentWord)
 		}
+	}
+
+	const trackError = (userInput, currentWord) => {
+		const errorEntry = {
+			sentence: sentenceData,
+			userInput: userInput,
+			currentWord: currentWord,
+			sentenceIndex: sentenceIndex,
+		}
+		setScore((prevScore) => ({
+			...prevScore,
+			errors: [...prevScore.errors, errorEntry],
+		}))
 	}
 
 	const flashRedScreen = () => {
@@ -108,6 +143,8 @@ export const TranslationProvider = ({ children }) => {
 				showRedFlash,
 				showGreenFlash,
 				sentenceIndex,
+				score,
+				logData,
 			}}
 		>
 			{children}
