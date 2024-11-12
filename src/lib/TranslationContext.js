@@ -14,8 +14,6 @@ export const TranslationProvider = ({ children }) => {
 	const [showRedFlash, setShowRedFlash] = useState(false)
 	const [showGreenFlash, setShowGreenFlash] = useState(false)
 	const [ready, setReady] = useState(false)
-	const [lessonIndex, setLessonIndex] = useState(3)
-	const [lessonName, setLessonName] = useState("lesson3")
 	const [lessonNumber, setLessonNumber] = useState(
 		Object.keys(spanishData.lessons)[0]
 	)
