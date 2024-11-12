@@ -5,15 +5,15 @@ import spanishData from "@/lib/spanishData"
 
 const Sentence = ({}) => {
 	const {
-		sentenceData,
 		currentIndex,
 		translatedWords,
 		lessonNumber,
 		sentenceIndex,
-		setSentenceIndex,
-		setTranslatedWords,
 		changeSentence,
 	} = useTranslation()
+
+	const sentenceData =
+		spanishData?.lessons?.[lessonNumber]?.sentences?.[sentenceIndex]
 
 	if (!sentenceData) return null
 	return (

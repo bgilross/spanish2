@@ -12,7 +12,7 @@ import { useState } from "react"
 
 const Header = ({ user, onLogin }) => {
 	const { lessonNumber, handleLessonChange } = useTranslation()
-	const [value, setValue] = useState(null)
+	const [value, setValue] = useState(3)
 
 	console.log("Current lessonNumber in Header:", lessonNumber)
 

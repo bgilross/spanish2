@@ -454,7 +454,7 @@ const spanishData = {
 							phraseTranslation: "NO tells",
 						},
 						{
-							phrease: "us that",
+							phrase: "us that",
 							translation: conj.que,
 							phraseTranslation: "us QUE",
 						},
