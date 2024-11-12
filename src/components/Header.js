@@ -3,15 +3,15 @@
 import React from "react"
 import { AppBar, Toolbar } from "@mui/material"
 import { Box } from "@mui/system"
-// import { useTranslation } from "@/lib/TranslationContext"
-// import spanishData from "@/lib/spanishData"
+import { useTranslation } from "@/lib/TranslationContext"
+import spanishData from "@/lib/spanishData"
 
 // import SpreadWord from "./SpreadWord"
 import { useState } from "react"
 // import GoogleLogin from "./GoogleLogin"
 
 const Header = ({ user, onLogin }) => {
-	// const { lessonIndex, setLessonIndex } = useTranslation()
+	const { lessonNumber, setLessonNumber } = useTranslation()
 
 	return (
 		<AppBar
@@ -26,40 +26,33 @@ const Header = ({ user, onLogin }) => {
 				alignItems: "space-between",
 				justifyContent: "center",
 			}}
-			// onMouseEnter={() => setSpreadWord(true)}
-			// onMouseLeave={() => setSpreadWord(false)}
 		>
 			<Toolbar className="relative flex items-center justify-between px-6 py-4 h-20">
-				{/* Left: Logo */}
 				<Box className="flex space-x-3 w-full">
-					{/* <img
-            src="/logo.png"
-            alt="Logo"
-            className="w-12 h-12 rounded-full bg-white p-1"
-          /> */}
-					<div className="text-secondary font-bold text-4xl w-full text-left">
-						{/* <SpreadWord
-							spreadWord={spreadWord}
-							word={"Set Lister"}
-						/> */}
+					<div className="text-secondary font-bold text-4xl w-1/3 text-left">
 						SpanishTester
 					</div>
-					{/* <div>Lesson Index: {lessonIndex}</div>
-					<select>
-						{spanishData?.lessons?.map((lesson, index) => (
+					<div className="w-1/3"> </div>
+					<select
+						className="text-primary font-bold"
+						value={lessonNumber}
+						onChange={(e) => {
+							const selectedLesson = parseInt(e.target.value, 10)
+							console.log("Selected lesson:", selectedLesson)
+							setLessonNumber(selectedLesson)
+						}}
+					>
+						{Object.keys(spanishData.lessons).map((key) => (
 							<option
-								key={index}
-								value={index}
-								selected={index === lessonIndex}
+								key={key}
+								value={key}
 							>
-								Lesson {index + 1}: {lesson.name}
+								{spanishData.lessons[key].name}{" "}
+								{spanishData.lessons[key].details}
 							</option>
 						))}
-					</select> */}
+					</select>
 				</Box>
-				{/* <GoogleLogin /> */}
-				{/* <Login /> */}
-				{/* Right: User Icon / Login */}
 			</Toolbar>
 		</AppBar>
 	)

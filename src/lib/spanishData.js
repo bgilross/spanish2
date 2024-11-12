@@ -31,8 +31,7 @@ const words = {
 				"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=that&tl=es&total=1&idx=0&textlen=4",
 			pos: "conjunction",
 			info: [
-				"If you CAN add que/that in Spanish as a connector then you HAVE to!",
-				"Que is the NUMBER 1 Word in Spanish, but English THAT is not even in the Top 5, why is that? In Spanish if you CAN use Que as a connector then you MUST. Where in English we can say things like 'We hope we get there soon!' In spanish you would have to say 'We hope THAT we get there soon!'",
+				"ESO is likely the MOST VERSATILE word in Spanish! It is interchangeable with any NOUN or NOUN PHRASE, it can also represent actions and concepts",
 			],
 		},
 	},
@@ -97,8 +96,10 @@ const spanishData = {
 		],
 	},
 	lessons: {
-		lesson3: {
-			name: "Lesson 3: Conjunctions (Y and QUE) and ESO",
+		3: {
+			lesson: 3,
+			name: "Lesson 3",
+			details: "Conjunctions (Y and QUE) and ESO",
 			info: [],
 			wordBank: [conj.y, pron.eso, conj.que],
 			sentences: [
@@ -253,9 +254,10 @@ const spanishData = {
 				},
 			],
 		},
-		lesson4: {
+		4: {
+			lesson: 4,
 			name: "Lesson 4",
-			details: "Prepositions: ",
+			details: "Prepositions: DE and A, Adverb NO ",
 			wordBank: [prep.no, prep.de, prep.a],
 			sentences: [
 				{
@@ -463,7 +465,8 @@ const spanishData = {
 				},
 			],
 		},
-		lesson5: {
+		5: {
+			lesson: 5,
 			name: "Lesson 5",
 			details: "Prepositions and Advern: NO, DE, and A ",
 			wordBank: [],

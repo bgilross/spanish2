@@ -22,7 +22,7 @@ export default function Main() {
 		<div className="h-full w-full flex flex-col justify-center items-center">
 			<RedFlashOverlay />
 			<GreenFlashOverlay />
-			{/* <button onClick={logData}>Check</button> */}
+			<button onClick={logData}>Check</button>
 			<div className="w-full h-full flex flex-col justify-center items-center">
 				<Sentence />
 			</div>

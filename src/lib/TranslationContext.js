@@ -14,23 +14,44 @@ export const TranslationProvider = ({ children }) => {
 	const [showRedFlash, setShowRedFlash] = useState(false)
 	const [showGreenFlash, setShowGreenFlash] = useState(false)
 	const [ready, setReady] = useState(false)
-	const [lessonIndex, setLessonIndex] = useState(0)
+	const [lessonIndex, setLessonIndex] = useState(3)
+	const [lessonName, setLessonName] = useState("lesson3")
+	const [lessonNumber, setLessonNumber] = useState(
+		Object.keys(spanishData.lessons)[0]
+	)
 
+	useEffect(() => {
+		console.log("Current lessonNumber:", lessonNumber)
+	}, [lessonNumber])
+
+	const handleLessonSelect = (option) => {}
 	const logData = () => {
 		console.log("translatedWords: ", translatedWords)
 		console.log("sentenceData: ", sentenceData)
 		console.log("currentIndex: ", currentIndex)
 		console.log("sentenceIndex: ", sentenceIndex)
 		console.log("score: ", score)
+		console.log("lessonNumber: ", lessonNumber)
 	}
 	//if sentence index changes, update sentence data with next sentence, maybe reset should happen here too?
+	useEffect(() => {
+		console.log("lessonNumber changed:", lessonNumber)
+
+		// Only update if the lesson exists
+		if (spanishData.lessons[lessonNumber]) {
+			setSentenceData(spanishData.lessons[lessonNumber].sentences[0])
+			setSentenceIndex(0)
+			setTranslatedWords({})
+		}
+	}, [lessonNumber])
+
 	useEffect(() => {
 		setTranslatedWords({})
 		console.log(
 			"sentence index use effect running, sentence index: ",
 			sentenceIndex
 		)
-		setSentenceData(spanishData.lesson3.sentences[sentenceIndex])
+		setSentenceData(spanishData.lessons[lessonNumber].sentences[0])
 	}, [sentenceIndex])
 
 	//if sentence data changes, update index with next word to translates index
@@ -150,8 +171,10 @@ export const TranslationProvider = ({ children }) => {
 				sentenceIndex,
 				score,
 				logData,
-				lessonIndex,
+				lessonNumber,
+				setLessonNumber,
 				setCurrentIndex,
+				handleLessonSelect,
 			}}
 		>
 			{children}
