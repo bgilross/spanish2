@@ -1,6 +1,7 @@
 "use client"
 import React, { createContext, useState, useContext, useEffect } from "react"
 import spanishData from "./spanishData"
+import { current } from "tailwindcss/colors"
 
 const TranslationContext = createContext()
 
@@ -14,15 +15,79 @@ export const TranslationProvider = ({ children }) => {
 	const [showRedFlash, setShowRedFlash] = useState(false)
 	const [showGreenFlash, setShowGreenFlash] = useState(false)
 	const [ready, setReady] = useState(false)
-	const [lessonNumber, setLessonNumber] = useState(
-		Object.keys(spanishData.lessons)[0]
-	)
+	const [lessonNumber, setLessonNumber] = useState(3)
+
+	const findNextHighlightedIndex = (sentenceData, translatedWords) => {
+		if (!sentenceData || !sentenceData.data) {
+			console.log("No sentence data found, returning -1")
+			return -1
+		}
+		// Find the next word to translate that has not been translated yet
+		return sentenceData.data.findIndex(
+			(word, index) => word.translation && !(index in translatedWords)
+		)
+	}
 
 	useEffect(() => {
-		console.log("Current lessonNumber:", lessonNumber)
-	}, [lessonNumber])
+		console.log("Initializing lesson...")
+		const lesson = 3
+		const initializeLesson = (lessonNumber) => {
+			const initialSentenceData =
+				spanishData.lessons[lessonNumber]?.sentences[0] || {}
+			setSentenceData(initialSentenceData)
+			setSentenceIndex(0)
+			setTranslatedWords({})
 
-	const handleLessonSelect = (option) => {}
+			// Set the first highlighted word
+			const initialIndex = findNextHighlightedIndex(initialSentenceData, {})
+			setCurrentIndex(initialIndex)
+			console.log("Initialized lesson:", lessonNumber)
+		}
+
+		// Initialize the lesson on first render
+		initializeLesson(lesson)
+	}, []) // Empty dependency array ensures this runs only once
+
+	const handleLessonChange = (newLessonNumber) => {
+		const lessonKey = parseInt(newLessonNumber, 10)
+		if (lessonKey === lessonNumber) return // Prevent re-initialization if the lesson is the same
+
+		setLessonNumber(lessonKey)
+		const newSentenceData = spanishData.lessons[lessonKey]?.sentences[0] || {}
+		setSentenceData(newSentenceData)
+		setSentenceIndex(0)
+		setTranslatedWords({})
+
+		// Set the first word to be translated
+		const nextIndex = findNextHighlightedIndex(newSentenceData, {})
+		setCurrentIndex(nextIndex)
+		console.log("Lesson changed to:", lessonKey)
+	}
+	const nextSentence = () => {
+		const newIndex = sentenceIndex + 1
+		if (newIndex < spanishData.lessons[lessonNumber]?.sentences.length) {
+			const newSentenceData =
+				spanishData.lessons[lessonNumber]?.sentences[newIndex]
+			setSentenceIndex(newIndex)
+			setSentenceData(newSentenceData)
+			setTranslatedWords({})
+
+			// Set the next word to be translated
+			const nextIndex = findNextHighlightedIndex(newSentenceData, {})
+			setCurrentIndex(nextIndex)
+		}
+	}
+
+	const changeSentence = (newIndex) => {
+		setSentenceIndex(newIndex)
+		setTranslatedWords({})
+		const nextIndex = findNextHighlightedIndex(
+			spanishData.lessons[lessonNumber].sentences[newIndex],
+			{}
+		)
+		setCurrentIndex(nextIndex)
+	}
+
 	const logData = () => {
 		console.log("translatedWords: ", translatedWords)
 		console.log("sentenceData: ", sentenceData)
@@ -31,98 +96,61 @@ export const TranslationProvider = ({ children }) => {
 		console.log("score: ", score)
 		console.log("lessonNumber: ", lessonNumber)
 	}
-	//if sentence index changes, update sentence data with next sentence, maybe reset should happen here too?
-	useEffect(() => {
-		console.log("lessonNumber changed:", lessonNumber)
 
-		// Only update if the lesson exists
-		if (spanishData.lessons[lessonNumber]) {
-			setSentenceData(spanishData.lessons[lessonNumber].sentences[0])
-			setSentenceIndex(0)
-			setTranslatedWords({})
-		}
-	}, [lessonNumber])
-
-	useEffect(() => {
-		setTranslatedWords({})
-		console.log(
-			"sentence index use effect running, sentence index: ",
-			sentenceIndex
-		)
-		setSentenceData(spanishData.lessons[lessonNumber].sentences[0])
-	}, [sentenceIndex])
-
-	//if sentence data changes, update index with next word to translates index
-	//also set ready variable
-	useEffect(() => {
-		if (ready) {
-			const index = findNextHighlightedIndex()
-			console.log("index is: ", index)
-			setCurrentIndex(index)
-		}
-		if (sentenceData) {
-			setReady(true)
-		} else {
-			setReady(false)
-		}
-	}, [sentenceData])
-
-	//if translated words changes, i.e. a word has been successfully translated get next word to translate
-	//also check if word is completely translated, then increase the sentence index.
-	useEffect(() => {
-		console.log(
-			"sentence index use effect running, sentence index: ",
-			sentenceIndex
-		)
-		if (sentenceData && ready && findNextHighlightedIndex() === -1)
-			setSentenceIndex(sentenceIndex + 1)
-
-		const index = findNextHighlightedIndex()
-		setCurrentIndex(index)
-	}, [translatedWords])
-
-	//find the next word to translate index
-	const findNextHighlightedIndex = () => {
-		console.log("running find next highlight")
-		console.log("translatedWords: ", translatedWords)
-		if (!sentenceData || !sentenceData.data) {
-			console.log("no sentence data, returning -1")
-			return -1
-		}
-		console.log("there was sentence data and it is: ", sentenceData)
-		return sentenceData.data.findIndex(
-			(word, index) => word.translation && !(index in translatedWords)
-		)
+	// Utility function to remove punctuation
+	const removePunctuation = (str) => {
+		return str.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "").trim()
 	}
 
-	//check user answer
 	const handleSubmit = (userInput) => {
-		console.log("submitting")
-		console.log("user input is: ", userInput)
+		console.log("User input:", userInput)
 
 		if (!sentenceData || currentIndex === -1) return
-		if (currentIndex === -1) return
 
 		const currentWord = sentenceData.data[currentIndex]
-		console.log("current word is: ", currentWord)
-		console.log("current word translation is: ", currentWord.translation)
-		if (
-			userInput.toLowerCase() === currentWord.translation?.word.toLowerCase() ||
-			userInput.toLowerCase() === currentWord.phraseTranslation?.toLowerCase()
-		) {
-			setTranslatedWords({
-				...translatedWords,
-				[currentIndex]: currentWord.translation.word,
-			})
-			console.log("about to find next highlight index")
-			const index = findNextHighlightedIndex()
-			console.log("index is: ", index)
 
-			setCurrentIndex(index)
+		// Remove punctuation from user input and translations
+		const sanitizedUserInput = removePunctuation(userInput).toLowerCase()
+		const sanitizedTranslation = removePunctuation(
+			currentWord.translation?.word || ""
+		).toLowerCase()
+		const sanitizedPhraseTranslation = removePunctuation(
+			currentWord.phraseTranslation || ""
+		).toLowerCase()
+
+		// Check if the sanitized input matches either the word or phrase translation
+		if (
+			sanitizedUserInput === sanitizedTranslation ||
+			sanitizedUserInput === sanitizedPhraseTranslation
+		) {
+			let updatedTranslatedWords
+			if (currentWord.phraseTranslation) {
+				updatedTranslatedWords = {
+					...translatedWords,
+					[currentIndex]: currentWord.phraseTranslation,
+				}
+				setTranslatedWords(updatedTranslatedWords)
+			} else {
+				updatedTranslatedWords = {
+					...translatedWords,
+					[currentIndex]: currentWord.translation.word,
+				}
+				setTranslatedWords(updatedTranslatedWords)
+			}
+
+			// Find and set the next word to be translated
+			const nextIndex = findNextHighlightedIndex(
+				sentenceData,
+				updatedTranslatedWords
+			)
+			setCurrentIndex(nextIndex)
+
+			if (nextIndex === -1) {
+				nextSentence()
+			}
+
 			flashGreenScreen()
-			return
 		} else {
-			console.log("else")
 			flashRedScreen()
 			trackError(userInput, currentWord)
 		}
@@ -170,9 +198,11 @@ export const TranslationProvider = ({ children }) => {
 				score,
 				logData,
 				lessonNumber,
-				setLessonNumber,
 				setCurrentIndex,
-				handleLessonSelect,
+				handleLessonChange,
+				nextSentence,
+				setSentenceIndex,
+				changeSentence,
 			}}
 		>
 			{children}

@@ -1,23 +1,56 @@
 "use client"
 
 import { useTranslation } from "@/lib/TranslationContext"
+import spanishData from "@/lib/spanishData"
 
 const Sentence = ({}) => {
-	const { sentenceData, currentIndex, translatedWords } = useTranslation()
+	const {
+		sentenceData,
+		currentIndex,
+		translatedWords,
+		lessonNumber,
+		sentenceIndex,
+		setSentenceIndex,
+		setTranslatedWords,
+		changeSentence,
+	} = useTranslation()
 
 	if (!sentenceData) return null
 	return (
 		<div className="text-6xl text-primary">
-			{sentenceData?.data?.map((word, index) => (
-				<span
-					key={index}
-					className={`mr-2 ${word.translation ? "text-accent font-bold" : ""} ${
-						index === currentIndex ? "border-4 border-true_blue" : ""
-					} ${translatedWords[index] ? "text-green-700" : ""}`}
-				>
-					{word.phrase ? word.phrase : word.word}
-				</span>
-			))}
+			<select
+				value={sentenceIndex}
+				onChange={(e) => changeSentence(e.target.value)}
+			>
+				{spanishData?.lessons[lessonNumber]?.sentences.map(
+					(sentence, index) => {
+						return (
+							<option
+								key={index}
+								value={index}
+							>
+								{sentence.id}
+							</option>
+						)
+					}
+				)}
+			</select>
+			{spanishData?.lessons?.[lessonNumber]?.sentences?.[sentenceIndex]?.data &&
+				Object.values(
+					spanishData.lessons[lessonNumber].sentences[sentenceIndex].data
+				).map((item, index) => (
+					<span
+						key={index}
+						className={`mr-2 ${
+							item.translation ? "text-accent font-bold" : ""
+						} ${index === currentIndex ? "border-4 border-true_blue" : ""} ${
+							translatedWords[index] ? "text-green-700" : ""
+						}`}
+					>
+						{/* Display phrase if available, otherwise display word */}
+						{item.phrase ? item.phrase : item.word}
+					</span>
+				))}
 			<div className="text-5xl mt-6 text-center">
 				{sentenceData?.data?.map((word, index) => (
 					<span

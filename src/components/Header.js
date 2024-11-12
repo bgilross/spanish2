@@ -5,13 +5,16 @@ import { AppBar, Toolbar } from "@mui/material"
 import { Box } from "@mui/system"
 import { useTranslation } from "@/lib/TranslationContext"
 import spanishData from "@/lib/spanishData"
+import { useState } from "react"
 
 // import SpreadWord from "./SpreadWord"
-import { useState } from "react"
 // import GoogleLogin from "./GoogleLogin"
 
 const Header = ({ user, onLogin }) => {
-	const { lessonNumber, setLessonNumber } = useTranslation()
+	const { lessonNumber, handleLessonChange } = useTranslation()
+	const [value, setValue] = useState(null)
+
+	console.log("Current lessonNumber in Header:", lessonNumber)
 
 	return (
 		<AppBar
@@ -35,11 +38,10 @@ const Header = ({ user, onLogin }) => {
 					<div className="w-1/3"> </div>
 					<select
 						className="text-primary font-bold"
-						value={lessonNumber}
+						value={value}
 						onChange={(e) => {
-							const selectedLesson = parseInt(e.target.value, 10)
-							console.log("Selected lesson:", selectedLesson)
-							setLessonNumber(selectedLesson)
+							setValue(e.target.value)
+							handleLessonChange(e.target.value)
 						}}
 					>
 						{Object.keys(spanishData.lessons).map((key) => (
