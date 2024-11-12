@@ -1,8 +1,7 @@
 "use client"
 import InputArea from "@/components/InputArea"
 import Sentence from "@/components/Sentence"
-import { useEffect, useState } from "react"
-import spanishData from "@/lib/spanishData"
+
 import { useTranslation } from "@/lib/TranslationContext"
 import "../styles/flashOverlay.css"
 
@@ -23,7 +22,7 @@ export default function Main() {
 		<div className="h-full w-full flex flex-col justify-center items-center">
 			<RedFlashOverlay />
 			<GreenFlashOverlay />
-			<button onClick={logData}>Check</button>
+			{/* <button onClick={logData}>Check</button> */}
 			<div className="w-full h-full flex flex-col justify-center items-center">
 				<Sentence />
 			</div>

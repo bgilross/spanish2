@@ -15,7 +15,7 @@ const Sentence = ({}) => {
 						index === currentIndex ? "border-4 border-true_blue" : ""
 					} ${translatedWords[index] ? "text-green-700" : ""}`}
 				>
-					{word.word}
+					{word.phrase ? word.phrase : word.word}
 				</span>
 			))}
 			<div className="text-5xl mt-6 text-center">

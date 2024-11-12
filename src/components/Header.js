@@ -3,12 +3,16 @@
 import React from "react"
 import { AppBar, Toolbar } from "@mui/material"
 import { Box } from "@mui/system"
+// import { useTranslation } from "@/lib/TranslationContext"
+// import spanishData from "@/lib/spanishData"
 
 // import SpreadWord from "./SpreadWord"
 import { useState } from "react"
 // import GoogleLogin from "./GoogleLogin"
 
 const Header = ({ user, onLogin }) => {
+	// const { lessonIndex, setLessonIndex } = useTranslation()
+
 	return (
 		<AppBar
 			position="sticky"
@@ -40,6 +44,18 @@ const Header = ({ user, onLogin }) => {
 						/> */}
 						SpanishTester
 					</div>
+					{/* <div>Lesson Index: {lessonIndex}</div>
+					<select>
+						{spanishData?.lessons?.map((lesson, index) => (
+							<option
+								key={index}
+								value={index}
+								selected={index === lessonIndex}
+							>
+								Lesson {index + 1}: {lesson.name}
+							</option>
+						))}
+					</select> */}
 				</Box>
 				{/* <GoogleLogin /> */}
 				{/* <Login /> */}

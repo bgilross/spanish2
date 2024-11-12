@@ -1,6 +1,6 @@
 "use client"
 import React, { createContext, useState, useContext, useEffect } from "react"
-import spanishData from "@/lib/spanishData"
+import spanishData from "./spanishData"
 
 const TranslationContext = createContext()
 
@@ -14,6 +14,7 @@ export const TranslationProvider = ({ children }) => {
 	const [showRedFlash, setShowRedFlash] = useState(false)
 	const [showGreenFlash, setShowGreenFlash] = useState(false)
 	const [ready, setReady] = useState(false)
+	const [lessonIndex, setLessonIndex] = useState(0)
 
 	const logData = () => {
 		console.log("translatedWords: ", translatedWords)
@@ -29,7 +30,7 @@ export const TranslationProvider = ({ children }) => {
 			"sentence index use effect running, sentence index: ",
 			sentenceIndex
 		)
-		setSentenceData(spanishData.lesson1.sentences[sentenceIndex])
+		setSentenceData(spanishData.lesson3.sentences[sentenceIndex])
 	}, [sentenceIndex])
 
 	//if sentence data changes, update index with next word to translates index
@@ -77,18 +78,22 @@ export const TranslationProvider = ({ children }) => {
 
 	//check user answer
 	const handleSubmit = (userInput) => {
+		console.log("submitting")
+		console.log("user input is: ", userInput)
+
 		if (!sentenceData || currentIndex === -1) return
 		if (currentIndex === -1) return
 
 		const currentWord = sentenceData.data[currentIndex]
-
+		console.log("current word is: ", currentWord)
+		console.log("current word translation is: ", currentWord.translation)
 		if (
-			userInput.toLowerCase() ===
-			currentWord.translation?.translation.toLowerCase()
+			userInput.toLowerCase() === currentWord.translation?.word.toLowerCase() ||
+			userInput.toLowerCase() === currentWord.phraseTranslation?.toLowerCase()
 		) {
 			setTranslatedWords({
 				...translatedWords,
-				[currentIndex]: currentWord.translation.translation,
+				[currentIndex]: currentWord.translation.word,
 			})
 			console.log("about to find next highlight index")
 			const index = findNextHighlightedIndex()
@@ -145,6 +150,8 @@ export const TranslationProvider = ({ children }) => {
 				sentenceIndex,
 				score,
 				logData,
+				lessonIndex,
+				setCurrentIndex,
 			}}
 		>
 			{children}
@@ -156,25 +163,3 @@ export const TranslationProvider = ({ children }) => {
 export const useTranslation = () => {
 	return useContext(TranslationContext)
 }
-
-// Handler for submitting the translation
-// const handleSubmit = (event) => {
-// 	event.preventDefault()
-
-// 	if (currentIndex === -1) return // No more words to translate
-
-// 	const currentWord = sentenceData.data[currentIndex]
-
-// 	// Check if the input matches the translation
-// 	if (
-// 		userInput.toLowerCase() ===
-// 		currentWord.translation.translation.toLowerCase()
-// 	) {
-// 		// Save the correct translation
-// 		setTranslatedWords({
-// 			...translatedWords,
-// 			[currentIndex]: currentWord.translation.translation,
-// 		})
-// 		setUserInput("") // Clear input
-// 	}
-// }
