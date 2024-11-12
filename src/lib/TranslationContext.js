@@ -13,6 +13,7 @@ export const TranslationProvider = ({ children }) => {
 	const [showRedFlash, setShowRedFlash] = useState(false)
 	const [showGreenFlash, setShowGreenFlash] = useState(false)
 	const [lessonNumber, setLessonNumber] = useState(3)
+	const [quizType, setQuizType] = useState("parts")
 
 	const assignNextHighlightedIndex = () => {
 		console.log(
@@ -176,6 +177,8 @@ export const TranslationProvider = ({ children }) => {
 				nextSentence,
 				setSentenceIndex,
 				changeSentence,
+				quizType,
+				setQuizType,
 			}}
 		>
 			{children}
