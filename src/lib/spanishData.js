@@ -1,7 +1,5 @@
 // maybe change to prounoun.eso or conjunction.y conjuction.que
 "use client"
-import { data } from "autoprefixer"
-import { transform } from "next/dist/build/swc"
 
 const words = {
 	conj: {
