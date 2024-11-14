@@ -1,13 +1,14 @@
 // maybe change to prounoun.eso or conjunction.y conjuction.que
 "use client"
 
+import { Female } from "@mui/icons-material"
 import { data } from "autoprefixer"
 
 const words = {
 	artcl: {
 		info: [],
 		el: {
-			translation: ["the"],
+			translations: ["the (M)"],
 			word: "el",
 			audio:
 				"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=the&tl=es&total=1&idx=0&textlen=3",
@@ -15,7 +16,7 @@ const words = {
 			gender: "masculine",
 		},
 		la: {
-			translation: ["the"],
+			translations: ["the (F)"],
 			word: "la",
 			audio:
 				"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=the&tl=es&total=1&idx=0&textlen=3",
@@ -138,14 +139,16 @@ const words = {
 			`When NO and LO are together: The Direct Object Pronoun is most important to be next to the verb.`,
 		],
 		lo: {
-			translations: ["him", "it(M)"],
+			translations: ["him", "it (M)"],
 			word: "lo",
 			pos: "Direct Object Pronoun",
+			gender: "masculine",
 		},
 		la: {
-			translations: ["her", "it(F)"],
+			translations: ["her", "it (F)"],
 			word: "la",
 			pos: "Direct Object Pronoun",
+			gender: "feminine",
 		},
 	},
 }
@@ -876,7 +879,6 @@ const spanishData = {
 				prep.de.info[3],
 				prep.de.info[4],
 			],
-			wordBank: [],
 			sentences: [
 				{
 					id: 1,
@@ -1304,6 +1306,7 @@ const spanishData = {
 				"Spanish has several words to mean THE, most common is EL for MASC, and LA for FEM",
 				noun.info[2],
 			],
+			wordBank: [artcl.el, artcl.la],
 			sentences: [
 				{
 					id: 1,
@@ -1484,6 +1487,7 @@ const spanishData = {
 				"This LA(her) is diffrent then the LA for THE! If LA occurs before a noun it has to mean THE, if it occurs before a verb it has to mean HER!",
 				dObj.info[3],
 			],
+			wordBank: [dObj.lo, dObj.la],
 			sentences: [
 				{
 					id: 1,

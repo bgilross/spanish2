@@ -19,8 +19,8 @@ const Sentence = ({}) => {
 	const [numToTranslate, setNumToTranslate] = useState(0)
 
 	const currentSentence =
-		spanishData.lessons[lessonNumber].sentences[sentenceIndex]
-	const currentSection = currentSentence.data[currentIndex]
+		spanishData?.lessons[lessonNumber]?.sentences?.[sentenceIndex]
+	const currentSection = currentSentence?.data?.[currentIndex]
 
 	const wordsInSection = (() => {
 		// Get the current section based on currentIndex

@@ -1,35 +1,83 @@
+import { useState } from "react"
 import spanishData from "@/lib/spanishData"
 import { useTranslation } from "@/lib/TranslationContext"
-const WordBank = () => {
-	const { lessonNumber } = useTranslation()
 
-	const wordBank = spanishData.lessons[lessonNumber].wordBank
-	if (!wordBank) return null
+const WordBank = () => {
+	const { lessonNumber, handleLessonChange } = useTranslation()
+	const [currentLessonIndex, setCurrentLessonIndex] = useState(lessonNumber)
+
+	const lessons = Object.keys(spanishData.lessons)
+	const wordBank = spanishData.lessons[currentLessonIndex]?.wordBank
+
+	// Handle navigation between lessons
+	const handlePrevLesson = () => {
+		if (currentLessonIndex > 3) {
+			setCurrentLessonIndex(currentLessonIndex - 1)
+		}
+	}
+
+	const handleNextLesson = () => {
+		if (currentLessonIndex < lessons.length + 3) {
+			setCurrentLessonIndex(currentLessonIndex + 1)
+		}
+	}
+
 	return (
-		<div>
-			{wordBank.map((word, index) => (
-				<div
-					key={index}
-					className="whitespace-pre-wrap"
+		<div className="flex flex-col items-center justify-center space-y-4">
+			{/* Navigation Arrows */}
+			<div className="flex justify-between w-full mb-4">
+				<button
+					onClick={handlePrevLesson}
+					disabled={currentLessonIndex === 3}
+					className={`px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50`}
 				>
-					<span className="font-bold">{word.word.toUpperCase()}:</span>{" "}
-					{word.translations.map((translation, index) => (
-						<span
+					← Previous
+				</button>
+				<span className="text-xl font-bold text-accent">
+					Lesson {currentLessonIndex}
+				</span>
+				<button
+					onClick={handleNextLesson}
+					disabled={currentLessonIndex === lessons.length + 2}
+					className={`px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50`}
+				>
+					Next →
+				</button>
+			</div>
+
+			{/* Word Bank Display */}
+			{wordBank ? (
+				<div>
+					{wordBank.map((word, index) => (
+						<div
 							key={index}
-							className="text-gray-300"
+							className="whitespace-pre-wrap mb-6"
 						>
-							{translation}
-							{" / "}
-						</span>
+							<span className="font-bold">{word.word.toUpperCase()}:</span>{" "}
+							{word?.translations?.map((translation, index) => (
+								<span
+									key={index}
+									className="text-gray-300"
+								>
+									{translation}
+									{index !== word.translations.length - 1 && " / "}
+								</span>
+							))}
+							<br />
+							<span className="font-bold">
+								{word.pos.toUpperCase()}: {word.gender}
+							</span>
+							<br />
+							<span className="text-gray-300">{word?.info?.[0]}</span>
+							<br />
+						</div>
 					))}
-					<br />
-					<span className="font-bold">{word.pos.toUpperCase()}</span>
-					<br />
-					<span className="text-gray-300">{word?.info?.[0]}</span>
-					<br />
 				</div>
-			))}
+			) : (
+				<div>No word bank available for this lesson.</div>
+			)}
 		</div>
 	)
 }
+
 export default WordBank
