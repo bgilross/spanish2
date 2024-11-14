@@ -1,5 +1,6 @@
 import spanishData from "@/lib/spanishData"
 import { useTranslation } from "@/lib/TranslationContext"
+import ClickableText from "./ClickableText"
 
 const LessonInfo = () => {
 	const { lessonNumber } = useTranslation()
@@ -12,7 +13,7 @@ const LessonInfo = () => {
 					key={index}
 					className="border border-gray-400 p-2 mt-2"
 				>
-					{info}
+					<ClickableText>{info}</ClickableText>
 				</p>
 			))}
 		</div>
