@@ -16,6 +16,7 @@ export const TranslationProvider = ({ children }) => {
 	const [quizType, setQuizType] = useState("parts")
 	const [wordCount, setWordCount] = useState(0)
 	const [isScoreModalOpen, setIsScoreModalOpen] = useState(false)
+	const [masterScore, setMasterScore] = useState({})
 
 	const updateWordCount = () => {
 		const sentenceData =
@@ -110,6 +111,8 @@ export const TranslationProvider = ({ children }) => {
 		setLessonNumber(lessonKey)
 		setSentenceIndex(0)
 		setTranslatedWords({})
+		saveScoreToMaster()
+		setScore({})
 	}
 
 	const nextSentence = () => {
@@ -148,7 +151,7 @@ export const TranslationProvider = ({ children }) => {
 	}
 
 	const removePunctuation = (str) => {
-		return str.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "").trim()
+		return str.replace(/[.,/#!$%^&*;:{}=\-_`~()?']/g, "").trim()
 	}
 
 	const handleSubmit = (userInput) => {
@@ -271,37 +274,70 @@ export const TranslationProvider = ({ children }) => {
 			}
 		}
 
-		errorWords.map((word) => {
-			console.log("errorWords mapping, word: ", word)
-			console.log(
-				"currentSection.reference[word.word]: ",
-				currentSection.reference?.[word]
-			)
-			currentSection.reference?.[word].map((ref) => {
-				console.log("currentSection.ref[word.word] mapping::", ref)
-				tempRefs.push(ref)
+		if (quizType === "parts") {
+			errorWords.map((word) => {
+				console.log("errorWords mapping, word: ", word)
+				console.log(
+					"currentSection.reference[word]: ",
+					currentSection.reference?.[word]
+				)
+				currentSection.reference?.[word].map((ref) => {
+					console.log("currentSection.ref[word] mapping::", ref)
+					tempRefs.push(ref)
+				})
 			})
-		})
+		} else if (quizType === "full") {
+			errorWords.map((word) => {
+				sentenceData.data.map((section) => {
+					section.reference?.[word].map((ref) => {
+						tempRefs.push(ref)
+					})
+				})
+			})
 
-		// Construct the error entry
-		const errorEntry = {
-			sentenceData: sentenceData,
-			userInput: userInput,
-			currentWord: currentWord,
-			sentenceIndex: sentenceIndex,
-			lessonNumber: lessonNumber,
-			currentSection: currentSection,
-			mode: quizType,
-			references: tempRefs,
+			// Construct the error entry
+			const errorEntry = {
+				sentenceData: sentenceData,
+				userInput: userInput,
+				currentWord: currentWord,
+				sentenceIndex: sentenceIndex,
+				lessonNumber: lessonNumber,
+				currentSection: currentSection,
+				mode: quizType,
+				references: tempRefs,
+			}
+
+			// Update the score state with the new error entry
+			setScore((prevScore) => ({
+				...prevScore,
+				errors: [...prevScore.errors, errorEntry],
+			}))
+
+			console.log("Error tracked:", errorEntry)
 		}
+	}
 
-		// Update the score state with the new error entry
-		setScore((prevScore) => ({
-			...prevScore,
-			errors: [...prevScore.errors, errorEntry],
-		}))
+	const saveScoreToMaster = () => {
+		if (score.errors.length > 0) {
+			const timestamp = new Date().toISOString() // Get current timestamp
+			const lessonKey = `lesson${lessonNumber}`
 
-		console.log("Error tracked:", errorEntry)
+			// Create a new entry with timestamp
+			const scoreEntry = {
+				...score,
+				timestamp,
+			}
+
+			// Update the masterScore with the new score entry
+			setMasterScore((prevMasterScore) => ({
+				...prevMasterScore,
+				[lessonKey]: [...(prevMasterScore[lessonKey] || []), scoreEntry],
+			}))
+
+			// Reset the current score
+			setScore({ errors: [] })
+			console.log("Score saved to masterScore:", masterScore)
+		}
 	}
 
 	const flashRedScreen = () => {

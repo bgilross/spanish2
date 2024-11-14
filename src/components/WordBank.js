@@ -4,7 +4,7 @@ const WordBank = () => {
 	const { lessonNumber } = useTranslation()
 
 	const wordBank = spanishData.lessons[lessonNumber].wordBank
-
+	if (!wordBank) return null
 	return (
 		<div>
 			{wordBank.map((word, index) => (
