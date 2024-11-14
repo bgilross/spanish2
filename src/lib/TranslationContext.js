@@ -140,39 +140,52 @@ export const TranslationProvider = ({ children }) => {
 		const currentWord = sentenceData.data[currentIndex]
 
 		const sanitizedUserInput = removePunctuation(userInput).toLowerCase()
-		const sanitizedTranslation = removePunctuation(
-			currentWord.translation?.word || ""
-		).toLowerCase()
-		const sanitizedPhraseTranslation = removePunctuation(
-			currentWord.phraseTranslation || ""
-		).toLowerCase()
-
-		if (
-			sanitizedUserInput === sanitizedTranslation ||
-			sanitizedUserInput === sanitizedPhraseTranslation
-		) {
-			let updatedTranslatedWords
-			if (currentWord.phraseTranslation) {
-				updatedTranslatedWords = {
-					...translatedWords,
-					[currentIndex]: currentWord.phraseTranslation,
-				}
-				setTranslatedWords(updatedTranslatedWords)
-				console.log("Updated translated words:", updatedTranslatedWords)
+		if (quizType === "full") {
+			const sanitizedSentence = removePunctuation(
+				sentenceData.translation || ""
+			).toLowerCase()
+			if (sanitizedUserInput === sanitizedSentence) {
+				flashGreenScreen()
+				nextSentence()
 			} else {
-				updatedTranslatedWords = {
-					...translatedWords,
-					[currentIndex]: currentWord.translation.word,
-				}
-				setTranslatedWords(updatedTranslatedWords)
-				console.log("Updated translated words:", updatedTranslatedWords)
+				flashRedScreen()
+				trackError(userInput, currentWord)
 			}
-
-			assignNextHighlightedIndex()
-			flashGreenScreen()
 		} else {
-			flashRedScreen()
-			trackError(userInput, currentWord)
+			const sanitizedTranslation = removePunctuation(
+				currentWord.translation?.word || ""
+			).toLowerCase()
+			const sanitizedPhraseTranslation = removePunctuation(
+				currentWord.phraseTranslation || ""
+			).toLowerCase()
+
+			if (
+				sanitizedUserInput === sanitizedTranslation ||
+				sanitizedUserInput === sanitizedPhraseTranslation
+			) {
+				let updatedTranslatedWords
+				if (currentWord.phraseTranslation) {
+					updatedTranslatedWords = {
+						...translatedWords,
+						[currentIndex]: currentWord.phraseTranslation,
+					}
+					setTranslatedWords(updatedTranslatedWords)
+					console.log("Updated translated words:", updatedTranslatedWords)
+				} else {
+					updatedTranslatedWords = {
+						...translatedWords,
+						[currentIndex]: currentWord.translation.word,
+					}
+					setTranslatedWords(updatedTranslatedWords)
+					console.log("Updated translated words:", updatedTranslatedWords)
+				}
+
+				assignNextHighlightedIndex()
+				flashGreenScreen()
+			} else {
+				flashRedScreen()
+				trackError(userInput, currentWord)
+			}
 		}
 	}
 
