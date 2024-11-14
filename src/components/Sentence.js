@@ -2,6 +2,7 @@
 
 import { useTranslation } from "@/lib/TranslationContext"
 import spanishData from "@/lib/spanishData"
+import { useState } from "react"
 
 const Sentence = ({}) => {
 	const {
@@ -15,32 +16,32 @@ const Sentence = ({}) => {
 		wordCount,
 	} = useTranslation()
 
-	const quizTypeSelect = (
-		<select
-			value={quizType}
-			onChange={(e) => setQuizType(e.target.value)}
-		>
-			<option value="parts">Parts</option>
-			<option value="full">Full</option>
-		</select>
-	)
-	const sentenceSelect = (
-		<select
-			value={sentenceIndex}
-			onChange={(e) => changeSentence(e.target.value)}
-		>
-			{spanishData?.lessons[lessonNumber]?.sentences.map((sentence, index) => {
-				return (
-					<option
-						key={index}
-						value={index}
-					>
-						{sentence.id}
-					</option>
-				)
-			})}
-		</select>
-	)
+	const [numToTranslate, setNumToTranslate] = useState(0)
+
+	const currentSentence =
+		spanishData.lessons[lessonNumber].sentences[sentenceIndex]
+	const currentSection = currentSentence.data[currentIndex]
+
+	const wordsInSection = (() => {
+		// Get the current section based on currentIndex
+		if (!currentSection) return 0 // Handle cases where currentSection is undefined
+
+		// If the current section's translation is an array, count the items that have a word
+		if (Array.isArray(currentSection.translation)) {
+			return currentSection.translation.filter(
+				(translation) => translation.word
+			).length
+		}
+
+		// If the current section's translation is a single object, check if it has a translation word
+		if (currentSection.translation && currentSection.translation.word) {
+			return 1
+		}
+
+		// If no translation is needed, return 0
+		return 0
+	})()
+
 	const sentenceData =
 		spanishData?.lessons?.[lessonNumber]?.sentences?.[sentenceIndex]
 
@@ -88,15 +89,17 @@ const Sentence = ({}) => {
 			sentenceData?.data?.map((word, index) => (
 				<span
 					key={index}
-					className={`mr-2 ${
+					className={`mr-2  ${
 						!word.translation
 							? "text-secondary"
 							: translatedWords[index]
 							? "text-green-700"
-							: "border-b-4 border-red-500"
+							: "border-b-4 border-red-500 text-sm"
 					}`}
 				>
-					{word.translation ? translatedWords[index] || "_____" : word.word}
+					{word.translation
+						? translatedWords[index] || `${wordsInSection} Spanish Word(s).`
+						: word.word}
 				</span>
 			))
 		)
@@ -106,13 +109,6 @@ const Sentence = ({}) => {
 	if (!sentenceData) return null
 	return (
 		<div className="text-6xl text-primary flex flex-col justify-center items-center space-y-6">
-			<div>
-				{quizTypeSelect}
-				{sentenceSelect}
-			</div>
-			<div className="text-secondary text-5xl">
-				Spanish Words: <span className="text-primary">{wordCount}</span>
-			</div>
 			<div>{untranslatedSentence}</div>
 			<div>{translatedSentence}</div>
 		</div>

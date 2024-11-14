@@ -11,8 +11,42 @@ import { useState } from "react"
 // import GoogleLogin from "./GoogleLogin"
 
 const Header = ({ user, onLogin }) => {
-	const { lessonNumber, handleLessonChange } = useTranslation()
+	const {
+		lessonNumber,
+		handleLessonChange,
+		quizType,
+		setQuizType,
+		sentenceIndex,
+		changeSentence,
+	} = useTranslation()
 	const [value, setValue] = useState(3)
+
+	const quizTypeSelect = (
+		<select
+			value={quizType}
+			onChange={(e) => setQuizType(e.target.value)}
+		>
+			<option value="parts">Parts</option>
+			<option value="full">Full</option>
+		</select>
+	)
+	const sentenceSelect = (
+		<select
+			value={sentenceIndex}
+			onChange={(e) => changeSentence(e.target.value)}
+		>
+			{spanishData?.lessons[lessonNumber]?.sentences.map((sentence, index) => {
+				return (
+					<option
+						key={index}
+						value={index}
+					>
+						{sentence.id}
+					</option>
+				)
+			})}
+		</select>
+	)
 
 	console.log("Current lessonNumber in Header:", lessonNumber)
 
@@ -35,7 +69,12 @@ const Header = ({ user, onLogin }) => {
 					<div className="text-secondary font-bold text-4xl w-1/3 text-left">
 						SpanishTester
 					</div>
-					<div className="w-1/3"> </div>
+					<div className="w-1/3 flex items-center justify-center text-primary">
+						<div className="text-lg space-x-4">
+							{quizTypeSelect}
+							{sentenceSelect}
+						</div>
+					</div>
 					<select
 						className="text-primary font-bold"
 						value={value}
