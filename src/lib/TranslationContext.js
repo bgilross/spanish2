@@ -18,19 +18,6 @@ export const TranslationProvider = ({ children }) => {
 	const [isScoreModalOpen, setIsScoreModalOpen] = useState(false)
 	const [masterScore, setMasterScore] = useState({})
 
-	const clickableWords = Object.keys(spanishData.lessons).flatMap(
-		(lessonKey) => {
-			const wordBank = spanishData.lessons[lessonKey]?.wordBank || []
-			return wordBank.map((word) => ({
-				word: word.word.toLowerCase(),
-				translations: word.translations,
-				info: word.info,
-				pos: word.pos,
-				audio: word.audio,
-			}))
-		}
-	)
-
 	const updateWordCount = () => {
 		const sentenceData =
 			spanishData.lessons[lessonNumber]?.sentences[sentenceIndex]?.data

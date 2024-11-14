@@ -10,8 +10,6 @@ const ClickableText = ({ children }) => {
 
 	let wordBank = []
 	Object.keys(spanishWords).forEach((pos) => {
-		console.log("pos: ", pos)
-		console.log("spanishWords[pos]: ", spanishWords[pos])
 		if (Array.isArray(spanishWords[pos].name)) {
 			spanishWords[pos].name.forEach((name) => {
 				wordBank.push(name.toLowerCase())
@@ -53,8 +51,9 @@ const ClickableText = ({ children }) => {
 			return
 		}
 
-		const words = text.split(" ")
-		const clickableText = words.map((word) => {
+		const words = text?.split(" ")
+		const clickableText = words?.map((word) => {
+			console.log("word: ", word)
 			if (wordBank.includes(word.toLowerCase()) && word.toLowerCase() !== "a") {
 				console.log("word to be clckable: ", word)
 				return (

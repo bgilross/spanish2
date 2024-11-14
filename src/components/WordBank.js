@@ -1,6 +1,7 @@
 import { useState } from "react"
 import spanishData from "@/lib/spanishData"
 import { useTranslation } from "@/lib/TranslationContext"
+import ClickableText from "./ClickableText"
 
 const WordBank = () => {
 	const { lessonNumber, handleLessonChange } = useTranslation()
@@ -53,7 +54,9 @@ const WordBank = () => {
 							key={index}
 							className="whitespace-pre-wrap mb-6"
 						>
-							<span className="font-bold">{word.word.toUpperCase()}:</span>{" "}
+							<span className="font-bold">
+								<ClickableText>{word.word.toUpperCase()}</ClickableText>:
+							</span>{" "}
 							{word?.translations?.map((translation, index) => (
 								<span
 									key={index}
@@ -65,10 +68,13 @@ const WordBank = () => {
 							))}
 							<br />
 							<span className="font-bold">
-								{word.pos.toUpperCase()}: {word.gender}
+								<ClickableText>{word.pos.toUpperCase()}</ClickableText>:{" "}
+								{word.gender}
 							</span>
 							<br />
-							<span className="text-gray-300">{word?.info?.[0]}</span>
+							<span className="text-gray-300">
+								<ClickableText>{word?.info?.[0]}</ClickableText>
+							</span>
 							<br />
 						</div>
 					))}
