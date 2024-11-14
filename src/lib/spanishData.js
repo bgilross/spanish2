@@ -4,6 +4,25 @@
 import { data } from "autoprefixer"
 
 const words = {
+	artcl: {
+		info: [],
+		el: {
+			translation: ["the"],
+			word: "el",
+			audio:
+				"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=the&tl=es&total=1&idx=0&textlen=3",
+			pos: "article",
+			gender: "masculine",
+		},
+		la: {
+			translation: ["the"],
+			word: "la",
+			audio:
+				"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=the&tl=es&total=1&idx=0&textlen=3",
+			pos: "article",
+			gender: "feminine",
+		},
+	},
 	conj: {
 		info: [
 			"CONJUNCTIONS don't pass the FOOD or the EAT test they are something New!",
@@ -98,6 +117,7 @@ const words = {
 		info: [
 			"FOOD TEST: Nouns in Spanish function as any WORD or PHRASE that can be substituted for the word FOOD!",
 			"NOUNS aren't just PEOPLE, PLACES, or THINGS, they can also be ACTIONS! Such as: I enjoy LOSING MYSELF IN A NEW CITY",
+			"EVERY Noun in Spanish is either Masculine or Feminine.",
 		],
 	},
 	verb: {
@@ -110,7 +130,7 @@ const words = {
 	},
 }
 
-const { conj, pron, prep, advrb, noun, verb } = words
+const { conj, pron, prep, advrb, noun, verb, artcl } = words
 
 const spanishData = {
 	lessons: {
@@ -1201,6 +1221,178 @@ const spanishData = {
 							translation: advrb.no,
 							phraseTranslation: "NO is here",
 						},
+					],
+				},
+			],
+		},
+		6: {
+			lesson: 6,
+			name: "Lesson 6",
+			details: "THE! First Articles and Gender",
+			info: [
+				"Spanish has several words to mean THE, most common is EL for MASC, and LA for FEM",
+				noun.info[2],
+			],
+			sentences: [
+				{
+					id: 1,
+					sentence: "The man has that",
+					translation: "EL man has ESO",
+					data: [
+						{ word: "EL", translation: artcl.el },
+						{ word: "man" },
+						{ word: "has" },
+						{ word: "ESO", translation: pron.eso },
+					],
+				},
+				{
+					id: 2,
+					sentence: "The guy went to the house",
+					translation: "EL guy went A the house",
+					data: [
+						{ word: "EL", translation: artcl.el },
+						{ word: "guy" },
+						{ word: "went" },
+						{ word: "A", translation: prep.a },
+						{ word: "the" },
+						{ word: "house" },
+					],
+				},
+				{
+					id: 3,
+					sentence: "That is the girl's",
+					translation: "ESO is DE LA girl",
+					data: [
+						{ word: "ESO", translation: pron.eso },
+						{ word: "is" },
+						{ word: "DE", translation: prep.de },
+						{ word: "LA", translation: artcl.la },
+						{ word: "girl" },
+					],
+				},
+				{
+					id: 4,
+					sentence: "You couldn't come from there",
+					translation: "YOU NO could come DE there",
+					data: [
+						{ word: "you" },
+						{
+							phrase: "couldn't come",
+							translation: advrb.no,
+							phraseTranslation: "NO could come",
+						},
+						{ word: "DE", translation: prep.de },
+						{ word: "there" },
+					],
+				},
+				{
+					id: 5,
+					sentence: "The boy didn't see us.",
+					translation: "EL boy NO saw us",
+					data: [
+						{ word: "EL", translation: artcl.el },
+						{ word: "boy" },
+						{
+							phrase: "didn't see",
+							translation: advrb.no,
+							phraseTranslation: "NO saw",
+						},
+						{ word: "us" },
+					],
+				},
+				{
+					id: 6,
+					sentence: "The man can't have the girl's things",
+					translation: "EL man NO can have the things DE LA girl",
+					data: [
+						{ word: "The", translation: artcl.el },
+						{ word: "man" },
+						{
+							phrase: "can't have",
+							translation: advrb.no,
+							phraseTranslation: "NO can have",
+						},
+						{ word: "the" },
+						{ word: "things" },
+						{ word: "DE", translation: prep.de },
+						{ word: "LA", translation: artcl.la },
+						{ word: "girl" },
+						,
+					],
+				},
+				{
+					id: 7,
+					sentence: "The man and the woman wouldn't go there",
+					translation: "EL man Y LA woman NO would go there",
+					data: [
+						{ word: "EL", translation: artcl.el },
+						{ word: "man" },
+						{ word: "Y", translation: conj.y },
+						{ word: "LA", translation: artcl.LA },
+						{ word: "woman" },
+						{
+							phrase: "wouldn't go",
+							translation: advrb.no,
+							phraseTranslation: "NO would go",
+						},
+						{ word: "there" },
+					],
+				},
+				{
+					id: 8,
+					sentence: "The guy told the girl it was a plastic cup",
+					translation: "EL guy told LA girl QUE it was a cup DE plastic",
+					data: [
+						{ word: "The", translation: artcl.el },
+						{ word: "guy" },
+						{ word: "told" },
+						{
+							phrase: "the girl",
+							translation: conj.que,
+							phraseTranslation: "LA girl QUE",
+						},
+						{ word: "it" },
+						{ word: "was" },
+						{ word: "a" },
+						{ word: "cup" },
+						{ word: "DE", translation: prep.de },
+						{ word: "plastic" },
+					],
+				},
+				{
+					id: 9,
+					sentence: "The lady and I told her it was OK",
+					translation: "LA lady Y I told her QUE it was OK",
+					data: [
+						{ word: "LA", translation: artcl.la },
+						{ word: "lady" },
+						{ word: "Y", translation: conj.y },
+						{ word: "I" },
+						{ word: "told" },
+						{ phrase: "her" },
+						{
+							phrase: "it was OK",
+							translation: conj.que,
+							phraseTranslation: "QUE it was OK",
+						},
+					],
+				},
+				{
+					id: 10,
+					sentence: "The girl won't say that I did it",
+					translation: "LA girl NO will say QUE I did it",
+					data: [
+						{ word: "LA", translation: artcl.la },
+						{ word: "girl" },
+						{
+							phrase: "won't say",
+							translation: advrb.no,
+							phraseTranslation: "NO will say",
+						},
+						{ word: "that", tranlation: conj.que },
+						{ word: "I" },
+						{ word: "did" },
+						{ word: "it" },
 					],
 				},
 			],

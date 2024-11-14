@@ -227,78 +227,61 @@ export const TranslationProvider = ({ children }) => {
 	}
 
 	const trackError = (userInput, currentWord) => {
+		console.log("Tracking error")
+		console.log("Current word:", currentWord)
+		console.log("User input:", userInput)
 		const sentenceData =
 			spanishData.lessons[lessonNumber].sentences[sentenceIndex]
 		const currentSection = sentenceData.data[currentIndex]
+		console.log("currentsentence", sentenceData)
+		console.log("Current section:", currentSection)
 
 		const userWords = userInput
 			.split(" ")
 			.map((word) => word.trim().toLowerCase())
+		console.log("user words:", userWords)
 
 		let errorWords = []
+		let tempRefs = []
 
 		if (Array.isArray(currentSection.translation)) {
+			console.log(
+				"currentSection.translationis an array ,",
+				currentSection.translation
+			)
 			const translationWords = currentSection.translation.map((translation) =>
 				translation.word.toLowerCase()
 			)
+			console.log("translation words:", translationWords)
 
 			translationWords.forEach((word) => {
+				console.log("word:", word)
 				if (!userWords.includes(word)) {
+					console.log("word not in user words", word)
 					errorWords.push(word)
 				}
 			})
 		} else {
+			console.log("currentSection.translation is not an array")
 			const translationWord = currentSection.translation.word.toLowerCase()
+			console.log("translation word:", translationWord)
 			if (!userWords.includes(translationWord)) {
+				console.log("translation word not in user words", translationWord)
 				errorWords.push(translationWord)
 			}
 		}
 
-		//map through the possible words, and
-		//check if there is reference object with the name of possibleWord.word
-		//which would be 'eso' so eso.reference would find us the reference we want????
-
-		// Check if the current section has a translation
-		if (currentSection && currentSection.translation) {
-			console.log("has translation")
-			console.log("current Section Translation:", currentSection.translation)
-
-			// Get the references from the sentence
-			const sentenceReferences = Array.isArray(sentenceData.reference)
-				? sentenceData.reference
-				: [sentenceData.reference] // Ensure it's treated as an array
-			console.log("sentence references:", sentenceReferences)
-
-			// If translation is an array, check each item in the translation array
-			if (Array.isArray(currentSection.translation)) {
-				console.log("current Section translation is an array")
-				currentSection.translation.forEach((translationItem) => {
-					console.log("translation item:", translationItem)
-
-					// Check if any reference matches the translation item
-					sentenceReferences.forEach((ref) => {
-						console.log("ref:", ref)
-						console.log("translationItem.word:", translationItem.word)
-						if (ref.includes(translationItem.word)) {
-							console.log("matching reference found:", ref)
-							matchedReferences.push(ref)
-						}
-					})
-				})
-			} else {
-				// If translation is a single object, check against references
-				console.log("current Section translation is a single object")
-				const translationWord = currentSection.translation.word
-				sentenceReferences.forEach((ref) => {
-					console.log("ref:", ref)
-					console.log("translationWord:", translationWord)
-					if (ref?.includes(translationWord)) {
-						console.log("matching reference found:", ref)
-						matchedReferences.push(ref)
-					}
-				})
-			}
-		}
+		errorWords.map((word) => {
+			console.log("errorWords mapping, word: ", word)
+			console.log(
+				"currentSection.reference[word.word]: ",
+				currentSection.reference?.[word]
+			)
+			currentSection.reference?.[word].map((ref) => {
+				console.log("currentSection.ref[word.word] mapping::", ref)
+				tempRefs.push(ref)
+			})
+		})
 
 		// Construct the error entry
 		const errorEntry = {
@@ -309,7 +292,7 @@ export const TranslationProvider = ({ children }) => {
 			lessonNumber: lessonNumber,
 			currentSection: currentSection,
 			mode: quizType,
-			references: matchedReferences,
+			references: tempRefs,
 		}
 
 		// Update the score state with the new error entry
