@@ -148,7 +148,7 @@ const spanishData = {
 				},
 				{
 					id: 2,
-					reference: [conj.que.info[1]],
+					reference: { que: [conj.que.info[1]] },
 					sentence: "We said that was fine",
 					translation: "We said QUE ESO was fine",
 					data: [
@@ -156,6 +156,7 @@ const spanishData = {
 							phrase: "We said",
 							translation: conj.que,
 							phraseTranslation: "We said QUE",
+							reference: { que: [conj.que.info[1]] },
 						},
 						{ word: "that", translation: pron.eso },
 						{ word: "was" },
@@ -419,7 +420,7 @@ const spanishData = {
 				},
 				{
 					id: 2,
-					reference: [advrb.no.info[7], conj.que.info[1]],
+					reference: { no: [advrb.no.info[7]], que: [conj.que.info[1]] },
 					sentence: "Don't say you're not here",
 					translation: "NO say QUE you NO are here",
 					data: [
@@ -427,9 +428,10 @@ const spanishData = {
 							phrase: "Don't say",
 							translation: [advrb.no, conj.que],
 							phraseTranslation: "NO say QUE",
+							reference: { no: [advrb.no.info[7]], que: [conj.que.info[1]] },
 						},
 						{
-							phrase: "you are not",
+							phrase: "you're not",
 							translation: advrb.no,
 							phraseTranslation: "you NO are",
 						},
@@ -1176,7 +1178,7 @@ const spanishData = {
 							phraseTranslation: "the jacket DE leather DE Mom",
 						},
 						{
-							phrase: "wasn't",
+							phrase: "wasn't lost",
 							translation: advrb.no,
 							phraseTranslation: "NO was lost",
 						},

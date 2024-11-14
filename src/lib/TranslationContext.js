@@ -15,6 +15,7 @@ export const TranslationProvider = ({ children }) => {
 	const [lessonNumber, setLessonNumber] = useState(3)
 	const [quizType, setQuizType] = useState("parts")
 	const [wordCount, setWordCount] = useState(0)
+	const [isScoreModalOpen, setIsScoreModalOpen] = useState(false)
 
 	const updateWordCount = () => {
 		const sentenceData =
@@ -95,27 +96,45 @@ export const TranslationProvider = ({ children }) => {
 	}, [translatedWords])
 
 	const handleLessonChange = (newLessonNumber) => {
+		if (newLessonNumber > Object.keys(spanishData.lessons).length + 2) {
+			console.log("Invalid lesson number")
+			console.log("New lesson number:", newLessonNumber)
+			console.log("Current lesson number:", lessonNumber)
+			console.log("lessons length: ", Object.keys(spanishData.lessons).length)
+			return
+		}
+
 		const lessonKey = parseInt(newLessonNumber, 10)
 		if (lessonKey === lessonNumber) return
 
 		setLessonNumber(lessonKey)
 		setSentenceIndex(0)
 		setTranslatedWords({})
-		assignNextHighlightedIndex()
 	}
 
 	const nextSentence = () => {
+		console.log("Moving to the next sentence")
+		console.log("Current sentence index:", sentenceIndex)
 		const newIndex = sentenceIndex + 1
+		console.log("New sentence index:", newIndex)
+		console.log(
+			"lesson length: ",
+			spanishData.lessons[lessonNumber]?.sentences.length
+		)
 		if (newIndex < spanishData.lessons[lessonNumber]?.sentences.length) {
+			console.log("Setting New Index", newIndex)
 			setSentenceIndex(newIndex)
 			setTranslatedWords({})
+		} else {
+			// Show the score modal when all sentences are completed
+			console.log("showing score")
+			setIsScoreModalOpen(true)
 		}
 	}
 
 	const changeSentence = (newIndex) => {
 		setSentenceIndex(newIndex)
 		setTranslatedWords({})
-		assignNextHighlightedIndex()
 	}
 
 	const logData = () => {
@@ -125,6 +144,7 @@ export const TranslationProvider = ({ children }) => {
 			"current sentence",
 			spanishData.lessons[lessonNumber].sentences[sentenceIndex]
 		)
+		console.log("Current score:", score)
 	}
 
 	const removePunctuation = (str) => {
@@ -139,8 +159,11 @@ export const TranslationProvider = ({ children }) => {
 
 		const currentWord = sentenceData.data[currentIndex]
 
+		// Sanitize user input
 		const sanitizedUserInput = removePunctuation(userInput).toLowerCase()
+
 		if (quizType === "full") {
+			// Handle "full" quiz type where user needs to input the entire sentence
 			const sanitizedSentence = removePunctuation(
 				sentenceData.translation || ""
 			).toLowerCase()
@@ -152,37 +175,51 @@ export const TranslationProvider = ({ children }) => {
 				trackError(userInput, currentWord)
 			}
 		} else {
-			const sanitizedTranslation = removePunctuation(
-				currentWord.translation?.word || ""
-			).toLowerCase()
-			const sanitizedPhraseTranslation = removePunctuation(
-				currentWord.phraseTranslation || ""
-			).toLowerCase()
+			// Handle "parts" quiz type for individual word/phrase translations
+			const hasPhraseTranslation = Boolean(currentWord.phraseTranslation)
+			let isCorrect = false
 
-			if (
-				sanitizedUserInput === sanitizedTranslation ||
-				sanitizedUserInput === sanitizedPhraseTranslation
-			) {
+			if (hasPhraseTranslation) {
+				// Check if the input matches the phrase translation
+				const sanitizedPhraseTranslation = removePunctuation(
+					currentWord.phraseTranslation || ""
+				).toLowerCase()
+
+				if (sanitizedUserInput === sanitizedPhraseTranslation) {
+					isCorrect = true
+				}
+			} else {
+				// Check if the input matches the single word translation
+				const sanitizedTranslation = removePunctuation(
+					currentWord.translation?.word || ""
+				).toLowerCase()
+
+				if (sanitizedUserInput === sanitizedTranslation) {
+					isCorrect = true
+				}
+			}
+
+			// Handle correct answer
+			if (isCorrect) {
 				let updatedTranslatedWords
 				if (currentWord.phraseTranslation) {
 					updatedTranslatedWords = {
 						...translatedWords,
 						[currentIndex]: currentWord.phraseTranslation,
 					}
-					setTranslatedWords(updatedTranslatedWords)
-					console.log("Updated translated words:", updatedTranslatedWords)
 				} else {
 					updatedTranslatedWords = {
 						...translatedWords,
 						[currentIndex]: currentWord.translation.word,
 					}
-					setTranslatedWords(updatedTranslatedWords)
-					console.log("Updated translated words:", updatedTranslatedWords)
 				}
+				setTranslatedWords(updatedTranslatedWords)
+				console.log("Updated translated words:", updatedTranslatedWords)
 
 				assignNextHighlightedIndex()
 				flashGreenScreen()
 			} else {
+				// Handle incorrect answer
 				flashRedScreen()
 				trackError(userInput, currentWord)
 			}
@@ -190,17 +227,98 @@ export const TranslationProvider = ({ children }) => {
 	}
 
 	const trackError = (userInput, currentWord) => {
+		const sentenceData =
+			spanishData.lessons[lessonNumber].sentences[sentenceIndex]
+		const currentSection = sentenceData.data[currentIndex]
+
+		const userWords = userInput
+			.split(" ")
+			.map((word) => word.trim().toLowerCase())
+
+		let errorWords = []
+
+		if (Array.isArray(currentSection.translation)) {
+			const translationWords = currentSection.translation.map((translation) =>
+				translation.word.toLowerCase()
+			)
+
+			translationWords.forEach((word) => {
+				if (!userWords.includes(word)) {
+					errorWords.push(word)
+				}
+			})
+		} else {
+			const translationWord = currentSection.translation.word.toLowerCase()
+			if (!userWords.includes(translationWord)) {
+				errorWords.push(translationWord)
+			}
+		}
+
+		//map through the possible words, and
+		//check if there is reference object with the name of possibleWord.word
+		//which would be 'eso' so eso.reference would find us the reference we want????
+
+		// Check if the current section has a translation
+		if (currentSection && currentSection.translation) {
+			console.log("has translation")
+			console.log("current Section Translation:", currentSection.translation)
+
+			// Get the references from the sentence
+			const sentenceReferences = Array.isArray(sentenceData.reference)
+				? sentenceData.reference
+				: [sentenceData.reference] // Ensure it's treated as an array
+			console.log("sentence references:", sentenceReferences)
+
+			// If translation is an array, check each item in the translation array
+			if (Array.isArray(currentSection.translation)) {
+				console.log("current Section translation is an array")
+				currentSection.translation.forEach((translationItem) => {
+					console.log("translation item:", translationItem)
+
+					// Check if any reference matches the translation item
+					sentenceReferences.forEach((ref) => {
+						console.log("ref:", ref)
+						console.log("translationItem.word:", translationItem.word)
+						if (ref.includes(translationItem.word)) {
+							console.log("matching reference found:", ref)
+							matchedReferences.push(ref)
+						}
+					})
+				})
+			} else {
+				// If translation is a single object, check against references
+				console.log("current Section translation is a single object")
+				const translationWord = currentSection.translation.word
+				sentenceReferences.forEach((ref) => {
+					console.log("ref:", ref)
+					console.log("translationWord:", translationWord)
+					if (ref?.includes(translationWord)) {
+						console.log("matching reference found:", ref)
+						matchedReferences.push(ref)
+					}
+				})
+			}
+		}
+
+		// Construct the error entry
 		const errorEntry = {
-			sentenceData: spanishData.lessons[lessonNumber].sentences[sentenceIndex],
+			sentenceData: sentenceData,
 			userInput: userInput,
 			currentWord: currentWord,
 			sentenceIndex: sentenceIndex,
 			lessonNumber: lessonNumber,
+			currentSection: currentSection,
+			mode: quizType,
+			references: matchedReferences,
 		}
+
+		// Update the score state with the new error entry
 		setScore((prevScore) => ({
 			...prevScore,
 			errors: [...prevScore.errors, errorEntry],
 		}))
+
+		console.log("Error tracked:", errorEntry)
 	}
 
 	const flashRedScreen = () => {
@@ -236,6 +354,8 @@ export const TranslationProvider = ({ children }) => {
 				quizType,
 				setQuizType,
 				wordCount,
+				isScoreModalOpen,
+				setIsScoreModalOpen,
 			}}
 		>
 			{children}

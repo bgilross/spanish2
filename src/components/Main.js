@@ -1,15 +1,16 @@
 "use client"
 import InputArea from "@/components/InputArea"
 import Sentence from "@/components/Sentence"
-
+import ScoreSummary from "./ScoreSummary"
 import { useTranslation } from "@/lib/TranslationContext"
 import "../styles/flashOverlay.css"
 
 export default function Main() {
-	const { logData } = useTranslation()
+	const { logData, isScoreModalOpen, setIsScoreModalOpen } = useTranslation()
 
 	const RedFlashOverlay = () => {
-		const { showRedFlash } = useTranslation()
+		const { showRedFlash, isScoreModalOpen, setIsScoreModalOpen } =
+			useTranslation()
 		return showRedFlash ? <div className="red-flash-overlay"></div> : null
 	}
 
@@ -30,6 +31,10 @@ export default function Main() {
 			<div className="w-full flex h-1/3 justify-center">
 				<InputArea />
 			</div>
+			<ScoreSummary
+				isOpen={isScoreModalOpen}
+				onClose={() => setIsScoreModalOpen(false)}
+			/>
 		</div>
 	)
 }
