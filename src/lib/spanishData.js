@@ -568,7 +568,7 @@ const spanishData = {
 						{ word: "We" },
 						{
 							phrase: "won't say",
-							translation: advrb.no,
+							translation: [advrb.no, conj.que],
 							phraseTranslation: "NO will say QUE",
 						},
 						{ word: "you" },
@@ -805,7 +805,7 @@ const spanishData = {
 						{
 							phrase: "Samuel's water bottle",
 							phraseTranslation: "the bottle DE water DE Samuel",
-							translation: prep.de,
+							translation: [prep.de, prep.de],
 						},
 					],
 				},

@@ -89,7 +89,7 @@ const Sentence = ({}) => {
 			sentenceData?.data?.map((word, index) => (
 				<span
 					key={index}
-					className={`mr-2  ${
+					className={`mr-2 ${
 						!word.translation
 							? "text-secondary"
 							: translatedWords[index]
@@ -97,8 +97,12 @@ const Sentence = ({}) => {
 							: "border-b-4 border-red-500 text-sm"
 					}`}
 				>
+					{/* If this is the current index, show the wordsInSection count */}
 					{word.translation
-						? translatedWords[index] || `${wordsInSection} Spanish Word(s).`
+						? translatedWords[index] ||
+						  (index === currentIndex
+								? `${wordsInSection} Spanish Word(s)`
+								: "__________________")
 						: word.word}
 				</span>
 			))

@@ -121,6 +121,10 @@ export const TranslationProvider = ({ children }) => {
 	const logData = () => {
 		console.log("Current index:", currentIndex)
 		console.log("Translated words:", translatedWords)
+		console.log(
+			"current sentence",
+			spanishData.lessons[lessonNumber].sentences[sentenceIndex]
+		)
 	}
 
 	const removePunctuation = (str) => {
