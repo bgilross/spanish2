@@ -1,8 +1,15 @@
 // maybe change to prounoun.eso or conjunction.y conjuction.que
 "use client"
 
+import { data } from "autoprefixer"
+
 const words = {
 	conj: {
+		info: [
+			"CONJUNCTIONS don't pass the FOOD or the EAT test they are something New!",
+			"CONJUNCTIONS are Connecting Words which hold a sentence, or even multiple sentences together!",
+			"Proper Spanish entence can ONLY have ONE verb! (EATS EAT or ATE (NOT EATING/EATEN(Those are Nouns sorta!))), conjunctions allow combining phrases/sentences",
+		],
 		que: {
 			translations: ["that"],
 			word: "que",
@@ -20,41 +27,54 @@ const words = {
 			audio:
 				"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=and&tl=es&total=1&idx=0&textlen=3",
 			pos: "conjunction",
+			info: ["Y is a direct translation of AND"],
 		},
 	},
 
 	pron: {
+		info: ["PRONOUNS are INTERCHANGEABLE with NOUNS!"],
 		eso: {
 			translations: ["that"],
 			word: "eso",
 			audio:
 				"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=that&tl=es&total=1&idx=0&textlen=4",
-			pos: "conjunction",
+			pos: "pronoun",
 			info: [
 				"ESO is likely the MOST VERSATILE word in Spanish! It is interchangeable with any NOUN or NOUN PHRASE, it can also represent actions and concepts",
 			],
 		},
 	},
 	prep: {
+		info: [
+			"PREPOSITIONS are ALWAYS used directly before a NOUN of some type, that's why they are call PRE-POSITIONS!",
+		],
 		de: {
 			translations: ["from", "of"],
 			word: "de",
 			pos: "preposition",
 			info: [
-				"De  is mostly used as OF as in one of these three ideas: ORIGIN: 'The people OF the north!', or POSSESION: 'The house OF my parents', or MATERIAL: 'The sheet OF paper'",
+				"De  is mostly used as OF as in one of these three ideas:\nORIGIN: 'The people OF the north!', or\nPOSSESION: 'The house OF my parents', or\nMATERIAL: 'The sheet OF paper'",
 				"ORIGIN: In english we say Sydney is a City in Australia, but Spanish would say Sydney is a city OF or DE Autralia. Other examples include: 'The birds of Africa', 'The wind from the cellar' 'My friend from Toronto', 'The largest cities of Columbia'",
 				"POSSESION: English says 'My friends father' but spanish would say 'The father OF my friend!' other examples include: 'The cap of the bottle', 'the door of the house' and 'the hand of the writer'",
 				"POSSESTION2: English uses Contractions like 'The bottle's cap' but Spanish DOESN'T have this! You need to change the order and use DE",
 				"MATERIAL: The Statue of Bronze. The Table of Stone. The horse of wood. ETC!",
 			],
+			audio:
+				"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=from&tl=es&total=1&idx=0&textlen=4",
 		},
 		a: {
 			translations: ["to"],
 			word: "a",
 			pos: "preposition",
+			audio:
+				"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=to&tl=es&total=1&idx=0&textlen=2",
 		},
 	},
 	advrb: {
+		info: [
+			"Adverbs can go anywhere in a sentence and mean all kinds of things!",
+		],
+
 		no: {
 			translations: ["not", "no"],
 			word: "no",
@@ -64,43 +84,54 @@ const words = {
 				"Most Adverbs can go anywhere in a sentence and mean all kinds of things, but NO is far more strict, used very specifically to NEGATE a sentence.",
 				"In English we can use contractions but they don't exist in Spanish, so we have to use NOT/NO!",
 				"When translating English to Spanish and dealing with Contractions (Can't, Don't, Won't) Simply UNTIE the NOT! Turning Can't into Can not!",
-				"She Can't Be At the House. is She NO can be at the house. In Spanish verb types like CAN BE have to stick together, and the adverb NO must go first!",
+				"In Spanish verb types like CAN BE have to stick together, and the adverb NO must go first!",
 				"In Spanish DO HAVE isn't a real concept, we remove the word DO: I Don't Have that! = I no have that. 'Untie the Knot, and make the D Disappear!'",
+				"There are no contraction in Spanish. For verb types like Can't: Untie the NOT, then move it to front: NO CAN BE!",
+				"There are no contractions and also no concept for DO or DID (Do have, do say, do whatever) in Spanish. Untie the NOT, and make the Do DISAPPEAR!",
+				"You might think NO should work like 'She can NO be' but adverbs don't work like this. Verb Structures like CAN BE have to stick together, and the adverb has to go first!",
 			],
+			audio:
+				"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=no&tl=es&total=1&idx=0&textlen=3",
 		},
+	},
+	noun: {
+		info: [
+			"FOOD TEST: Nouns in Spanish function as any WORD or PHRASE that can be substituted for the word FOOD!",
+			"NOUNS aren't just PEOPLE, PLACES, or THINGS, they can also be ACTIONS! Such as: I enjoy LOSING MYSELF IN A NEW CITY",
+		],
+	},
+	verb: {
+		info: [
+			"EAT TEST: Verbs are any word that can be replaced by EAT, EATS or ATE!",
+			"What about EATING? EATING or EATEN actually don't behave as verbs in the EAT test! EATING is my Favority activiy, EATING is the NOUN!",
+			"Proper Spanish sentence can ONLY have ONE verb! (EATS EAT or ATE (NOT EATING/EATEN(Those are Nouns sorta!))), conjunctions allow combining phrases/sentences",
+			"VERB PHRASES are where multiple verbs are functioning as only one verb! 'I want to have more!' looks like two verbs, WANT and HAVE but it counts as one! 'I will continue eating my food' Three verbs which counts as ONE! you could change it to 'I EAT my food'",
+		],
 	},
 }
 
-const { conj, pron, prep, advrb } = words
+const { conj, pron, prep, advrb, noun, verb } = words
 
 const spanishData = {
-	pos_info: {
-		pronouns: ["PRONOUNS are INTERCHANGEABLE with NOUNS!"],
-		nouns: [
-			"FOOD TEST: Nouns in Spanish function as any WORD or PHRASE that can be substituted for the word FOOD!",
-			"NOUNS aren't just PEOPLE, PLACES, or THINGS, they can also be ACTIONS! I enjoy LOSING MYSELF IN A NEW CITY",
-		],
-		verbs: [
-			"EAT TEST: Verbs are any word that can be replaced by EAT, EATS or ATE!",
-			"What about EATING? EATING or EATEN actually don't behave as verbs in the EAT test! EATING is my Favority activiy, EATING is the NOUN!",
-			"Proper Spanish entence can ONLY have ONE verb! (EATS EAT or ATE (NOT EATING/EATEN(Those are Nouns sorta!))), conjunctions allow combining phrases/sentences",
-			"VERB PHRASES are where multiple verbs are functioning as only one verb! 'I want to have more!' looks like two verbs, WANT and HAVE but it counts as one! 'I will continue eating my food' Three verbs which counts as ONE! you could change it to 'I EAT my food'",
-		],
-		conjunctions: [
-			"COONJUNCTIONS don't pass the FOOD or the EAT test they are something New!",
-			"Connecting Words which hold a sentence, or even multiple sentences together!",
-			"Proper Spanish entence can ONLY have ONE verb! (EATS EAT or ATE (NOT EATING/EATEN(Those are Nouns sorta!))), conjunctions allow combining phrases/sentences",
-		],
-		prepositions: [
-			"PREPOSITIONS are ALWAYS used directly before a NOUN of some type, that's why they are call PRE-POSITIONS!",
-		],
-	},
 	lessons: {
 		3: {
 			lesson: 3,
 			name: "Lesson 3",
 			details: "Conjunctions (Y and QUE) and ESO",
-			info: [],
+			info: [
+				noun.info[1],
+				noun.info[0],
+				verb.info[0],
+				verb.info[1],
+				verb.info[2],
+				conj.info[0],
+				conj.info[1],
+				conj.que.info[0],
+				conj.que.info[1],
+				verb.info[3],
+				pron.eso.info[0],
+				conj.y.info[0],
+			],
 			wordBank: [conj.y, pron.eso, conj.que],
 			sentences: [
 				{
@@ -117,6 +148,7 @@ const spanishData = {
 				},
 				{
 					id: 2,
+					reference: [conj.que.info[1]],
 					sentence: "We said that was fine",
 					translation: "We said QUE ESO was fine",
 					data: [
@@ -170,6 +202,7 @@ const spanishData = {
 				},
 				{
 					id: 6,
+					reference: [conj.que.info[1]],
 					sentence: "I told them that was in the way",
 					translation: "I told them QUE ESO was in the way",
 					data: [
@@ -187,6 +220,7 @@ const spanishData = {
 				},
 				{
 					id: 7,
+					reference: [conj.que.info[1]],
 					sentence: "I hope he gets that soon",
 					translation: "I hope QUE he gets ESO soon",
 					data: [
@@ -215,6 +249,7 @@ const spanishData = {
 				},
 				{
 					id: 9,
+					reference: [conj.que.info[1]],
 					sentence: "He said they said that!",
 					translation: "He said QUE they said ESO!",
 					data: [
@@ -252,16 +287,122 @@ const spanishData = {
 						{ word: "that?", translation: pron.eso },
 					],
 				},
+				{
+					id: 12,
+					sentence: "That isn't my favorite thing",
+					translation: "ESO isn't my favorite thing",
+					data: [
+						{ word: "That", translation: pron.eso },
+						{ word: "isn't my favorite thing" },
+					],
+				},
+				{
+					id: 13,
+					sentence: "I told him that we arrived",
+					translation: "I told him QUE we arrived",
+					data: [
+						{ phrase: "I told him" },
+						{ word: "that", translation: conj.que },
+						{ word: "we" },
+						{ word: "arrived" },
+					],
+				},
+				{
+					id: 14,
+					sentence: "I hope that you have a nice day",
+					translation: "I hope QUE you have a nice day",
+					data: [
+						{ phrase: "I hope" },
+						{ word: "that", translation: conj.que },
+						{ word: "you" },
+						{ word: "have" },
+						{ word: "a" },
+						{ word: "nice" },
+						{ word: "day" },
+					],
+				},
+				{
+					id: 15,
+					sentence: "We want that as soon as possible",
+					translation: "We want ESO as soon as possible",
+					data: [
+						{ word: "We" },
+						{ word: "want" },
+						{ word: "that", translation: pron.eso },
+						{ word: "as soon as possible" },
+					],
+				},
+				{
+					id: 16,
+					sentence: "They told me that that was impossible",
+					translation: "They told me QUE ESO was impossible",
+					data: [
+						{ word: "They" },
+						{ word: "told" },
+						{ word: "me" },
+						{ word: "that", translation: conj.que },
+						{ word: "that", translation: pron.eso },
+						{ word: "was" },
+						{ word: "impossible" },
+					],
+				},
+				{
+					id: 17,
+					sentence: "I dreamed that I was back in highschool",
+					translation: "I dreamed QUE I was back in highschool",
+					data: [
+						{ word: "I" },
+						{ word: "dreamed" },
+						{ word: "that", translation: conj.que },
+						{ word: "I" },
+						{ word: "was" },
+						{ word: "back" },
+						{ word: "in" },
+						{ word: "highschool" },
+					],
+				},
+				{
+					id: 18,
+					reference: [conj.que.info[1]],
+					sentence: "I hope he told you he was here",
+					translation: "I hope QUE he told you QUE he was here",
+					data: [
+						{
+							phrase: "I hope",
+							translation: conj.que,
+							phraseTranslation: "I hope QUE",
+						},
+						{
+							phrase: "he told you",
+							translation: conj.que,
+							phraseTranslation: "he told you QUE",
+						},
+						{ phrase: "he was here" },
+					],
+				},
 			],
 		},
 		4: {
 			lesson: 4,
 			name: "Lesson 4",
 			details: "Prepositions: DE and A, Adverb NO ",
-			wordBank: [prep.no, prep.de, prep.a],
+			info: [
+				"De and A are very common prepositions, meaning of or from, and to",
+				prep.info[0],
+				prep.de.info[0],
+				"No is an ADVERB",
+				advrb.no.info[0],
+				advrb.no.info[1],
+				advrb.no.info[2],
+				advrb.no.info[3],
+				advrb.no.info[8],
+				advrb.no.info[5],
+			],
+			wordBank: [advrb.no, prep.de, prep.a],
 			sentences: [
 				{
 					id: 1,
+					reference: [advrb.no.info[6]],
 					sentence: "She can't be at the house",
 					translation: "She NO can be at the house",
 					data: [
@@ -278,6 +419,7 @@ const spanishData = {
 				},
 				{
 					id: 2,
+					reference: [advrb.no.info[7], conj.que.info[1]],
 					sentence: "Don't say you're not here",
 					translation: "NO say QUE you NO are here",
 					data: [
@@ -296,6 +438,7 @@ const spanishData = {
 				},
 				{
 					id: 3,
+					reference: [advrb.no.info[7]],
 					sentence: "We didn't go to this store",
 					translation: "We NO went A this store",
 					data: [
@@ -312,6 +455,7 @@ const spanishData = {
 				},
 				{
 					id: 4,
+					reference: [advrb.no.info[6]],
 					sentence: "She won't send that to her sister",
 					translation: "She NO will send ESO A her sister",
 					data: [
@@ -342,6 +486,7 @@ const spanishData = {
 				},
 				{
 					id: 6,
+					reference: [advrb.no.info[6]],
 					sentence: "This isn't your stuff",
 					translation: "This NO is your stuff",
 					data: [
@@ -357,6 +502,7 @@ const spanishData = {
 				},
 				{
 					id: 7,
+					reference: [advrb.no.info[6]],
 					sentence: "We can't do that",
 					translation: "We NO can do ESO",
 					data: [
@@ -385,6 +531,7 @@ const spanishData = {
 				},
 				{
 					id: 9,
+					reference: [advrb.no.info[6]],
 					sentence: "I can't have more of that",
 					translation: "I NO can have more of ESO",
 					data: [
@@ -414,6 +561,7 @@ const spanishData = {
 				},
 				{
 					id: 11,
+					reference: [advrb.no.info[6]],
 					sentence: "We won't say you have that",
 					translation: "We NO will say QUE you have ESO",
 					data: [
@@ -430,6 +578,7 @@ const spanishData = {
 				},
 				{
 					id: 12,
+					reference: [advrb.no.info[7]],
 					sentence: "She doesn't have that",
 					translation: "She NO has ESO",
 					data: [
@@ -444,6 +593,7 @@ const spanishData = {
 				},
 				{
 					id: 13,
+					reference: [advrb.no.info[7], conj.que.info[1]],
 					sentence: "This doesn't tell us that is done",
 					translation: "This NO tells us QUE ESO is done",
 					data: [
@@ -462,16 +612,192 @@ const spanishData = {
 						{ word: "done" },
 					],
 				},
+				{
+					id: 14,
+					sentence: "Give my brother more of that",
+					translation: "Give my brother more DE ESO",
+					data: [
+						{ word: "Give" },
+						{ word: "my" },
+						{ word: "brother" },
+						{ word: "more" },
+						{ word: "of", translation: prep.de },
+						{ word: "that", translation: pron.eso },
+					],
+				},
+				{
+					id: 15,
+					sentence: "It came down from the mountain",
+					translation: "It came down DE the mountain",
+					data: [
+						{ word: "It" },
+						{ word: "came" },
+						{ word: "down" },
+						{ word: "from", translation: prep.de },
+						{ word: "the" },
+						{ word: "mountain" },
+					],
+				},
+				{
+					id: 16,
+					sentence: "I'm tired of waiting around like this",
+					translation: "I'm tired DE waiting around like this",
+					data: [
+						{ word: "I'm tired" },
+						{ word: "of", translation: prep.de },
+						{ phrase: "waiting around like this" },
+					],
+				},
+				{
+					id: 17,
+					sentence: "The girl went to another country",
+					translation: "The girl went A another country",
+					data: [
+						{ word: "The girl went" },
+						{ word: "to", translation: prep.a },
+						{ word: "another" },
+						{ word: "country" },
+					],
+				},
+				{
+					id: 18,
+					sentence: "I want to give that to my brother",
+					translation: "I want to give ESO A my brother",
+					data: [
+						{ word: "I" },
+						{ word: "want" },
+						{ word: "to" },
+						{ word: "give" },
+						{ word: "that", translation: pron.eso },
+						{ word: "to", translation: prep.a },
+						{ word: "my" },
+						{ word: "brother" },
+					],
+				},
+				{
+					id: 19,
+					sentence: "Mark goes from New York to Houston",
+					translation: "Mark goes DE New York A Houston",
+					data: [
+						{ word: "Mark" },
+						{ word: "goes" },
+						{ word: "from", translation: prep.de },
+						{ word: "New" },
+						{ word: "York" },
+						{ word: "to", translation: prep.a },
+						{ word: "Houston" },
+					],
+				},
+				{
+					id: 20,
+					reference: [advrb.no.info[6]],
+					sentence: "This isn't my house",
+					translation: "This NO is my house",
+					data: [
+						{ word: "This" },
+						{
+							phrase: "isn't",
+							translation: advrb.no,
+							phraseTranslation: "NO is",
+						},
+						{ word: "my" },
+						{ word: "house" },
+					],
+				},
+				{
+					id: 21,
+					reference: [advrb.no.info[6]],
+					sentence: "She can't walk very fast",
+					translation: "She NO can walk very fast",
+					data: [
+						{ word: "She" },
+						{
+							phrase: "can't",
+							translation: advrb.no,
+							phraseTranslation: "NO can",
+						},
+						{ word: "walk" },
+						{ word: "very" },
+						{ word: "fast" },
+					],
+				},
+				{
+					id: 22,
+					reference: [advrb.no.info[7]],
+					sentence: "They don't see why",
+					translation: "They NO see why",
+					data: [
+						{ word: "They" },
+						{
+							phrase: "don't see",
+							translation: advrb.no,
+							phraseTranslation: "NO see",
+						},
+						{ word: "why" },
+					],
+				},
+				{
+					id: 23,
+					reference: [advrb.no.info[6]],
+					sentence: "That won't matter",
+					translation: "ESO NO will matter",
+					data: [
+						{ word: "That", translation: pron.eso },
+						{
+							phrase: "won't mattter",
+							translation: advrb.no,
+							phraseTranslation: "NO will matter",
+						},
+					],
+				},
+				{
+					id: 24,
+					reference: [advrb.no.info[7]],
+					sentence: "This doesn't tell us much",
+					translation: "This NO tells us much",
+					data: [
+						{ word: "This" },
+						{
+							phrase: "doesn't tell",
+							translation: advrb.no,
+							phraseTranslation: "NO tells",
+						},
+						{ word: "us" },
+						{ word: "much" },
+					],
+				},
+				{
+					id: 25,
+					reference: [advrb.no.info[7]],
+					sentence: "He didn't know",
+					translation: "He NO knew",
+					data: [
+						{ word: "He" },
+						{
+							phrase: "didn't know",
+							translation: advrb.no,
+							phraseTranslation: "NO knew",
+						},
+					],
+				},
 			],
 		},
 		5: {
 			lesson: 5,
 			name: "Lesson 5",
-			details: "Prepositions and Advern: NO, DE, and A ",
+			details: "Three common uses of DE!",
+			info: [
+				"From or Of only covers about half of the uses of DE! Because prepositions are notorious for use in quirky context. There are THREE main uses of DE as OF:",
+				prep.de.info[1],
+				prep.de.info[2],
+				prep.de.info[3],
+				prep.de.info[4],
+			],
 			wordBank: [],
 			sentences: [
 				{
 					id: 1,
+					reference: [prep.de.info[2], prep.de.info[4]],
 					sentence: "It's Samuel's water bottle!",
 					translation: "It's the bottle DE water DE Samuel",
 					data: [
@@ -485,6 +811,7 @@ const spanishData = {
 				},
 				{
 					id: 2,
+					reference: [advrb.no.info[6], conj.que.info[1]],
 					sentence: "You won't tell me they did it?",
 					translation: "You NO will tell QUE they did it?",
 					data: [
@@ -504,6 +831,7 @@ const spanishData = {
 				},
 				{
 					id: 3,
+					reference: [advrb.no.info[7], prep.de.info[2], prep.de.info[4]],
 					sentence: "Don't touch John's wine glass",
 					translation: "NO touch the glass DE wine DE John",
 					data: [
@@ -533,6 +861,7 @@ const spanishData = {
 				},
 				{
 					id: 5,
+					reference: [advrb.no.info[6]],
 					sentence: "This can't be from from Spain!",
 					translation: "This NO can be DE Spain!",
 					data: [
@@ -548,6 +877,7 @@ const spanishData = {
 				},
 				{
 					id: 6,
+					reference: [conj.que.info[1], prep.de.info[4]],
 					sentence: "I saw that it was a ceramic mug",
 					translation: "I saw QUE it was a mug DE ceramic",
 					data: [
@@ -568,6 +898,7 @@ const spanishData = {
 				},
 				{
 					id: 7,
+					reference: [conj.que.info[1]],
 					sentence: "You hoped she and I were together",
 					translation: "You hoped QUE she Y I were together",
 					data: [
@@ -585,6 +916,7 @@ const spanishData = {
 				},
 				{
 					id: 8,
+					reference: [advrb.no.info[6]],
 					sentence: "I said that it isn't here",
 					translation: "I said QUE it NO is here",
 					data: [
@@ -604,6 +936,7 @@ const spanishData = {
 				},
 				{
 					id: 9,
+					reference: [conj.que.info[1], advrb.no.info[6]],
 					sentence: "She hoped we woudn't go to Canada",
 					translation: "She hoped QUE we NO would go A Canada",
 					data: [
@@ -624,6 +957,7 @@ const spanishData = {
 				},
 				{
 					id: 10,
+					reference: [advrb.no.info[6]],
 					sentence: "I couldn't believe that!",
 					translation: "I NO could believe ESO!",
 					data: [
@@ -638,6 +972,7 @@ const spanishData = {
 				},
 				{
 					id: 11,
+					reference: [prep.de.info[4], prep.de.info[2]],
 					sentence: "It was Maria's plastic chair",
 					translation: "It was the chair DE plastic DE Maria",
 					data: [
@@ -652,6 +987,7 @@ const spanishData = {
 				},
 				{
 					id: 12,
+					reference: [conj.que.info[1]],
 					sentence: "I think he ran from the house",
 					translation: "I think QUE he ran DE the house",
 					data: [
@@ -668,7 +1004,7 @@ const spanishData = {
 				},
 				{
 					id: 13,
-
+					reference: [advrb.no.info[7]],
 					sentence: "That doesn't matter.",
 					translation: "ESO NO matters.",
 					data: [
@@ -692,6 +1028,7 @@ const spanishData = {
 				},
 				{
 					id: 15,
+					reference: [advrb.no.info[7]],
 					sentence: "She didn't care and I knew it",
 					translation: "She NO cared Y I knew it",
 					data: [
@@ -702,6 +1039,166 @@ const spanishData = {
 						},
 						{ word: "and", translation: conj.y },
 						{ word: "I knew it" },
+					],
+				},
+				{
+					id: 16,
+					sentence: "The birds of Africa",
+					translation: "The birds DE Africa",
+					data: [
+						{ word: "The" },
+						{ word: "birds" },
+						{ word: "of", translation: prep.de },
+						{ word: "Africa" },
+					],
+				},
+				{
+					id: 17,
+					sentence: "The special wine from the cellar",
+					translation: "The special wine DE the cellar",
+					data: [
+						{ word: "The" },
+						{ word: "special" },
+						{ word: "wine" },
+						{ word: "from", translation: prep.de },
+						{ word: "the cellar" },
+					],
+				},
+				{
+					id: 18,
+					sentence: "My friend from Toronto",
+					translation: "My friend DE Toronto",
+					data: [
+						{ word: "My friend" },
+						{ word: "from", translation: prep.de },
+						{ word: "Toronto" },
+					],
+				},
+				{
+					id: 19,
+					sentence: "The largest cities of Columbia",
+					translation: "The largest cities DE Columbia",
+					data: [
+						{ word: "The" },
+						{ word: "largest" },
+						{ word: "cities" },
+						{ word: "of", translation: prep.de },
+						{ word: "Columbia" },
+					],
+				},
+				{
+					id: 20,
+					sentence: "The pilot's schedule",
+					translation: "The schedule DE the pilot",
+					data: [
+						{ word: "The" },
+						{
+							phrase: "pilot's schedule",
+							translation: prep.de,
+							phraseTranslation: "schedule DE the pilot",
+						},
+					],
+				},
+				{
+					id: 21,
+					sentence: "The rich smell of the food",
+					translation: "The rich smell DE the food",
+					data: [
+						{ word: "The" },
+						{ word: "rich" },
+						{ word: "smell" },
+						{ word: "of", translation: prep.de },
+						{ word: "the food" },
+					],
+				},
+				{
+					id: 22,
+					reference: [prep.de.info[3]],
+					sentence: "Your brother's foot",
+					translation: "The foot DE your brother",
+					data: [
+						{
+							phrase: "Your brother's foot",
+							translation: prep.de,
+							phraseTranslation: "The foot DE your brother",
+						},
+					],
+				},
+				{
+					id: 23,
+					reference: [prep.de.info[2], prep.de.info[3]],
+					sentence: "The doctor's sister's nose",
+					translation: "The nose DE the sister DE the doctor",
+					data: [
+						{
+							phrase: "The doctor's sister's nose",
+							translation: prep.de,
+							phraseTranslation: "The nose DE the sister DE the doctor",
+						},
+					],
+				},
+				{
+					id: 24,
+					reference: [conj.que.info[1]],
+					sentence: "I said I was from Arizona",
+					translation: "I said QUE I was DE Arizona",
+					data: [
+						{
+							phrase: "I said",
+							translation: conj.que,
+							phraseTranslation: "I said QUE",
+						},
+						{ word: "I" },
+						{ word: "was" },
+						{ word: "from", translation: prep.de },
+						{ word: "Arizona" },
+					],
+				},
+				{
+					id: 25,
+					reference: [
+						conj.que.info[1],
+						prep.de.info[4],
+						prep.de.info[2],
+						advrb.no.info[6],
+					],
+					sentence: "I hope Mom's leather jacket wasn't lost",
+					translation: "I hope QUE the jacket DE leather DE Mom NO was lost",
+					data: [
+						{
+							phrase: "I hope",
+							translation: conj.que,
+							phraseTranslation: "I hope QUE",
+						},
+						{
+							phrase: "Mom's leather jacket",
+							translation: prep.de,
+							phraseTranslation: "the jacket DE leather DE Mom",
+						},
+						{
+							phrase: "wasn't",
+							translation: advrb.no,
+							phraseTranslation: "NO was lost",
+						},
+					],
+				},
+				{
+					id: 26,
+					reference: [conj.que.info[1], advrb.no.info[6]],
+					sentence: "I said it isn't here",
+					translation: "I said QUE it NO is here",
+					data: [
+						{
+							phrase: "I said",
+							translation: conj.que,
+							phraseTranslation: "I said QUE",
+						},
+						{ word: "it" },
+						{
+							phrase: "isn't here",
+							translation: advrb.no,
+							phraseTranslation: "NO is here",
+						},
 					],
 				},
 			],

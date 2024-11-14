@@ -12,6 +12,7 @@ const Sentence = ({}) => {
 		changeSentence,
 		quizType,
 		setQuizType,
+		wordCount,
 	} = useTranslation()
 
 	const quizTypeSelect = (
@@ -108,6 +109,9 @@ const Sentence = ({}) => {
 			<div>
 				{quizTypeSelect}
 				{sentenceSelect}
+			</div>
+			<div className="text-secondary text-5xl">
+				Spanish Words: <span className="text-primary">{wordCount}</span>
 			</div>
 			<div>{untranslatedSentence}</div>
 			<div>{translatedSentence}</div>

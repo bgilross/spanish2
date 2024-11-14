@@ -14,7 +14,27 @@ export const TranslationProvider = ({ children }) => {
 	const [showGreenFlash, setShowGreenFlash] = useState(false)
 	const [lessonNumber, setLessonNumber] = useState(3)
 	const [quizType, setQuizType] = useState("parts")
+	const [wordCount, setWordCount] = useState(0)
 
+	const updateWordCount = () => {
+		const sentenceData =
+			spanishData.lessons[lessonNumber]?.sentences[sentenceIndex]?.data
+
+		if (!sentenceData) {
+			console.log("No sentence data found, returning -1")
+			setWordCount(0)
+		}
+
+		setWordCount(
+			sentenceData?.reduce((count, item) => {
+				return item.translation ? count + 1 : count
+			}, 0)
+		)
+	}
+
+	useEffect(() => {
+		updateWordCount()
+	}, [sentenceIndex])
 	const assignNextHighlightedIndex = () => {
 		console.log(
 			"Assigning next highlighted index. Translated words:",
@@ -24,6 +44,7 @@ export const TranslationProvider = ({ children }) => {
 		// Check if the current sentence exists
 		const sentenceData =
 			spanishData.lessons[lessonNumber]?.sentences[sentenceIndex]?.data
+		console.log("Current sentence data:", sentenceData)
 
 		if (!sentenceData) {
 			console.log("No sentence data found, returning -1")
@@ -33,9 +54,28 @@ export const TranslationProvider = ({ children }) => {
 
 		// Iterate over the entries in the sentence data to find the next word/phrase that needs translation
 		const entries = Object.entries(sentenceData)
+		console.log("Entries in the sentence data:", entries)
+
 		const index = entries.findIndex(([key, item]) => {
+			console.log("Key:", key, "Item:", item)
+			console.log("Item translation:", item.translation)
+			console.log("Translated words:", translatedWords)
+			console.log("Key in translated words:", key in translatedWords)
+
+			// Handle the case where the translation is an array
+			if (Array.isArray(item.translation)) {
+				// Check if any item in the array has not been translated
+				const hasUntranslatedItem = item.translation.some(
+					(translation) => translation.word && !(key in translatedWords)
+				)
+				console.log("Has untranslated array item:", hasUntranslatedItem)
+				return hasUntranslatedItem
+			}
+
+			// Handle the case where the translation is a single object
 			const hasTranslation =
 				item.translation && !(key in translatedWords) && item.translation.word
+			console.log("Has translation:", hasTranslation)
 			return hasTranslation
 		})
 
@@ -61,7 +101,6 @@ export const TranslationProvider = ({ children }) => {
 		setLessonNumber(lessonKey)
 		setSentenceIndex(0)
 		setTranslatedWords({})
-
 		assignNextHighlightedIndex()
 	}
 
@@ -179,6 +218,7 @@ export const TranslationProvider = ({ children }) => {
 				changeSentence,
 				quizType,
 				setQuizType,
+				wordCount,
 			}}
 		>
 			{children}

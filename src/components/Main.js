@@ -19,14 +19,17 @@ export default function Main() {
 	}
 
 	return (
-		<div className="h-full w-full flex flex-col justify-center items-center">
+		<div className="h-full w-full flex flex-col items-center">
 			<RedFlashOverlay />
 			<GreenFlashOverlay />
-			<button onClick={logData}>Check</button>
-			<div className="w-full h-full flex flex-col justify-center items-center">
+
+			<div className="w-full flex flex-1 flex-col justify-center items-center">
+				<button onClick={logData}>Check</button>
 				<Sentence />
 			</div>
-			<InputArea />
+			<div className="w-full flex h-1/3 justify-center">
+				<InputArea />
+			</div>
 		</div>
 	)
 }

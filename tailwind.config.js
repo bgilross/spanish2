@@ -36,6 +36,7 @@ module.exports = {
 				accent_light: wisteria,
 				true_blue: trueBlue,
 				blue_light: vistaBlue,
+				cornell: cornellRed,
 			},
 		},
 	},

@@ -1,50 +1,75 @@
-import { current } from "tailwindcss/colors"
-import InsetInput from "./InsetInput"
-import TiltCard from "./TiltCard"
+"use client"
 import { useState } from "react"
 import { useTranslation } from "@/lib/TranslationContext"
-
-const InputArea = ({}) => {
+import InsetInput from "./InsetInput"
+import SlidingModal from "./SlidingModal"
+import MyButton from "./MyButton"
+import "../styles/myButton.css"
+import WordBank from "./WordBank"
+import LessonInfo from "./LessonInfo"
+const InputArea = () => {
 	const { handleSubmit } = useTranslation()
 	const [userInput, setUserInput] = useState("")
 
-	const submit = (event) => {
-		event.preventDefault()
-		console.log("submitting")
+	const [leftModalOpen, setLeftModalOpen] = useState(false)
+	const [rightModalOpen, setRightModalOpen] = useState(false)
 
-		handleSubmit(userInput)
-		setUserInput("")
-		console.log("done submitting")
+	const submit = async (event) => {
+		event.preventDefault()
+		if (userInput.trim()) {
+			await handleSubmit(userInput)
+			setUserInput("")
+		}
+	}
+
+	const toggleLeftModal = () => {
+		setLeftModalOpen(!leftModalOpen)
+	}
+
+	const toggleRightModal = () => {
+		setRightModalOpen(!rightModalOpen)
 	}
 
 	return (
-		<div className="bg-secondary rounded-t-2xl w-[95%] h-full flex flex-col items-center justify-center shadow-2xl shadow-primary">
-			<div className="flex justify-around w-full h-1/3">
-				<TiltCard className="bg-primary w-[12%] rounded-t-none">
-					Button1
-				</TiltCard>
-				<TiltCard>Button2</TiltCard>
-				<TiltCard>Button3</TiltCard>
+		<div className="relative bg-secondary justify-between rounded-t-2xl w-[95%] h-full flex flex-col items-center shadow-2xl shadow-primary z-20">
+			{/* Sliding Window */}
+			<SlidingModal
+				isOpen={leftModalOpen}
+				onClose={() => setLeftModalOpen(false)}
+			>
+				<WordBank />
+			</SlidingModal>
+
+			<SlidingModal
+				isOpen={rightModalOpen}
+				onClose={() => setRightModalOpen(false)}
+				position="right"
+			>
+				<LessonInfo />
+			</SlidingModal>
+
+			{/* Buttons */}
+			<div className="flex items-start justify-around w-full h-1/3">
+				<MyButton onClick={toggleLeftModal}>Word Bank</MyButton>
+				<MyButton>Hints</MyButton>
+				<MyButton onClick={toggleRightModal}>Lesson Info</MyButton>
 			</div>
 
+			{/* Input Form */}
 			<form
 				onSubmit={submit}
-				className="flex p-4 h-1/3 flex-col w-[80%] space-x-4 justify-center items-center"
+				className="flex space-y-4 h-1/3 flex-col w-[80%] space-x-4 justify-center items-center"
 			>
 				<InsetInput
 					inputText={userInput}
 					setInputText={setUserInput}
 				/>
 			</form>
-			<div className="h-1/3 flex justify-end w-[80%]">
-				<TiltCard
-					className="w-[110px] h-[75px] bg-primary text-secondary font-bold rounded-2xl"
-					onClick={submit}
-				>
-					Submit!
-				</TiltCard>
+			<div className="flex justify-around w-full h-1/3">
+				<MyButton type="primary">Submit</MyButton>
 			</div>
 		</div>
 	)
 }
+
 export default InputArea

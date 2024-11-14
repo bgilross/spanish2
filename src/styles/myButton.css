@@ -1,0 +1,21 @@
+/* Override styles for AwesomeButton */
+.awesome-button.custom {
+	--button-primary-color: var(--primary);
+	--button-primary-color-dark: #882624;
+	--button-primary-color-light: #e78785;
+	--button-font-color: var(--secondary);
+	--button-border-radius: 0.5rem;
+	--button-padding: 0.5rem 1rem;
+	color: var(--secondary) !important; /* Ensure text color is applied */
+	background-color: var(
+		--primary
+	) !important; /* Ensure background color is applied */
+}
+
+.awesome-button.custom:hover {
+	background-color: #1e40af !important; /* Custom hover color */
+}
+
+.awesome-button.custom:active {
+	background-color: #2563eb !important; /* Custom active color */
+}
