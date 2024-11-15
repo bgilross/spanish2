@@ -17,6 +17,12 @@ export const TranslationProvider = ({ children }) => {
 	const [wordCount, setWordCount] = useState(0)
 	const [isScoreModalOpen, setIsScoreModalOpen] = useState(false)
 	const [masterScore, setMasterScore] = useState({})
+	const [wordModalPosition, setWordModalPosition] = useState({
+		top: 0,
+		left: 0,
+	})
+	const [isWordModalOpen, setIsWordModalOpen] = useState(false)
+	const [selectedWord, setSelectedWord] = useState(null)
 
 	const updateWordCount = () => {
 		const sentenceData =
@@ -89,7 +95,7 @@ export const TranslationProvider = ({ children }) => {
 		setLessonNumber(lessonKey)
 		setSentenceIndex(0)
 		setTranslatedWords({})
-		saveScoreToMaster()
+		// saveScoreToMaster()
 		setScore({})
 	}
 
@@ -111,7 +117,9 @@ export const TranslationProvider = ({ children }) => {
 		setTranslatedWords({})
 	}
 
-	const logData = () => {}
+	const logData = () => {
+		console.log("wordModalPosition: ", wordModalPosition)
+	}
 
 	const removePunctuation = (str) => {
 		return str.replace(/[.,/#!$%^&*;:{}=\-_`~()?']/g, "").trim()
@@ -312,6 +320,12 @@ export const TranslationProvider = ({ children }) => {
 				wordCount,
 				isScoreModalOpen,
 				setIsScoreModalOpen,
+				selectedWord,
+				setSelectedWord,
+				isWordModalOpen,
+				setIsWordModalOpen,
+				wordModalPosition,
+				setWordModalPosition,
 			}}
 		>
 			{children}

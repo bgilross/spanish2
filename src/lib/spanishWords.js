@@ -72,10 +72,10 @@ const spanishWords = {
 			word: "de",
 			pos: "Preposition",
 			info: [
-				"De  is mostly used as OF as in one of these three ideas:\nORIGIN: 'The people OF the north!', or\nPOSSESION: 'The house OF my parents', or\nMATERIAL: 'The sheet OF paper'",
+				"De  is mostly used as OF in one of these three ideas:\nORIGIN: 'The people OF the north!', or\nPOSSESION: 'The house OF my parents', or\nMATERIAL: 'The sheet OF paper'",
 				"ORIGIN: In english we say Sydney is a City in Australia, but Spanish would say Sydney is a city OF or DE Autralia. Other examples include: 'The birds of Africa', 'The wind from the cellar' 'My friend from Toronto', 'The largest cities of Columbia'",
 				"POSSESION: English says 'My friends father' but spanish would say 'The father OF my friend!' other examples include: 'The cap of the bottle', 'the door of the house' and 'the hand of the writer'",
-				"POSSESTION2: English uses Contractions like 'The bottle's cap' but Spanish DOESN'T have this! You need to change the order and use DE",
+				"POSSESION2: English uses Contractions like 'The bottle's cap' but Spanish DOESN'T have this! You need to change the order and use DE",
 				"MATERIAL: The Statue of Bronze. The Table of Stone. The horse of wood. ETC!",
 			],
 			audio:
@@ -100,7 +100,7 @@ const spanishWords = {
 			word: "no",
 			pos: "Adverb",
 			info: [
-				"NO means NOT moreso than NO!",
+				"NO means NOT more-so than NO!",
 				"Most Adverbs can go anywhere in a sentence and mean all kinds of things, but NO is far more strict, used very specifically to NEGATE a sentence.",
 				"In English we can use contractions but they don't exist in Spanish, so we have to use NOT/NO!",
 				"When translating English to Spanish and dealing with Contractions (Can't, Don't, Won't) Simply UNTIE the NOT! Turning Can't into Can not!",

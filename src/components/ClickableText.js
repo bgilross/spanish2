@@ -7,6 +7,9 @@ import spanishWords from "@/lib/spanishWords"
 const ClickableText = ({ children }) => {
 	const [text, setText] = useState("")
 	const [clickableText, setClickableText] = useState("")
+	const [selectedWord, setSelectedWord] = useState(null)
+	const [isModalOpen, setIsModalOpen] = useState(false)
+	const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 })
 
 	let wordBank = []
 	Object.keys(spanishWords).forEach((pos) => {
@@ -26,8 +29,12 @@ const ClickableText = ({ children }) => {
 		})
 	})
 
-	console.log("Completed wordBank: ", wordBank)
-
+	useEffect(() => {
+		console.log("Is modal open use EFfect running: status", isModalOpen)
+	}, [isModalOpen])
+	useEffect(() => {
+		console.log("modal Position use effect running : ", modalPosition)
+	}, [modalPosition])
 	useEffect(() => {
 		console.log(
 			"children use Effect running, setting text. children: ",
@@ -52,14 +59,13 @@ const ClickableText = ({ children }) => {
 		}
 
 		const words = text?.split(" ")
-		const clickableText = words?.map((word) => {
-			console.log("word: ", word)
+		const clickableText = words?.map((word, index) => {
 			if (wordBank.includes(word.toLowerCase()) && word.toLowerCase() !== "a") {
-				console.log("word to be clckable: ", word)
 				return (
 					<span
-						key="word"
-						className="border-b-accent text-accent font-bold "
+						key={index}
+						className="cursor-pointer border-b-accent text-accent font-bold "
+						onClick={(e) => handleWordClick(e, word)}
 					>
 						{word}{" "}
 					</span>
@@ -70,10 +76,58 @@ const ClickableText = ({ children }) => {
 
 		return <>{clickableText}</>
 	}
+
+	const handleWordClick = (e, word) => {
+		console.log("word ? clicked: ", word)
+		console.log("e: ", e)
+		// const lowerCaseWord = word.toLowerCase()
+		// Object.keys(spanishWords).forEach((pos) => {
+		// 	if (spanishWords[pos][lowerCaseWord]) {
+		// 		setSelectedWord(spanishWords[pos][lowerCaseWord])
+		// 		setIsModalOpen(true)
+		// 	}
+		// })
+		const { clientX, clientY } = e
+		console.log("clientX: ", clientX, "clientY: ", clientY)
+
+		setModalPosition({ top: clientY + 10, left: clientX })
+		setIsModalOpen(true)
+		setSelectedWord(word)
+	}
+
+	const closeModal = () => {
+		setIsModalOpen(false)
+		setSelectedWord(null)
+	}
 	if (typeof children !== "string") {
 		return <>Children isnt string {children}</>
 	}
 
-	return <>{clickableText}</>
+	return (
+		<>
+			open?: {isModalOpen}
+			{clickableText}
+			{isModalOpen && selectedWord && (
+				<div
+					className="absolute bg-secondary text-white p-4 rounded-lg shadow-lg "
+					style={{
+						top: modalPosition.top,
+						left: modalPosition.left,
+						transform: "translate(-50%, -10%)",
+						transition: "all 0.2s ease",
+						zIndex: 1000,
+					}}
+				>
+					<span
+						className="cursor-pointer font-bold text-right text-xl absolute top-1 right-2"
+						onClick={closeModal}
+					>
+						&times;
+					</span>
+					<div className="text-lg">{selectedWord.toUpperCase()}</div>
+				</div>
+			)}
+		</>
+	)
 }
 export default ClickableText
