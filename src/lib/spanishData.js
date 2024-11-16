@@ -286,7 +286,6 @@ const spanishData = {
 				},
 				{
 					id: 18,
-					reference: { que: [conj.que.info[1]] },
 					sentence: "I hope he told you he was here",
 					translation: "I hope QUE he told you QUE he was here",
 					data: [

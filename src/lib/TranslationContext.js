@@ -1,6 +1,7 @@
 "use client"
 import React, { createContext, useState, useContext, useEffect } from "react"
 import spanishData from "./spanishData"
+import spanishWords from "./spanishWords"
 import { current } from "tailwindcss/colors"
 
 const TranslationContext = createContext()
@@ -90,7 +91,9 @@ export const TranslationProvider = ({ children }) => {
 			nextSentence()
 		}
 	}
-
+	useEffect(() => {
+		console.log("sentenceIndex use effect runnin: index:", sentenceIndex)
+	}, [sentenceIndex])
 	// useEffect to automatically assign the next index when translatedWords changes
 	useEffect(() => {
 		assignNextHighlightedIndex()
@@ -112,19 +115,28 @@ export const TranslationProvider = ({ children }) => {
 	}
 
 	const nextSentence = () => {
+		console.log("Next sentence running")
 		const newIndex = sentenceIndex + 1
+		console.log(
+			"Attempting to move to the next sentence. Current index:",
+			sentenceIndex
+		)
 
 		if (newIndex < spanishData.lessons[lessonNumber]?.sentences.length) {
 			setSentenceIndex(newIndex)
 			setTranslatedWords({})
+			console.log(
+				"newIndex < sentences length, should have set Sentence Index to : ",
+				newIndex
+			)
 		} else {
-			// Show the score modal when all sentences are completed
-
-			setIsScoreModalOpen(true)
+			console.log("All sentences completed for this lesson")
+			setIsScoreModalOpen(true) // Show the score modal if all sentences are completed
 		}
 	}
 
 	const changeSentence = (newIndex) => {
+		console.log("Attempting to change to sentence index:", newIndex)
 		setSentenceIndex(newIndex)
 		setTranslatedWords({})
 	}
@@ -132,17 +144,21 @@ export const TranslationProvider = ({ children }) => {
 	const logData = () => {
 		console.log("wordModalPosition: ", wordModalPosition)
 		console.log("isScoreModalOpen: ", isScoreModalOpen)
+		console.log("sentenceIndex: ", sentenceIndex)
 	}
 
 	const removePunctuation = (str) => {
 		return str.replace(/[.,/#!$%^&*;:{}=\-_`~()?']/g, "").trim()
 	}
 
-	const handleSubmit = (userInput) => {
-		console.log("Handling Submig. userInput: ", userInput)
-		console.log("QuizType: ", quizType)
-		const sentenceData =
-			spanishData.lessons[lessonNumber].sentences[sentenceIndex]
+	const handleSubmit = (userInput, sentenceIndex) => {
+		console.log("Handling Submit. userInput:", userInput)
+		console.log("quizType: ", quizType)
+		console.log("sentenceIndex: ", sentenceIndex)
+		console.log("currentIndex: ", currentIndex)
+		const sentenceData = sentenceIndex
+			? spanishData.lessons[lessonNumber].sentences[sentenceIndex]
+			: spanishData.lessons[lessonNumber].sentences[sentenceIndex]
 
 		if (!sentenceData || currentIndex === -1) return
 
@@ -151,83 +167,78 @@ export const TranslationProvider = ({ children }) => {
 		// Sanitize user input
 		const sanitizedUserInput = removePunctuation(userInput).toLowerCase()
 
-		console.log("sanitizedUserInput: ", sanitizedUserInput)
-
 		if (quizType === "full") {
-			// Handle "full" quiz type where user needs to input the entire sentence
-			console.log("handling full")
+			console.log("Quiz Type: Full")
 			const sanitizedSentence = removePunctuation(
 				sentenceData.translation || ""
 			).toLowerCase()
-			console.log("sanitizedSentence: ", sanitizedSentence)
+
 			if (sanitizedUserInput === sanitizedSentence) {
-				console.log("correct")
+				console.log("Correct")
 				flashGreenScreen()
 				nextSentence()
 			} else {
 				flashRedScreen()
-				trackError(userInput, currentWord)
+				trackError(userInput, currentWord, sentenceData)
 			}
 		} else {
-			// Handle "parts" quiz type for individual word/phrase translations
 			const hasPhraseTranslation = Boolean(currentWord.phraseTranslation)
 			let isCorrect = false
 
 			if (hasPhraseTranslation) {
-				// Check if the input matches the phrase translation
 				const sanitizedPhraseTranslation = removePunctuation(
 					currentWord.phraseTranslation || ""
 				).toLowerCase()
-
 				if (sanitizedUserInput === sanitizedPhraseTranslation) {
 					isCorrect = true
 				}
 			} else {
-				// Check if the input matches the single word translation
 				const sanitizedTranslation = removePunctuation(
 					currentWord.translation?.word || ""
 				).toLowerCase()
-
 				if (sanitizedUserInput === sanitizedTranslation) {
 					isCorrect = true
 				}
 			}
 
-			// Handle correct answer
 			if (isCorrect) {
-				let updatedTranslatedWords
-				if (currentWord.phraseTranslation) {
-					updatedTranslatedWords = {
-						...translatedWords,
-						[currentIndex]: currentWord.phraseTranslation,
-					}
-				} else {
-					updatedTranslatedWords = {
-						...translatedWords,
-						[currentIndex]: currentWord.translation.word,
-					}
+				const updatedTranslatedWords = {
+					...translatedWords,
+					[currentIndex]: hasPhraseTranslation
+						? currentWord.phraseTranslation
+						: currentWord.translation.word,
 				}
+
 				setTranslatedWords(updatedTranslatedWords)
 
-				assignNextHighlightedIndex()
+				// Use a timeout to allow state updates to propagate before moving to the next sentence
+				setTimeout(() => {
+					assignNextHighlightedIndex()
+					if (currentIndex === -1) {
+						nextSentence()
+					}
+				}, 100)
+
 				flashGreenScreen()
 			} else {
-				// Handle incorrect answer
 				flashRedScreen()
-				trackError(userInput, currentWord)
+				trackError(userInput, currentWord, sentenceData)
 			}
 		}
 	}
 
-	const trackError = (userInput, currentWord) => {
+	const trackError = (userInput, currentWord, sentenceData) => {
 		// console.log(
 		// 	"tracking error: current word: ",
 		// 	currentWord,
 		// 	"user Input: ",
 		// 	userInput
 		// )
-		const sentenceData =
-			spanishData.lessons[lessonNumber].sentences[sentenceIndex]
+		console.log("tracking error: current word: ", currentWord)
+		console.log("user Input: ", userInput)
+		console.log("sentenceData: ", sentenceData)
+		console.log("sentenceData.data: ", sentenceData.data)
+
 		const currentSection = sentenceData.data[currentIndex]
 
 		const userWords = userInput
@@ -237,23 +248,54 @@ export const TranslationProvider = ({ children }) => {
 		let errorWords = []
 		let tempRefs = []
 
-		if (Array.isArray(currentSection.translation)) {
-			const translationWords = currentSection.translation.map((translation) =>
-				translation.word.toLowerCase()
-			)
+		console.log("current Section: ", currentSection)
+		console.log("user words:	", userWords)
 
-			translationWords.forEach((word) => {
-				if (!userWords.includes(word)) {
-					errorWords.push(word)
+		console.log("currentSection.translation: ", currentSection.translation)
+
+		if (quizType === "parts") {
+			if (Array.isArray(currentSection.translation)) {
+				const translationWords = currentSection.translation.map((translation) =>
+					translation.word.toLowerCase()
+				)
+
+				translationWords.forEach((word) => {
+					console.log("word: ", word)
+					if (!userWords.includes(word)) {
+						console.log("word not included in user Words: ", word)
+
+						errorWords.push(word)
+					}
+				})
+			} else if (currentSection.translation) {
+				const translationWord = currentSection.translation.word.toLowerCase()
+				if (!userWords.includes(translationWord)) {
+					errorWords.push(translationWord)
 				}
-			})
-		} else {
-			const translationWord = currentSection.translation.word.toLowerCase()
-			if (!userWords.includes(translationWord)) {
-				errorWords.push(translationWord)
 			}
 		}
-
+		if (quizType === "full") {
+			sentenceData.data.forEach((section) => {
+				if (section.translation) {
+					if (!Array.isArray(section.translation)) {
+						const translationWord = section.translation.word.toLowerCase()
+						if (!userWords.includes(translationWord)) {
+							errorWords.push(translationWord)
+						}
+					} else if (Array.isArray(section.translation)) {
+						const translationWords = section.translation.map((translation) =>
+							translation.word.toLowerCase()
+						)
+						translationWords.forEach((word) => {
+							if (!userWords.includes(word)) {
+								errorWords.push(word)
+							}
+						})
+					}
+				}
+			})
+		}
+		console.log("errorWords: ", errorWords)
 		if (quizType === "parts") {
 			errorWords.map((word) => {
 				currentSection.reference?.[word].map((ref) => {
@@ -261,9 +303,14 @@ export const TranslationProvider = ({ children }) => {
 				})
 			})
 		} else if (quizType === "full") {
+			console.log("quizType is full")
 			errorWords.map((word) => {
 				sentenceData.data.map((section) => {
-					section.reference?.[word].map((ref) => {
+					section.reference?.[word]?.map((ref) => {
+						console.log("ref: ", ref)
+						if (tempRefs.includes(ref)) {
+							return
+						}
 						tempRefs.push(ref)
 					})
 				})

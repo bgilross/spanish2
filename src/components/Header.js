@@ -5,7 +5,7 @@ import { AppBar, Toolbar } from "@mui/material"
 import { Box } from "@mui/system"
 import { useTranslation } from "@/lib/TranslationContext"
 import spanishData from "@/lib/spanishData"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 // import SpreadWord from "./SpreadWord"
 // import GoogleLogin from "./GoogleLogin"
@@ -20,6 +20,10 @@ const Header = ({ user, onLogin }) => {
 		changeSentence,
 	} = useTranslation()
 	const [value, setValue] = useState(3)
+
+	useEffect(() => {
+		console.log("Updating sentence select dropdown to index:", sentenceIndex)
+	}, [sentenceIndex])
 
 	const quizTypeSelect = (
 		<select

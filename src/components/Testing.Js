@@ -11,6 +11,7 @@ const Testing = () => {
 		setIsScoreModalOpen,
 		openScoreModal,
 		setErrors,
+		changeSentence,
 	} = useTranslation()
 
 	// Run tests for a specific lesson
@@ -24,6 +25,15 @@ const Testing = () => {
 		lesson.sentences.forEach((sentence, sentenceIndex) => {
 			const { translation, sentence: originalSentence } = sentence
 
+			// Simulate incorrect input by modifying the translation
+			const incorrectInput = "incorrect text"
+			const incorrectResult = simulateInput(incorrectInput, sentenceIndex)
+			testResults.push({
+				input: incorrectInput,
+				result: incorrectResult,
+				expected: false,
+			})
+
 			// Simulate correct input
 			const correctInput = translation
 			const correctResult = simulateInput(correctInput, sentenceIndex)
@@ -33,14 +43,7 @@ const Testing = () => {
 				expected: true,
 			})
 
-			// Simulate incorrect input by modifying the translation
-			const incorrectInput = "incorrect text"
-			const incorrectResult = simulateInput(incorrectInput, sentenceIndex)
-			testResults.push({
-				input: incorrectInput,
-				result: incorrectResult,
-				expected: false,
-			})
+			// changeSentence(sentenceIndex + 1)
 		})
 
 		console.log("Test Results:", testResults)
