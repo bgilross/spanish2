@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import spanishData from "@/lib/spanishData"
 // import { words } from "@/lib/spanishData"
 import spanishWords from "@/lib/spanishWords"
+import PopOut from "./PopOut"
 
 const ClickableText = ({ children }) => {
 	const [text, setText] = useState("")
@@ -62,13 +63,18 @@ const ClickableText = ({ children }) => {
 		const clickableText = words?.map((word, index) => {
 			if (wordBank.includes(word.toLowerCase()) && word.toLowerCase() !== "a") {
 				return (
-					<span
+					<PopOut
 						key={index}
-						className="cursor-pointer border-b-accent text-accent font-bold "
-						onClick={(e) => handleWordClick(e, word)}
+						wordBank={wordBank}
+						word={word}
 					>
-						{word}{" "}
-					</span>
+						<span
+							className="cursor-pointer border-b-accent text-accent font-bold "
+							// onClick={(e) => handleWordClick(e, word)}
+						>
+							{word}{" "}
+						</span>
+					</PopOut>
 				)
 			}
 			return word + " "
@@ -78,19 +84,23 @@ const ClickableText = ({ children }) => {
 	}
 
 	const handleWordClick = (e, word) => {
-		console.log("word ? clicked: ", word)
-		console.log("e: ", e)
-		// const lowerCaseWord = word.toLowerCase()
-		// Object.keys(spanishWords).forEach((pos) => {
-		// 	if (spanishWords[pos][lowerCaseWord]) {
-		// 		setSelectedWord(spanishWords[pos][lowerCaseWord])
-		// 		setIsModalOpen(true)
-		// 	}
-		// })
 		const { clientX, clientY } = e
-		console.log("clientX: ", clientX, "clientY: ", clientY)
 
-		setModalPosition({ top: clientY + 10, left: clientX })
+		// Calculate the position and ensure it's within viewport boundaries
+		let adjustedLeft = clientX
+		let adjustedTop = clientY + window.scrollY
+
+		// Ensure modal doesn't go off the right side of the screen
+		if (adjustedLeft + 200 > window.innerWidth) {
+			adjustedLeft = window.innerWidth - 220 // Adjust for modal width
+		}
+
+		// Ensure modal doesn't go off the bottom of the screen
+		if (adjustedTop + 100 > window.innerHeight) {
+			adjustedTop = window.innerHeight - 120 // Adjust for modal height
+		}
+
+		setModalPosition({ top: adjustedTop, left: adjustedLeft })
 		setIsModalOpen(true)
 		setSelectedWord(word)
 	}
@@ -105,7 +115,6 @@ const ClickableText = ({ children }) => {
 
 	return (
 		<>
-			open?: {isModalOpen}
 			{clickableText}
 			{isModalOpen && selectedWord && (
 				<div

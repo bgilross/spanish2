@@ -119,6 +119,7 @@ export const TranslationProvider = ({ children }) => {
 
 	const logData = () => {
 		console.log("wordModalPosition: ", wordModalPosition)
+		console.log("score: ", score)
 	}
 
 	const removePunctuation = (str) => {
@@ -200,6 +201,12 @@ export const TranslationProvider = ({ children }) => {
 	}
 
 	const trackError = (userInput, currentWord) => {
+		console.log(
+			"tracking error: current word: ",
+			currentWord,
+			"user Input: ",
+			userInput
+		)
 		const sentenceData =
 			spanishData.lessons[lessonNumber].sentences[sentenceIndex]
 		const currentSection = sentenceData.data[currentIndex]
@@ -244,23 +251,23 @@ export const TranslationProvider = ({ children }) => {
 			})
 
 			// Construct the error entry
-			const errorEntry = {
-				sentenceData: sentenceData,
-				userInput: userInput,
-				currentWord: currentWord,
-				sentenceIndex: sentenceIndex,
-				lessonNumber: lessonNumber,
-				currentSection: currentSection,
-				mode: quizType,
-				references: tempRefs,
-			}
-
-			// Update the score state with the new error entry
-			setScore((prevScore) => ({
-				...prevScore,
-				errors: [...prevScore.errors, errorEntry],
-			}))
 		}
+		const errorEntry = {
+			sentenceData: sentenceData,
+			userInput: userInput,
+			currentWord: currentWord,
+			sentenceIndex: sentenceIndex,
+			lessonNumber: lessonNumber,
+			currentSection: currentSection,
+			mode: quizType,
+			references: tempRefs,
+		}
+		console.log("errorEntry created: ", errorEntry)
+		// Update the score state with the new error entry
+		setScore((prevScore) => ({
+			...prevScore,
+			errors: [...prevScore.errors, errorEntry],
+		}))
 	}
 
 	const saveScoreToMaster = () => {

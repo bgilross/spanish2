@@ -18,6 +18,13 @@ const sideLessonPotential = [
 		lesson: 6,
 		info: "Find the direct object",
 	},
+	{
+		lesson: 8,
+		info: [
+			"Find the direct object PRONOUN",
+			"First Memory Palace: Direct Obj Pronouns",
+		],
+	},
 ]
 
 const spanishData = {
@@ -1674,6 +1681,32 @@ const spanishData = {
 						{ word: "he had gone" },
 						{ word: "to", translation: prep.a },
 						{ word: "the party" },
+					],
+				},
+			],
+		},
+		8: {
+			lesson: 8,
+			name: "Lesson 8",
+			details: "Direct Object Pronouns: TE, and ME",
+			info: [
+				"We leared about Direct Object Pronoun Placement, He saw her = He HER saw or He LA saw, but what about ESO, He saw ESO, isn't ESO functioning as a Direct Object here?",
+				"The only Direct Objects that get shuffled in the sentence are the Direct Object PRONOUNS, so far we've learned of LA (her) and LO (him) both can mean IT (M/F)",
+				"Although ESO is a Pronoun, and in 'She saw ESO' it is functioning as a Direct Object it still isn't one of the specific Direct Object Pronouns!",
+			],
+			wordBank: [dObj.te, dObj.me],
+			sentences: [
+				{
+					id: 1,
+					sentence: "They found me",
+					translation: "They ME found",
+					data: [
+						{ word: "They" },
+						{
+							phrase: "found me",
+							translation: dObj.me,
+							phraseTranslation: "ME found",
+						},
 					],
 				},
 			],

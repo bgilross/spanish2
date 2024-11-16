@@ -24,7 +24,7 @@ const spanishWords = {
 		info: [
 			"CONJUNCTIONS don't pass the FOOD or the EAT test they are something New!",
 			"CONJUNCTIONS are Connecting Words which hold a sentence, or even multiple sentences together!",
-			"Proper Spanish entence can ONLY have ONE verb! (EATS EAT or ATE (NOT EATING/EATEN(Those are Nouns sorta!))), conjunctions allow combining phrases/sentences",
+			"Proper Spanish sentence can ONLY have ONE verb! (EATS EAT or ATE (NOT EATING/EATEN(Those are Nouns sorta!))), conjunctions allow combining phrases/sentences",
 		],
 		que: {
 			translations: ["that"],
@@ -151,6 +151,16 @@ const spanishWords = {
 			word: "la",
 			pos: "Direct Object Pronoun",
 			gender: "feminine",
+		},
+		me: {
+			translation: ["me"],
+			word: "me",
+			pos: "Direct Object Pronoun",
+		},
+		te: {
+			translation: ["you"],
+			word: "te",
+			pos: "Direct Object Pronoun",
 		},
 	},
 }
