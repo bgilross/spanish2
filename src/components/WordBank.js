@@ -2,6 +2,7 @@ import { useState } from "react"
 import spanishData from "@/lib/spanishData"
 import { useTranslation } from "@/lib/TranslationContext"
 import ClickableText from "./ClickableText"
+import spanishWords from "@/lib/spanishWords"
 
 const WordBank = () => {
 	const { lessonNumber, handleLessonChange } = useTranslation()
@@ -21,6 +22,36 @@ const WordBank = () => {
 		if (currentLessonIndex < lessons.length + 3) {
 			setCurrentLessonIndex(currentLessonIndex + 1)
 		}
+	}
+
+	const getPosName = (word) => {
+		for (const posKey in spanishWords) {
+			const posGroup = spanishWords[posKey]
+			if (posGroup[word]) {
+				if (Array.isArray(posGroup.name)) return posGroup.name[0]
+				return posGroup.name
+			}
+		}
+		return null
+	}
+
+	const getPosNamesFromWordBank = (word) => {
+		let posMatches = []
+
+		// Iterate through each category in the wordBank
+		wordBank.forEach((category) => {
+			const [posKey] = Object.keys(category) // Get the part of speech key (e.g., 'dObj', 'artcl')
+			const words = category[posKey] // Get the list of words for this part of speech
+
+			// Check if the word exists in this list
+			words.forEach((item) => {
+				if (item.word.toLowerCase() === word.toLowerCase()) {
+					posMatches.push(posKey)
+				}
+			})
+		})
+
+		return posMatches.length > 0 ? posMatches : null
 	}
 
 	return (
@@ -49,35 +80,53 @@ const WordBank = () => {
 			{/* Word Bank Display */}
 			{wordBank ? (
 				<div>
-					{wordBank.map((word, index) => (
-						<div
-							key={index}
-							className="whitespace-pre-wrap mb-6"
-						>
-							<span className="font-bold">
-								<ClickableText>{word.word.toUpperCase()}</ClickableText>:
-							</span>{" "}
-							{word?.translations?.map((translation, index) => (
-								<span
-									key={index}
-									className="text-gray-300"
-								>
-									{translation}
-									{index !== word.translations.length - 1 && " / "}
-								</span>
-							))}
-							<br />
-							<span className="font-bold">
-								<ClickableText>{word.pos.toUpperCase()}</ClickableText>:{" "}
-								{word.gender}
-							</span>
-							<br />
-							<span className="text-gray-300">
-								<ClickableText>{word?.info?.[0]}</ClickableText>
-							</span>
-							<br />
-						</div>
-					))}
+					{wordBank.map((posCategory, index) => {
+						// Get the key (like "conj" or "pron") and the array of words
+						const [posKey] = Object.keys(posCategory)
+						const words = posCategory[posKey]
+
+						return (
+							<div key={index}>
+								<h3 className="font-bold text-lg text-primary">
+									{posKey.toUpperCase()}
+								</h3>
+								{words.map((word, wordIndex) => (
+									<div
+										key={wordIndex}
+										className="whitespace-pre-wrap mb-6"
+									>
+										{/* Display the word */}
+										<span className="font-bold">
+											<ClickableText>{word.word.toUpperCase()}</ClickableText>:
+										</span>{" "}
+										{/* Display translations */}
+										{word?.translations?.map((translation, transIndex) => (
+											<span
+												key={transIndex}
+												className="text-gray-300"
+											>
+												{translation}
+												{transIndex !== word.translations.length - 1 && " / "}
+											</span>
+										))}
+										<br />
+										{/* Display part of speech */}
+										<span className="font-bold">
+											<ClickableText>{word.pos.toUpperCase()}</ClickableText>
+											{word.gender && `: ${word.gender}`}
+										</span>
+										<br />
+										{/* Display info if available */}
+										{word.info && (
+											<span className="text-gray-300">
+												<ClickableText>{word.info[0]}</ClickableText>
+											</span>
+										)}
+									</div>
+								))}
+							</div>
+						)
+					})}
 				</div>
 			) : (
 				<div>No word bank available for this lesson.</div>

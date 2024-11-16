@@ -1,7 +1,10 @@
 const spanishWords = {
 	artcl: {
 		name: "Article",
-		info: [],
+		info: [
+			"Articles are almost ALWAYS used directly before a NOUN",
+			"Articles are really just part of the NOUN PHRASE",
+		],
 		el: {
 			translations: ["the (M)"],
 			word: "el",
@@ -15,6 +18,18 @@ const spanishWords = {
 			word: "la",
 			audio:
 				"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=the&tl=es&total=1&idx=0&textlen=3",
+			pos: "Article",
+			gender: "feminine",
+		},
+		un: {
+			translations: ["A (M)", "An (M)"],
+			word: "un",
+			pos: "Article",
+			gender: "masculine",
+		},
+		una: {
+			translations: ["A (F)", "An (F)"],
+			word: "una",
 			pos: "Article",
 			gender: "feminine",
 		},
@@ -88,6 +103,10 @@ const spanishWords = {
 			audio:
 				"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=to&tl=es&total=1&idx=0&textlen=2",
 		},
+		con: {
+			translations: ["with"],
+			word: "con",
+		},
 	},
 	advrb: {
 		name: "Adverb",
@@ -153,12 +172,12 @@ const spanishWords = {
 			gender: "feminine",
 		},
 		me: {
-			translation: ["me"],
+			translations: ["me"],
 			word: "me",
 			pos: "Direct Object Pronoun",
 		},
 		te: {
-			translation: ["you"],
+			translations: ["you"],
 			word: "te",
 			pos: "Direct Object Pronoun",
 		},

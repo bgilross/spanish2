@@ -5,13 +5,13 @@ import spanishWords from "@/lib/spanishWords"
 
 const PopOut = ({ children, wordBank, word }) => {
 	const [content, setContent] = React.useState(null)
-	console.log("Word: ", word)
-	console.log("PopOut Children: ", children)
+	// console.log("Word: ", word)
+	// console.log("PopOut Children: ", children)
 
 	const [anchorEl, setAnchorEl] = React.useState(null)
 
 	const makeContent = (word) => {
-		console.log("Running setContentword: ", word)
+		// console.log("Running setContentword: ", word)
 		let modifiedWord = word.toLowerCase()
 		let modifiedWordSansS = ""
 		if (modifiedWord.endsWith("s")) {
@@ -23,8 +23,8 @@ const PopOut = ({ children, wordBank, word }) => {
 		let matchingWords = []
 
 		Object.keys(spanishWords).forEach((pos) => {
-			console.log("spanishWords[pos].name: ", spanishWords[pos].name)
-			console.log("modifiedWordSansS: ", modifiedWordSansS)
+			// console.log("spanishWords[pos].name: ", spanishWords[pos].name)
+			// console.log("modifiedWordSansS: ", modifiedWordSansS)
 			let posName = ""
 			if (Array.isArray(spanishWords[pos].name)) {
 				posName = spanishWords[pos].name[0].toLowerCase()
@@ -32,38 +32,38 @@ const PopOut = ({ children, wordBank, word }) => {
 				posName = spanishWords[pos].name.toLowerCase()
 			}
 			if (modifiedWordSansS.length > 1 && posName === modifiedWordSansS) {
-				console.log(
-					"posName: ",
-					posName,
-					"matches modifiedWordSansS: ",
-					modifiedWordSansS
-				)
+				// console.log(
+				// 	"posName: ",
+				// 	posName,
+				// 	"matches modifiedWordSansS: ",
+				// 	modifiedWordSansS
+				// )
 				isPos = true
 				posMatch = pos
 			} else if (modifiedWordSansS.length < 2 && posName === modifiedWord) {
-				console.log(
-					"posName: ",
-					posName,
-					"matches modifiedWord: ",
-					modifiedWord
-				)
+				// console.log(
+				// 	"posName: ",
+				// 	posName,
+				// 	"matches modifiedWord: ",
+				// 	modifiedWord
+				// )
 				isPos = true
 				posMatch = pos
 			}
 			Object.keys(spanishWords[pos]).forEach((item) => {
-				console.log("Running loop item: ", item)
-				console.log("modified word: ", modifiedWord)
+				// console.log("Running loop item: ", item)
+				// console.log("modified word: ", modifiedWord)
 				if (item !== "info" && item !== "name") {
 					if (item === modifiedWord) {
-						console.log("item: ", item, "matches modifiedWord: ", modifiedWord)
+						// console.log("item: ", item, "matches modifiedWord: ", modifiedWord)
 						matchingWords.push(spanishWords[pos][item])
 					} else if (word === modifiedWordSansS) {
-						console.log(
-							"item: ",
-							item,
-							"matches modifiedWordSansS: ",
-							modifiedWordSansS
-						)
+						// console.log(
+						// 	"item: ",
+						// 	item,
+						// 	"matches modifiedWordSansS: ",
+						// 	modifiedWordSansS
+						// )
 						matchingWords.push(spanishWords[pos][item])
 					}
 				}
@@ -71,7 +71,7 @@ const PopOut = ({ children, wordBank, word }) => {
 		})
 
 		if (isPos) {
-			console.log("isPOS: posMatch: ", posMatch)
+			// console.log("isPOS: posMatch: ", posMatch)
 			return (
 				<div>
 					<div>
@@ -88,7 +88,7 @@ const PopOut = ({ children, wordBank, word }) => {
 				</div>
 			)
 		} else if (!isPos && matchingWords.length > 0) {
-			console.log("Isn't POS: matchingWords: ", matchingWords)
+			// console.log("Isn't POS: matchingWords: ", matchingWords)
 			return (
 				<div>
 					<div>
@@ -129,8 +129,8 @@ const PopOut = ({ children, wordBank, word }) => {
 	}
 
 	const handlePopoverOpen = (event) => {
-		console.log("handlePopoverOpen event: ", event)
-		console.log("event.currentTarget: ", event.currentTarget)
+		// console.log("handlePopoverOpen event: ", event)
+		// console.log("event.currentTarget: ", event.currentTarget)
 		setAnchorEl(event.currentTarget)
 		const temp = makeContent(word)
 		setContent(temp)

@@ -3,7 +3,7 @@ import { useTranslation } from "@/lib/TranslationContext"
 import { useState } from "react"
 
 const ScoreSummary = ({ isOpen, onClose }) => {
-	const { score, lessonNumber, handleLessonChange } = useTranslation()
+	const { score, lessonNumber, handleLessonChange, errors } = useTranslation()
 
 	// Only render the modal if it's open
 	if (!isOpen) return null
@@ -21,9 +21,9 @@ const ScoreSummary = ({ isOpen, onClose }) => {
 				{/* Error Breakdown */}
 				<div className="mb-6 max-h-[400px] overflow-y-auto">
 					<h3 className="text-xl font-semibold text-accent mb-2">Errors:</h3>
-					{score.errors.length > 0 ? (
+					{errors.length > 0 ? (
 						<ul className="list-disc ml-6">
-							{score.errors.map((error, index) => (
+							{errors.map((error, index) => (
 								<li
 									key={index}
 									className="mb-4"

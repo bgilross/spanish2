@@ -9,7 +9,7 @@ export const TranslationProvider = ({ children }) => {
 	const [translatedWords, setTranslatedWords] = useState({})
 	const [currentIndex, setCurrentIndex] = useState(0)
 	const [sentenceIndex, setSentenceIndex] = useState(0)
-	const [score, setScore] = useState({ errors: [] })
+	const [score, setScore] = useState({})
 	const [showRedFlash, setShowRedFlash] = useState(false)
 	const [showGreenFlash, setShowGreenFlash] = useState(false)
 	const [lessonNumber, setLessonNumber] = useState(3)
@@ -23,6 +23,18 @@ export const TranslationProvider = ({ children }) => {
 	})
 	const [isWordModalOpen, setIsWordModalOpen] = useState(false)
 	const [selectedWord, setSelectedWord] = useState(null)
+	const [errors, setErrors] = useState([])
+
+	const openScoreModal = () => {
+		console.log("Opening score modal")
+		setIsScoreModalOpen(true)
+	}
+	useEffect(() => {
+		console.log(
+			"Is score modal open use EFfect running: status",
+			isScoreModalOpen
+		)
+	}, [isScoreModalOpen])
 
 	const updateWordCount = () => {
 		const sentenceData =
@@ -96,7 +108,7 @@ export const TranslationProvider = ({ children }) => {
 		setSentenceIndex(0)
 		setTranslatedWords({})
 		// saveScoreToMaster()
-		setScore({})
+		setErrors([])
 	}
 
 	const nextSentence = () => {
@@ -119,7 +131,7 @@ export const TranslationProvider = ({ children }) => {
 
 	const logData = () => {
 		console.log("wordModalPosition: ", wordModalPosition)
-		console.log("score: ", score)
+		console.log("isScoreModalOpen: ", isScoreModalOpen)
 	}
 
 	const removePunctuation = (str) => {
@@ -127,6 +139,8 @@ export const TranslationProvider = ({ children }) => {
 	}
 
 	const handleSubmit = (userInput) => {
+		console.log("Handling Submig. userInput: ", userInput)
+		console.log("QuizType: ", quizType)
 		const sentenceData =
 			spanishData.lessons[lessonNumber].sentences[sentenceIndex]
 
@@ -137,12 +151,17 @@ export const TranslationProvider = ({ children }) => {
 		// Sanitize user input
 		const sanitizedUserInput = removePunctuation(userInput).toLowerCase()
 
+		console.log("sanitizedUserInput: ", sanitizedUserInput)
+
 		if (quizType === "full") {
 			// Handle "full" quiz type where user needs to input the entire sentence
+			console.log("handling full")
 			const sanitizedSentence = removePunctuation(
 				sentenceData.translation || ""
 			).toLowerCase()
+			console.log("sanitizedSentence: ", sanitizedSentence)
 			if (sanitizedUserInput === sanitizedSentence) {
+				console.log("correct")
 				flashGreenScreen()
 				nextSentence()
 			} else {
@@ -201,12 +220,12 @@ export const TranslationProvider = ({ children }) => {
 	}
 
 	const trackError = (userInput, currentWord) => {
-		console.log(
-			"tracking error: current word: ",
-			currentWord,
-			"user Input: ",
-			userInput
-		)
+		// console.log(
+		// 	"tracking error: current word: ",
+		// 	currentWord,
+		// 	"user Input: ",
+		// 	userInput
+		// )
 		const sentenceData =
 			spanishData.lessons[lessonNumber].sentences[sentenceIndex]
 		const currentSection = sentenceData.data[currentIndex]
@@ -262,12 +281,9 @@ export const TranslationProvider = ({ children }) => {
 			mode: quizType,
 			references: tempRefs,
 		}
-		console.log("errorEntry created: ", errorEntry)
+		// console.log("errorEntry created: ", errorEntry)
 		// Update the score state with the new error entry
-		setScore((prevScore) => ({
-			...prevScore,
-			errors: [...prevScore.errors, errorEntry],
-		}))
+		setErrors((prevErrors) => [...prevErrors, errorEntry])
 	}
 
 	const saveScoreToMaster = () => {
@@ -333,6 +349,10 @@ export const TranslationProvider = ({ children }) => {
 				setIsWordModalOpen,
 				wordModalPosition,
 				setWordModalPosition,
+				setScore,
+				errors,
+				openScoreModal,
+				setErrors,
 			}}
 		>
 			{children}

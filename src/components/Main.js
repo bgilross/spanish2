@@ -5,6 +5,7 @@ import ScoreSummary from "./ScoreSummary"
 import { useTranslation } from "@/lib/TranslationContext"
 import WordModal from "./WordModal"
 import "../styles/flashOverlay.css"
+import Testing from "./Testing"
 
 export default function Main() {
 	const {
@@ -47,6 +48,7 @@ export default function Main() {
 
 			<div className="w-full flex flex-1 flex-col justify-center items-center">
 				<button onClick={logData}>Check</button>
+				<Testing />
 				<Sentence />
 			</div>
 			<div className="w-full flex h-1/3 justify-center">

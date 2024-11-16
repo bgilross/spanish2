@@ -30,33 +30,36 @@ const ClickableText = ({ children }) => {
 		})
 	})
 
+	// useEffect(() => {
+	// 	// console.log("Is modal open use EFfect running: status", isModalOpen)
+	// }, [isModalOpen])
+	// useEffect(() => {
+	// 	// console.log("modal Position use effect running : ", modalPosition)
+	// }, [modalPosition])
 	useEffect(() => {
-		console.log("Is modal open use EFfect running: status", isModalOpen)
-	}, [isModalOpen])
-	useEffect(() => {
-		console.log("modal Position use effect running : ", modalPosition)
-	}, [modalPosition])
-	useEffect(() => {
-		console.log(
-			"children use Effect running, setting text. children: ",
-			children
-		)
+		// console.log(
+		// 	"children use Effect running, setting text. children: ",
+		// 	children
+		// )
 		setText(children)
 	}, [children])
 
 	useEffect(() => {
-		console.log("text use effect running making words clickable: text:", text)
+		// console.log("text use effect running making words clickable: text:", text)
 
 		const temp = makeWordsClickable(text)
-		console.log("temp is: ", temp)
+		// console.log("temp is: ", temp)
 		setClickableText(temp)
 	}, [text])
 
 	const makeWordsClickable = (text) => {
-		console.log("making words clickable text:  ", text)
+		// console.log("making words clickable text:  ", text)
 		if (!spanishWords) {
 			console.log("No words found")
 			return
+		}
+		if (Array.isArray(text)) {
+			text = text.join(" ")
 		}
 
 		const words = text?.split(" ")
@@ -83,32 +86,6 @@ const ClickableText = ({ children }) => {
 		return <>{clickableText}</>
 	}
 
-	const handleWordClick = (e, word) => {
-		const { clientX, clientY } = e
-
-		// Calculate the position and ensure it's within viewport boundaries
-		let adjustedLeft = clientX
-		let adjustedTop = clientY + window.scrollY
-
-		// Ensure modal doesn't go off the right side of the screen
-		if (adjustedLeft + 200 > window.innerWidth) {
-			adjustedLeft = window.innerWidth - 220 // Adjust for modal width
-		}
-
-		// Ensure modal doesn't go off the bottom of the screen
-		if (adjustedTop + 100 > window.innerHeight) {
-			adjustedTop = window.innerHeight - 120 // Adjust for modal height
-		}
-
-		setModalPosition({ top: adjustedTop, left: adjustedLeft })
-		setIsModalOpen(true)
-		setSelectedWord(word)
-	}
-
-	const closeModal = () => {
-		setIsModalOpen(false)
-		setSelectedWord(null)
-	}
 	if (typeof children !== "string") {
 		return <>Children isnt string {children}</>
 	}

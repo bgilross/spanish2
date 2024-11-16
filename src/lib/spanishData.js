@@ -16,13 +16,17 @@ const sideLessonPotential = [
 	},
 	{
 		lesson: 6,
-		info: "Find the direct object",
+		info: [
+			"Find the direct object",
+			"explains positions of NO vs Direct Obj pronouns",
+		],
 	},
 	{
 		lesson: 8,
 		info: [
 			"Find the direct object PRONOUN",
 			"First Memory Palace: Direct Obj Pronouns",
+			"explains posisitions of direct object vs direct object pronouns",
 		],
 	},
 ]
@@ -47,7 +51,7 @@ const spanishData = {
 				pron.eso.info[0],
 				conj.y.info[0],
 			],
-			wordBank: [conj.y, pron.eso, conj.que],
+			wordBank: [{ conj: [conj.y, conj.que] }, { prno: [pron.eso] }],
 			sentences: [
 				{
 					id: 1,
@@ -319,7 +323,7 @@ const spanishData = {
 				advrb.no.info[8],
 				advrb.no.info[5],
 			],
-			wordBank: [advrb.no, prep.de, prep.a],
+			wordBank: [{ advrb: [advrb.no] }, { prep: [prep.de, prep.a] }],
 			sentences: [
 				{
 					id: 1,
@@ -1163,7 +1167,7 @@ const spanishData = {
 				"Spanish has several words to mean THE, most common is EL for MASC, and LA for FEM",
 				noun.info[2],
 			],
-			wordBank: [artcl.el, artcl.la],
+			wordBank: [{ artcl: [artcl.el, artcl.la] }],
 			sentences: [
 				{
 					id: 1,
@@ -1356,7 +1360,7 @@ const spanishData = {
 				"This LA(her) is diffrent then the LA for THE! If LA occurs before a noun it has to mean THE, if it occurs before a verb it has to mean HER!",
 				dObj.info[3],
 			],
-			wordBank: [dObj.lo, dObj.la],
+			wordBank: [{ dObj: [dObj.lo, dObj.la] }, { artcl: [artcl.el, artcl.la] }],
 			sentences: [
 				{
 					id: 1,
@@ -1688,13 +1692,16 @@ const spanishData = {
 		8: {
 			lesson: 8,
 			name: "Lesson 8",
-			details: "Direct Object Pronouns: TE, and ME",
+			details: "Direct Obj Pronouns: TE, and ME. and Artcls: UN and UNA",
 			info: [
 				"We leared about Direct Object Pronoun Placement, He saw her = He HER saw or He LA saw, but what about ESO, He saw ESO, isn't ESO functioning as a Direct Object here?",
 				"The only Direct Objects that get shuffled in the sentence are the Direct Object PRONOUNS, so far we've learned of LA (her) and LO (him) both can mean IT (M/F)",
 				"Although ESO is a Pronoun, and in 'She saw ESO' it is functioning as a Direct Object it still isn't one of the specific Direct Object Pronouns!",
 			],
-			wordBank: [dObj.te, dObj.me],
+			wordBank: [
+				{ dOBj: [dObj.te, dObj.me] },
+				{ artcl: [artcl.un, artcl.una] },
+			],
 			sentences: [
 				{
 					id: 1,
@@ -1709,7 +1716,198 @@ const spanishData = {
 						},
 					],
 				},
+				{
+					id: 2,
+					sentence: "We saw you",
+					translation: "We TE saw",
+					data: [
+						{ word: "We" },
+						{
+							phrase: "saw you",
+							translation: dObj.te,
+							phraseTranslation: "TE saw",
+						},
+					],
+				},
+				{
+					id: 3,
+					sentencce: "The woman has a daughter",
+					translation: "LA woman has UNA daughter",
+					data: [
+						{ word: "The", translation: artcl.la },
+						{ word: "woman" },
+						{ word: "has" },
+						{ word: "a", translation: artcl.una },
+						{ word: "daughter" },
+					],
+				},
+				{
+					id: 4,
+					sentence: "The girl found me",
+					translation: "LA girl ME found",
+					data: [
+						{ word: "The", translation: artcl.la },
+						{ word: "girl" },
+						{
+							phrase: "found me",
+							translation: dObj.me,
+							phraseTranslation: "ME found",
+						},
+					],
+				},
+				{
+					id: 5,
+					sentence: "It was a girl from Argentina",
+					translation: "It was UNA girl DE Argentina.",
+					data: [
+						{ word: "It" },
+						{ word: "was" },
+						{ word: "a", translation: artcl.una },
+						{ word: "girl" },
+						{ word: "from", translation: prep.de },
+						{ word: "Argentina" },
+					],
+				},
+				{
+					id: 6,
+					sentence: "We know he saw you.",
+					translation: "We know QUE he TE saw.",
+					data: [
+						{
+							word: "We know",
+							translation: conj.que,
+							phraseTranslation: "We know QUE",
+							reference: { que: [conj.que.info[1]] },
+						},
+
+						{
+							word: "he saw you",
+							translation: dObj.te,
+							phraseTranslation: "he TE saw.",
+						},
+					],
+				},
+				{
+					id: 7,
+					sentence: "They said that it wasn't a plastic dish",
+					translation: "They said QUE it NO was a dish DE plastic",
+					data: [
+						{
+							phrase: "They said",
+							translation: conj.que,
+							phraseTranslation: "They said QUE",
+							reference: { que: [conj.que.info[1]] },
+						},
+						{
+							phrase: "it wasn't",
+							phraseTranslation: "it NO was",
+							translation: advrb.no,
+						},
+						{ word: "a" },
+						{
+							word: "plastic dish",
+							translation: artcl.de,
+							phraseTranslation: "dish DE plastic",
+							reference: { de: [prep.de.info[4]] },
+						},
+					],
+				},
+				{
+					id: 8,
+					sentence: "A girl and her dog found you",
+					translation: "UNA girl Y her dog TE found",
+					data: [
+						{ word: "A", translation: artcl.una },
+						{ word: "girl" },
+						{ word: "and", translation: conj.y },
+						{ word: "her" },
+						{ word: "dog" },
+						{
+							phrase: "found you",
+							translation: dObj.te,
+							phraseTranslation: "TE found",
+						},
+					],
+				},
+				{
+					id: 9,
+					sentence: "A man says he knows me",
+					translation: "UN man says QUE he knows ME",
+					data: [
+						{ word: "A", translation: artcl.un },
+						{
+							word: "man says",
+							translation: conj.que,
+							phraseTranslation: "UN man says QUE",
+							reference: { que: [conj.que.info[1]] },
+						},
+						{
+							word: "he knows me",
+							translation: dObj.me,
+							phraseTranslation: "he ME knows",
+						},
+					],
+				},
+				{
+					id: 10,
+					sentence: "He said that he moved from Peru to California",
+					translation: "He said QUE he moved DE Peru A California",
+					data: [
+						{
+							phrase: "He said",
+						},
+						{ word: "that", translation: conj.que },
+						{ word: "he moved" },
+						{ word: "from", translation: prep.de },
+						{ word: "Peru" },
+						{ word: "to", translation: prep.a },
+						{ word: "California" },
+					],
+				},
+				{
+					id: 11,
+					sentence: "John's father found her",
+					translation: "EL father DE John LA found",
+					data: [
+						{
+							word: "John's father",
+							translation: [prep.de, artcl.el],
+							phraseTranslation: "EL father DE John",
+						},
+						{
+							phrase: "found her",
+							translation: dObj.la,
+							phraseTranslation: "LA found",
+						},
+					],
+				},
+				{
+					id: 12,
+					sentence: "A man did that and I found him",
+					translation: "UN man did ESO Y I LO found",
+					data: [
+						{ word: "A", translation: artcl.un },
+						{ word: "man" },
+						{ word: "did" },
+						{ word: "that", translation: pron.eso },
+						{ word: "and", translation: conj.y },
+						{
+							phrase: "I found him",
+							translation: dObj.lo,
+							phraseTranslation: "I LO found",
+						},
+					],
+				},
+				{},
 			],
+		},
+		9: {
+			lesson: 9,
+			name: "Lesson 9",
+			details: "Prepositions: POR and PARA, CON and EN!",
+			info: [],
+			wordBank: [],
+			sentences: [],
 		},
 	},
 }
