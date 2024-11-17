@@ -293,7 +293,7 @@ export const TranslationProvider = ({ children }) => {
 			console.log("quizType is full")
 			errorWords.map((word) => {
 				sentenceData.data.map((section) => {
-					section.reference?.[word]?.map((ref) => {
+					section.reference?.[word.word]?.map((ref) => {
 						console.log("ref: ", ref)
 						if (tempRefs.includes(ref)) {
 							return
