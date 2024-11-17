@@ -1,4 +1,25 @@
 const spanishWords = {
+	idioms: [
+		{
+			idiom: "A 2:00",
+			translations: "At 2:00",
+		},
+		{ idiom: "por eso", translations: ["because of that", "that's why"] },
+		{ idiom: "para eso", translations: "intended for that" },
+		{
+			idiom: "para que",
+			translations: [
+				"intended for what",
+				"for what purposre",
+				"for what intended use",
+			],
+		},
+		{
+			idiom: "por que",
+			translations: ["because of what", "why"],
+		},
+	],
+
 	artcl: {
 		name: "Article",
 		info: [
@@ -13,11 +34,23 @@ const spanishWords = {
 			pos: "Article",
 			gender: "masculine",
 		},
+		los: {
+			translations: ["the (M)"],
+			word: "los",
+			pos: "Article",
+			gender: "masculine",
+		},
 		la: {
 			translations: ["the (F)"],
 			word: "la",
 			audio:
 				"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=the&tl=es&total=1&idx=0&textlen=3",
+			pos: "Article",
+			gender: "feminine",
+		},
+		las: {
+			translations: ["the (F)"],
+			word: "las",
 			pos: "Article",
 			gender: "feminine",
 		},
@@ -76,11 +109,16 @@ const spanishWords = {
 				"ESO is likely the MOST VERSATILE word in Spanish! It is interchangeable with any NOUN or NOUN PHRASE, it can also represent actions and concepts",
 			],
 		},
+		que: {
+			translations: ["what"],
+			word: "que",
+		},
 	},
 	prep: {
 		name: "Preposition",
 		info: [
 			"PREPOSITIONS are ALWAYS used directly before a NOUN of some type, that's why they are call PRE-POSITIONS!",
+			"As a rule Prepositions DON'T translate one-to-one between Spanish and English",
 		],
 		de: {
 			translations: ["from", "of"],
@@ -102,10 +140,62 @@ const spanishWords = {
 			pos: "Preposition",
 			audio:
 				"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=to&tl=es&total=1&idx=0&textlen=2",
+			info: [
+				"A and Time: In Spanish we don't say AT a time, we say TO a time, `The event is A four o'Clock`",
+			],
 		},
 		con: {
 			translations: ["with"],
 			word: "con",
+			pos: "Preposition",
+		},
+		en: {
+			translations: ["at", "on", "in"],
+			word: "en",
+			pos: "Preposition",
+			info: [
+				"If you are EN the chair, you are ON the chair, but if you are EN the table, you are probably AT the table not ON it!",
+			],
+		},
+		para: {
+			translations: ["for"],
+			word: "para",
+			pos: "Preposition",
+			info: [
+				`PARA roughly means FOR, implying some sort of INTENTION, or pointing at something. A 'gift' is PARA or 'intended for' someone`,
+				`Visualize PARA as an arrow, pointint at something specific, in a very direct, maybe even expectant way!`,
+				"PARA this Evening means: Do it BY this evening! We are emphasizing a point, meaking a due date",
+				"PARA ESO means `Intended for that`",
+				"PARA QUE` means `intended for what`, or `for what intended use, for what purpose` ",
+			],
+		},
+		por: {
+			translations: [
+				"by",
+				"because of",
+				"along",
+				"around",
+				"near",
+				"nearby",
+				"during",
+				"for",
+			],
+
+			word: "por",
+			pos: "Preposition",
+			info: [
+				`POR means something like BY, but has so many uses that you shouldn't think of it as a single translation, more of a 3D concept!`,
+				`Picture a Stone Fountain in the forest POURING water from the top. The water is being produced BY/POR the fountain.`,
+				`DE seems like a replacement for POR, but POR implies CREATION or CAUSE as opposed to simply origin.`,
+				`Water produced BY/POR the fountain also exists BECAUSE OF the fountain, or POR the fountain!`,
+				`POR is associated with DEEP questions, such as BECAUSE OF WHY something is the case`,
+				`Water is pooling AROUND or NEARBY the fountain also can mean POR`,
+				`The water is running all ALONG/POR the sides of the fountain`,
+				`POR and the FOUNTAIN: always remember the image of flowing water produced BY the fountain, AROUND it, ALONG side, NEARBY it, and existing BECASUE of it!`,
+				"POR this Evening means: DURING the evening, in a general way, AROUND this evening.",
+				"POR ESO mean 'Becasue of that', or 'That's Why'",
+				"POR QUE' means 'Because of what', or 'Why'",
+			],
 		},
 	},
 	advrb: {
@@ -165,9 +255,21 @@ const spanishWords = {
 			pos: "Direct Object Pronoun",
 			gender: "masculine",
 		},
+		los: {
+			translations: ["them (M)"],
+			word: "los",
+			pos: "Direct Object Pronoun",
+			gender: "masculine",
+		},
 		la: {
 			translations: ["her", "it (F)"],
 			word: "la",
+			pos: "Direct Object Pronoun",
+			gender: "feminine",
+		},
+		las: {
+			translations: ["them (F)"],
+			word: "las",
 			pos: "Direct Object Pronoun",
 			gender: "feminine",
 		},

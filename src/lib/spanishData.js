@@ -1,7 +1,9 @@
 // maybe change to prounoun.eso or conjunction.y conjuction.que
 "use client"
 
+import { sendError } from "next/dist/server/api-utils"
 import words from "./spanishWords"
+import { data } from "autoprefixer"
 
 const { conj, pron, prep, advrb, noun, verb, artcl, dObj } = words
 
@@ -51,7 +53,7 @@ const spanishData = {
 				pron.eso.info[0],
 				conj.y.info[0],
 			],
-			wordBank: [{ conj: [conj.y, conj.que] }, { prno: [pron.eso] }],
+			wordBank: [conj.y, conj.que, pron.eso],
 			sentences: [
 				{
 					id: 1,
@@ -314,15 +316,14 @@ const spanishData = {
 				"De and A are very common prepositions, meaning of or from, and to",
 				prep.info[0],
 				prep.de.info[0],
-				"No is an ADVERB",
-				advrb.no.info[0],
+				`No is an adverb. ${advrb.no.info[0]}`,
 				advrb.no.info[1],
 				advrb.no.info[2],
 				advrb.no.info[3],
 				advrb.no.info[8],
 				advrb.no.info[5],
 			],
-			wordBank: [{ advrb: [advrb.no] }, { prep: [prep.de, prep.a] }],
+			wordBank: [advrb.no, prep.de, prep.a],
 			sentences: [
 				{
 					id: 1,
@@ -1166,7 +1167,7 @@ const spanishData = {
 				"Spanish has several words to mean THE, most common is EL for MASC, and LA for FEM",
 				noun.info[2],
 			],
-			wordBank: [{ artcl: [artcl.el, artcl.la] }],
+			wordBank: [artcl.el, artcl.la],
 			sentences: [
 				{
 					id: 1,
@@ -1359,7 +1360,7 @@ const spanishData = {
 				"This LA(her) is diffrent then the LA for THE! If LA occurs before a noun it has to mean THE, if it occurs before a verb it has to mean HER!",
 				dObj.info[3],
 			],
-			wordBank: [{ dObj: [dObj.lo, dObj.la] }, { artcl: [artcl.el, artcl.la] }],
+			wordBank: [dObj.lo, dObj.la, artcl.el, artcl.la],
 			sentences: [
 				{
 					id: 1,
@@ -1695,12 +1696,10 @@ const spanishData = {
 			info: [
 				"We leared about Direct Object Pronoun Placement, He saw her = He HER saw or He LA saw, but what about ESO, He saw ESO, isn't ESO functioning as a Direct Object here?",
 				"The only Direct Objects that get shuffled in the sentence are the Direct Object PRONOUNS, so far we've learned of LA (her) and LO (him) both can mean IT (M/F)",
-				"Although ESO is a Pronoun, and in 'She saw ESO' it is functioning as a Direct Object it still isn't one of the specific Direct Object Pronouns!",
+				"TE, and ME, are the Spanish Direct Object Pronouns for YOU and ME!",
+				"Although ESO is a Pronoun, and in 'She saw ESO' it is functioning as a Direct Object it still isn't one of the specific Direct Object Pronouns! SO it doesn't get shuffled.",
 			],
-			wordBank: [
-				{ dOBj: [dObj.te, dObj.me] },
-				{ artcl: [artcl.un, artcl.una] },
-			],
+			wordBank: [dObj.te, dObj.me, artcl.un, artcl.una],
 			sentences: [
 				{
 					id: 1,
@@ -1897,16 +1896,902 @@ const spanishData = {
 						},
 					],
 				},
-				{},
 			],
 		},
 		9: {
 			lesson: 9,
 			name: "Lesson 9",
 			details: "Prepositions: POR and PARA, CON and EN!",
-			info: [],
-			wordBank: [],
-			sentences: [],
+			info: [
+				`Remember: ${prep.info[0]}`,
+				"Two new Prepositions are: CON meaning WITH, and EN meanin AT, ON, or IN, but mostly at! 'I'm AT/EN the Table'",
+				`The nuance with EN, is ${prep.info[0]}`,
+				`TIME! ${prep.a.info[0]}`,
+				`Two new tricky Prepsotions are POR and PARA, they are nuanced because: ${prep.info[1]}`,
+				prep.para.info[0],
+				prep.para.info[1],
+				`POR is far less straightforward. ${prep.por.info[0]}`,
+				prep.por.info[1],
+				prep.por.info[2],
+				prep.por.info[3],
+				prep.por.info[4],
+				prep.por.info[5],
+				prep.por.info[6],
+				prep.por.info[7],
+				"Something funny happens with these two Prepositions and Time: Do something PARA this Evening, or Do something POR this Evening",
+				prep.por.info[8],
+				prep.para.info[2],
+				"Another interesting thing happens using ESO: POR ESO or PARA ESO:",
+				prep.por.info[9],
+				"These combinations are known as IDIOMS, which are phrases that don't usually translate properly to english but are commonly used by native speakers",
+			],
+			wordBank: [prep.con, prep.en, prep.para, prep.por],
+			sentences: [
+				{
+					id: 1,
+					sentence: "They were in the room at 4:00",
+					translation: "They were EN the room A 4:00",
+					data: [
+						{ word: "They were" },
+						{ word: "in", translation: prep.en },
+						{ word: "the" },
+						{ word: "room" },
+						{
+							word: "at",
+							translation: prep.a,
+							reference: { a: [prep.a.info[0]] },
+						},
+						{ word: "4:00" },
+					],
+				},
+				{
+					id: 2,
+					sentence: "I was at a party with the girls",
+					translation: "I was EN a party CON the girls",
+					data: [
+						{ word: "I was" },
+						{ word: "at", translation: prep.en },
+						{ word: "a" },
+						{ word: "party" },
+						{ word: "with", translation: prep.con },
+						{ word: "the" },
+						{ word: "girls" },
+					],
+				},
+				{
+					id: 3,
+					sentence: "We ate with our friends at 6:00",
+					translation: "We ate CON our friends A 6:00",
+					data: [
+						{ word: "We" },
+						{ word: "ate" },
+						{ word: "with", translation: prep.con },
+						{ word: "our" },
+						{ word: "friends" },
+						{
+							word: "at",
+							translation: prep.a,
+							reference: { a: [prep.a.info[0]] },
+						},
+						{ word: "6:00" },
+					],
+				},
+				{
+					id: 4,
+					sentence: "The book was written by a young girl",
+					translation: "The book was written POR UNA young girl",
+					data: [
+						{ word: "The book was written" },
+						{
+							word: "by",
+							translation: prep.por,
+							reference: { por: [prep.por.info[3]] },
+						},
+						{ word: "a", translation: artcl.una },
+						{ word: "young" },
+						{ word: "girl" },
+					],
+				},
+				{
+					id: 5,
+					sentence: "That was because of those problems",
+					translation: "ESO was POR those problems",
+					data: [
+						{ word: "That", tranlation: dObj.eso },
+						{ word: "was" },
+						{ word: "beacuase of", translation: prep.por },
+						{ word: "those problems" },
+					],
+				},
+				{
+					id: 6,
+					sentence: "We ran along the street",
+					translation: "We ran POR the street",
+					data: [
+						{ word: "We ran" },
+						{ word: "along", translation: prep.por },
+						{ word: "the" },
+						{ word: "street" },
+					],
+				},
+				{
+					id: 7,
+					sentence: "I saw him during the morning",
+					translation: "I LO saw POR the morning",
+					data: [
+						{
+							word: "I saw him",
+							translation: dObj.lo,
+							phraseTranslation: "I LO saw",
+						},
+						{
+							word: "during",
+							translation: prep.por,
+							reference: { por: [prep.por.info[8]] },
+						},
+						{ word: "the" },
+						{ word: "morning" },
+					],
+				},
+				{
+					id: 8,
+					sentence: "The boss(F) wants that by lunch",
+					translation: "LA boss wants eso PARA lunch",
+					data: [
+						{ word: "the", translation: artcl.la },
+						{ word: "boss" },
+						{ word: "wants" },
+						{ word: "that", translation: pron.eso },
+						{
+							word: "by",
+							translation: prep.para,
+							reference: { para: [prep.para.info[2]] },
+						},
+						{ word: "lunch" },
+					],
+				},
+				{
+					id: 9,
+					sentence: "I don't babysit the girl during the evenings",
+					translation: "I NO babysit LA girl POR the evenings",
+					data: [
+						{
+							word: "I don't babysit",
+							translation: advrb.no,
+							phraseTranslation: "I NO babysit",
+							reference: { no: [advrb.no.info[7]] },
+						},
+						{ word: "the", translation: artcl.la },
+						{ word: "girl" },
+						{ word: "during", translation: prep.por },
+						{ word: "the" },
+						{ word: "evenings" },
+					],
+				},
+				{
+					id: 10,
+					sentence: "I went to the store during the afternoon	",
+					translation: "I went A the store POR the afternoon",
+					data: [
+						{ word: "I went" },
+						{
+							word: "to",
+							translation: prep.a,
+							reference: { a: [prep.a.info[0]] },
+						},
+						{ word: "the store" },
+						{ word: "during", translation: prep.por },
+						{ word: "the" },
+						{ word: "afternoon" },
+					],
+				},
+				{
+					id: 11,
+					sentence: "The actress is on the stage",
+					translation: "LA actress is EN the stage",
+					data: [
+						{ word: "the", translation: artcl.la },
+						{ word: "actress" },
+						{ word: "is" },
+						{ word: "on", translation: prep.en },
+						{ word: "the" },
+						{ word: "stage" },
+					],
+				},
+				{
+					id: 12,
+					sentence: "I said he was around here",
+					translation: "I said QUE he was AROUND here",
+					data: [
+						{
+							word: "I said",
+							translation: conj.que,
+							phraseTranslation: "I said QUE",
+							reference: { que: [conj.que.info[1]] },
+						},
+						{ word: "he" },
+						{ word: "was" },
+						{
+							word: "around",
+							translation: prep.por.info[5],
+						},
+						{ word: "here" },
+					],
+				},
+				{
+					id: 13,
+					sentence: "That won't be for him",
+					translation: "That NO will be PARA him",
+					data: [
+						{ word: "That", translation: pron.eso },
+						{
+							word: "won't be",
+							translation: advrb.no,
+							phraseTranslation: "NO will be",
+							reference: { no: [advrb.no.info[7]] },
+						},
+						{
+							word: "for",
+							translation: prep.para,
+							reference: { para: [prep.para.info[0]] },
+						},
+						{ word: "him" },
+					],
+				},
+				{
+					id: 14,
+					sentence: "She ran out of there because of the fire",
+					translation: "She ran out DE there POR the fire",
+					data: [
+						{ word: "She ran" },
+						{ word: "out" },
+						{ word: "of", translation: prep.de },
+						{ word: "there" },
+						{
+							word: "because of",
+							translation: prep.por,
+							reference: { por: [prep.por.info[3]] },
+						},
+						{ word: "the" },
+						{ word: "fire" },
+					],
+				},
+				{
+					id: 15,
+					sentence: "That was created by an interesting guy",
+					translation: "ESO was created POR UN interesting guy",
+					data: [
+						{ word: "That", translation: pron.eso },
+						{ word: "was" },
+						{ word: "created" },
+						{
+							word: "by",
+							translation: prep.por,
+							reference: { por: [prep.por.info[1]] },
+						},
+						{ word: "an", translation: artcl.un },
+						{ word: "interesting" },
+						{ word: "guy" },
+					],
+				},
+				{
+					id: 16,
+					sentence: "I saw her in the store with her mom",
+					translation: "I LA saw EN the store CON her mom",
+					data: [
+						{
+							phrase: "I saw her",
+							translation: dObj.la,
+							phraseTranslation: "I LA saw",
+						},
+						{ word: "in", translation: prep.en },
+						{ word: "the" },
+						{ word: "store" },
+						{ word: "with", translation: prep.con },
+						{ word: "her" },
+						{ word: "mom" },
+					],
+				},
+				{
+					id: 17,
+					sentence: "I said that my fur coat is from Europe",
+					translation: "I said QUE my coat DE fur is DE Europe",
+					data: [
+						{
+							phrase: "I said",
+							translation: conj.que,
+							phraseTranslation: "I said QUE",
+							reference: { que: [conj.que.info[1]] },
+						},
+						{ word: "that", translation: pron.eso },
+						{ word: "my" },
+						{
+							phrase: "fur coat",
+							translation: prep.de,
+							phraseTranslation: "coat DE fur",
+							reference: { de: [prep.de.info[4]] },
+						},
+						{ word: "is" },
+						{ word: "from", translation: prep.de },
+						{ word: "Europe" },
+					],
+				},
+				{
+					id: 18,
+					sentence: "Maria's son will be here by then	",
+					translation: "EL son DE Maria will be here PARA then",
+					data: [
+						{
+							phrase: "Maria's son",
+							translation: [prep.de, artcl.el],
+							phraseTranslation: "EL son DE Maria",
+							reference: { de: [prep.de.info[2]] },
+						},
+						{ word: "will be here" },
+						{
+							word: "by",
+							translation: prep.para,
+							reference: { para: [prep.para.info[2]] },
+						},
+						{ word: "then" },
+					],
+				},
+				{
+					id: 19,
+					sentence: "I have to leave at 2:00 and he can't",
+					translation: "I have to leave A 2:00 Y he NO can",
+					data: [
+						{ word: "I" },
+						{ word: "have" },
+						{ word: "to", translation: prep.a },
+						{ word: "leave" },
+						{ word: "at", translation: prep.a },
+						{ word: "2:00" },
+						{ word: "and", translation: conj.y },
+						{ word: "he" },
+						{
+							phrase: "can't",
+							translation: advrb.no,
+							phraseTranslation: "NO can",
+							reference: { no: [advrb.no.info[6]] },
+						},
+					],
+				},
+				{
+					id: 20,
+					sentence: "It's a girl that I know; that's why she knows you",
+					translation: "It's UNA girl QUE I know, POR ESO she TE knows",
+					data: [
+						{ word: "It's" },
+						{ word: "a", translation: artcl.una },
+						{ word: "girl" },
+						{
+							phrase: "that I know",
+							translation: conj.que,
+							phraseTranslation: "QUE I know",
+							reference: { que: [conj.que.info[1]] },
+						},
+						{
+							word: "that's why",
+							translation: [prep.por, pron.eso],
+							phraseTranslation: "POR ESO",
+							reference: { por: [prep.por.info[9]] },
+						},
+
+						{
+							phrase: "she knows you",
+							translation: dObj.te,
+							phraseTranslation: "she TE knows",
+						},
+					],
+				},
+				{
+					id: 21,
+					sentence: "He didn't bring me along this street	",
+					translation: "He NO ME brought ALONG this street",
+					data: [
+						{ word: "He" },
+						{
+							phrase: "didn't bring me",
+							translation: [advrb.no, dObj.me],
+							phraseTranslation: "NO ME brought",
+							reference: { no: [advrb.no.info[7]] },
+						},
+						{
+							word: "along",
+							translation: prep.por,
+							reference: { por: [prep.por.info[7]] },
+						},
+						{ word: "this" },
+						{ word: "street" },
+					],
+				},
+			],
+		},
+		10: {
+			lesson: 10,
+			name: "Lesson 10",
+			details: "Articles and Direct Obj Pronouns: LOS and LAS",
+			info: [
+				"LOS and LAS can be DIRECT OBJ PRONOUNS that mean THEM (M/F) in Spanish ",
+				"LOS and LAS can also be ARTICLES that mean pluralized THE (M/F), in Spanish, The/LOS Men, The/LAS women",
+				"Que' is another Pronoun meaning WHAT, usually used to turn sentences into questions",
+			],
+			sentences: [
+				{
+					id: 1,
+					sentence: "The girls visited them(M)",
+					translation: "LAS girls LOS visited",
+					data: [
+						{ word: "The", translation: artcl.las },
+						{ word: "girls" },
+						{
+							word: "visited them",
+							translation: dObj.los,
+							phraseTranslation: "LOS visited",
+						},
+					],
+				},
+				{
+					id: 2,
+					sentence: "the boys know them(F)",
+					translation: "LOS boys LAS know",
+					data: [
+						{ word: "the", translation: artcl.los },
+						{ word: "boys" },
+						{
+							word: "know them",
+							translation: dObj.las,
+							phraseTranslation: "LAS know",
+						},
+					],
+				},
+				{
+					id: 3,
+					sentence: "The man doesn't see them (F)",
+					translation: "EL man NO LAS see",
+					data: [
+						{ word: "The", translation: artcl.el },
+						{ word: "man" },
+						{
+							phrase: "doesn't see them",
+							translation: [advrb.no, dObj.las],
+							phraseTranslation: "NO LAS see",
+							reference: { no: [advrb.no.info[7]] },
+						},
+					],
+				},
+				{
+					id: 4,
+					sentence: "We won't have them(M) at the table	",
+					translation: "We NO LOS will have EN the table",
+					data: [
+						{ word: "We" },
+						{
+							phrase: "won't have them",
+							translation: [advrb.no, dObj.los],
+							phraseTranslation: "NO LOS will have",
+							reference: { no: [advrb.no.info[7]] },
+						},
+						{
+							word: "at",
+							translation: prep.en,
+						},
+						{ word: "the" },
+						{ word: "table" },
+					],
+				},
+				{
+					id: 5,
+					sentence: "They worked with what?",
+					translation: "They worked CON QUE?",
+					data: [
+						{ word: "They" },
+						{ word: "worked" },
+						{ word: "with", translation: prep.con },
+						{
+							phrase: "what?",
+							translation: pron.que,
+						},
+					],
+				},
+				{
+					id: 6,
+					sentence: "What hit him?",
+					translation: "Que lo hit?",
+					data: [
+						{
+							word: "What",
+							translation: pron.que,
+						},
+						{
+							word: "hit him",
+							tranlation: dObj.lo,
+							phraseTranslation: "lo hit",
+						},
+					],
+				},
+				{
+					id: 7,
+					sentence: "You found them(F) with what?",
+					translation: "You LAS found CON QUE?",
+					data: [
+						{
+							word: "You found them",
+							translation: dObj.las,
+							phraseTranslation: "You LAS found",
+						},
+
+						{ word: "with", translation: prep.con },
+						{
+							phrase: "what?",
+							translation: pron.que,
+						},
+					],
+				},
+				{
+					id: 8,
+					sentence: "What is that for?",
+					translation: "PARA QUE is ESO",
+					data: [
+						{
+							phrase: "What is that for",
+							translation: [conj.que, prep.para, pron.eso],
+							phraseTranslation: "PARA QUE is ESO",
+							reference: {
+								para: [
+									prep.para.info[4],
+									"Spanish prepositions must be followed by a noun, so we can't end a sentence with a preposition",
+								],
+							},
+						},
+					],
+				},
+				{
+					id: 9,
+					sentence: "Why is the man at the store?",
+					translation: "POR QUE is EL man EN the store",
+					data: [
+						{
+							phrase: "Why",
+							translation: [prep.por, pron.que],
+							phraseTranslation: "POR QUE",
+							reference: { por: [prep.por.info[10]] },
+						},
+						{ word: "is" },
+						{ word: "the", translation: artcl.el },
+						{ word: "man" },
+						{
+							word: "at",
+							translation: prep.en,
+						},
+						{ word: "the" },
+						{ word: "store" },
+					],
+				},
+				{
+					id: 10,
+					sentence: "This is for the guys",
+					translation: "This is PARA LOS guys",
+					data: [
+						{ word: "This" },
+						{ word: "is" },
+						{ word: "for", translation: prep.para },
+						{ word: "the", translation: artcl.los },
+						{ word: "guys" },
+					],
+				},
+				{
+					id: 11,
+					sentence: "I didn't see a girl at 2:00",
+					translation: "I NO saw una girl A 2:00",
+					data: [
+						{ word: "I" },
+						{
+							phrase: "didn't see",
+							translation: advrb.no,
+							phraseTranslation: "NO saw",
+							reference: { no: [advrb.no.info[7]] },
+						},
+						{ word: "a", translation: artcl.una },
+						{ word: "girl" },
+						{
+							word: "at",
+							translation: prep.a,
+							reference: { a: [prep.a.info[0]] },
+						},
+						{ word: "2:00" },
+					],
+				},
+				{
+					id: 12,
+					sentence: "You need to be in the car at 2:00",
+					translation: "You need to be EN the car A 2:00",
+					data: [
+						{ word: "You need to be" },
+						{
+							word: "in",
+							translation: prep.en,
+						},
+						{ word: "the" },
+						{ word: "car" },
+						{
+							word: "at",
+							translation: prep.a,
+						},
+						{ word: "2:00" },
+					],
+				},
+				{
+					id: 13,
+					sentence: "But why?",
+					translation: "But POR QUE",
+					data: [
+						{ word: "But" },
+						{
+							phrase: "why?",
+							translation: [prep.por, pron.que],
+							phraseTranslation: "POR QUE",
+							reference: { por: [prep.por.info[10]] },
+						},
+					],
+				},
+				{
+					id: 14,
+					sentence: "I left something for my boss at the office	",
+					translation: "I left something PARA my boss EN the office",
+					data: [
+						{ word: "I left" },
+						{ word: "something" },
+						{ word: "for", translation: prep.para },
+						{ word: "my" },
+						{ word: "boss" },
+						{
+							word: "at",
+							translation: prep.en,
+						},
+						{ word: "the" },
+						{ word: "office" },
+					],
+				},
+				{
+					id: 15,
+					sentence: "This was created by the girls",
+					translation: "This was created POR LAS girls",
+					data: [
+						{ word: "This was created" },
+						{
+							word: "by",
+							translation: prep.por,
+						},
+						{ word: "the", translation: artcl.las },
+						{ word: "girls" },
+					],
+				},
+				{
+					id: 16,
+					sentence: "On what did he put it?",
+					translation: "EN QUE he LO put",
+					data: [
+						{
+							word: "On",
+							translation: prep.en,
+						},
+						{
+							phrase: "what",
+							translation: pron.que,
+						},
+						{
+							word: "did he put it",
+							translation: dObj.lo,
+							phraseTranslation: "he LO put",
+						},
+					],
+				},
+				{
+					id: 17,
+					sentence: "The ladies saw her",
+					translation: "LAS ladies LA saw",
+					data: [
+						{ word: "The", translation: artcl.las },
+						{ word: "ladies" },
+						{
+							word: "saw her",
+							translation: dObj.la,
+							phraseTranslation: "LA saw",
+						},
+					],
+				},
+				{
+					id: 18,
+					sentence: "What isn't here yet?",
+					translation: "QUE NO is here yet?",
+					data: [
+						{
+							phrase: "What",
+							translation: pron.que,
+						},
+						{
+							phrase: "isn't here",
+							translation: advrb.no,
+							phraseTranslation: "NO is here?",
+							reference: { no: [advrb.no.info[6]] },
+						},
+						{
+							phrase: "yet?",
+						},
+					],
+				},
+				{
+					id: 19,
+					sentence: "I saw them(M) near the park",
+					translation: "I LOS saw POR the park",
+					data: [
+						{ word: "I" },
+						{
+							word: "saw them",
+							translation: dObj.lo,
+							phraseTranslation: "LOS saw",
+						},
+						{
+							word: "near",
+							translation: prep.por,
+							reference: { por: [prep.por.info[5]] },
+						},
+						{ word: "the park" },
+					],
+				},
+				{
+					id: 20,
+					sentence: "I found it(M) beacuse of the smell",
+					translation: "I LO found POR the smell",
+					data: [
+						{ word: "I" },
+						{
+							word: "found it",
+							translation: dObj.lo,
+							phraseTranslation: "LO found",
+						},
+						{
+							word: "because of",
+							translation: prep.por,
+							reference: { por: [prep.por.info[3]] },
+						},
+						{ word: "the" },
+						{ word: "smell" },
+					],
+				},
+				{
+					id: 21,
+					sentence: "I have loved you for many years",
+					translation: "I TE have loved POR many years",
+					data: [
+						{ word: "I" },
+						{
+							word: "have loved you",
+							translation: dObj.te,
+							phraseTranslation: "TE have loved",
+						},
+						{
+							word: "for",
+							translation: prep.por,
+						},
+						{ word: "many" },
+						{ word: "years" },
+					],
+				},
+				{
+					id: 22,
+					sentence: "A man confronted them(M)",
+					translation: "UN man LOS confronted",
+					data: [
+						{ word: "A", translation: artcl.un },
+						{ word: "man" },
+						{
+							word: "confronted them",
+							translation: dObj.lo,
+							phraseTranslation: "LOS confronted",
+						},
+					],
+				},
+				{
+					id: 23,
+					sentence: "What did you eat with it(F)?",
+					translation: "CON QUE you LA ate",
+					data: [
+						{
+							word: "(With) What",
+							translation: [pron.con, pron.que],
+						},
+						{
+							word: "did you eat with it",
+							translation: dObj.la,
+							phraseTranslation: "you LA ate",
+						},
+					],
+				},
+				{
+					id: 24,
+					sentence: "I left them(F) with their parents",
+					translation: "I LAS left CON their parents",
+					data: [
+						{ word: "I" },
+						{
+							word: "left them",
+							translation: dObj.las,
+							phraseTranslation: "LAS left",
+						},
+						{
+							word: "with",
+							translation: prep.con,
+						},
+						{ word: "their parents" },
+					],
+				},
+				{
+					id: 25,
+					sentence: "Don't bother the men with that",
+					translation: "NO bother LOS men CON ESO",
+					data: [
+						{
+							word: "Don't bother",
+							translation: advrb.no,
+							phraseTranslation: "NO bother",
+						},
+						{
+							word: "the men",
+							translation: dObj.lo,
+							phraseTranslation: "LOS men",
+						},
+						{
+							word: "with",
+							translation: prep.con,
+						},
+						{ word: "that", translation: pron.eso },
+					],
+				},
+				{
+					id: 26,
+					sentence: "I'm on the list; that's why he knows me",
+					translation: "I'm EN the list, POR ESO he ME knows	",
+					data: [
+						{ word: "I'm" },
+						{
+							word: "on",
+							translation: pron.en,
+						},
+						{ word: "the list" },
+						{
+							word: "that's why",
+							translation: [prep.por, pron.eso],
+							phraseTranslation: "POR ESO",
+						},
+						{
+							word: "He knows me",
+							transloation: dObj.me,
+							phraseTranslation: "he ME knows",
+						},
+					],
+				},
+				{
+					id: 27,
+					sentence: "I can't see them(F)",
+					tranlation: "I NO LAS can see",
+					data: [
+						{ word: "I" },
+						{
+							word: "can't",
+							translation: advrb.no,
+							phraseTranslation: "NO can",
+						},
+						{
+							word: "see them",
+							translation: dObj.las,
+							phraseTranslation: "LAS see",
+						},
+					],
+				},
+			],
 		},
 	},
 }
