@@ -1,6 +1,7 @@
 "use client"
 import { useTranslation } from "@/lib/TranslationContext"
 import spanishData from "@/lib/spanishData"
+import { CatchingPokemonSharp } from "@mui/icons-material"
 
 const Testing = () => {
 	const {
@@ -12,22 +13,46 @@ const Testing = () => {
 		openScoreModal,
 		setErrors,
 		changeSentence,
+		sentenceIndex,
 	} = useTranslation()
 
+	const waitForStateUpdate = (checkCondition, timeout = 1000) => {
+		console.log("waitForStateUpdate")
+		console.log("checkCondition: ", checkCondition)
+		return new Promise((resolve) => {
+			const interval = setInterval(() => {
+				if (checkCondition()) {
+					clearInterval(interval)
+					resolve()
+				}
+			}, 50) // Check every 50ms
+			console.log("interval: ", interval)
+
+			// Set a maximum timeout to prevent infinite loops
+			setTimeout(() => {
+				clearInterval(interval)
+				resolve()
+			}, timeout)
+		})
+	}
 	// Run tests for a specific lesson
-	const runTestsForLesson = () => {
+	const runTestsForLesson = async () => {
 		setQuizType("full")
 		const lesson = spanishData.lessons[lessonNumber]
+		console.log("lesson: ", lesson)
 		const testResults = []
 
 		console.log(`Running tests for Lesson ${lessonNumber}: ${lesson.name}`)
 
-		lesson.sentences.forEach((sentence, sentenceIndex) => {
-			const { translation, sentence: originalSentence } = sentence
+		// Use a for...of loop instead of forEach to handle async correctly
+		for (const [sentenceIndex, sentence] of lesson.sentences.entries()) {
+			console.log("sentenceIndex: ", sentenceIndex)
+			console.log("sentence: ", sentence)
+			const { translation } = sentence
 
-			// Simulate incorrect input by modifying the translation
+			// Simulate incorrect input
 			const incorrectInput = "incorrect text"
-			const incorrectResult = simulateInput(incorrectInput, sentenceIndex)
+			const incorrectResult = await simulateInput(incorrectInput)
 			testResults.push({
 				input: incorrectInput,
 				result: incorrectResult,
@@ -36,29 +61,31 @@ const Testing = () => {
 
 			// Simulate correct input
 			const correctInput = translation
-			const correctResult = simulateInput(correctInput, sentenceIndex)
+			const correctResult = await simulateInput(correctInput)
 			testResults.push({
 				input: correctInput,
 				result: correctResult,
 				expected: true,
 			})
-
-			// changeSentence(sentenceIndex + 1)
-		})
+		}
 
 		console.log("Test Results:", testResults)
-		console.log("Setting Score modal? ")
 		setIsScoreModalOpen(true)
-		console.log("opening score modal?")
 		openScoreModal()
-		console.log("returning test results")
 		return testResults
 	}
 
 	// Simulate input and test the response
-	const simulateInput = (input, sentenceIndex) => {
-		const isCorrect = handleSubmit(input, sentenceIndex)
-		return isCorrect ? "Pass" : "Fail"
+	const simulateInput = async (input) => {
+		handleSubmit(input)
+		const initialIndex = sentenceIndex
+
+		// Wait for the state update before proceeding
+		console.log("initialIndex: ", initialIndex)
+		console.log("sentenceIndex: ", sentenceIndex)
+		await waitForStateUpdate(() => sentenceIndex !== initialIndex)
+
+		return sentenceIndex === initialIndex ? "Fail" : "Pass"
 	}
 
 	const runAllTests = () => {
