@@ -2,6 +2,8 @@
 import React, { createContext, useState, useContext, useEffect } from "react"
 import spanishData from "./spanishData"
 import spanishWords from "./spanishWords"
+import { useAuth } from "./useAuth"
+import { addErrorReport } from "./firestore"
 import { current } from "tailwindcss/colors"
 
 const TranslationContext = createContext()
@@ -26,6 +28,19 @@ export const TranslationProvider = ({ children }) => {
 	const [selectedWord, setSelectedWord] = useState(null)
 	const [errors, setErrors] = useState([])
 
+	const { user } = useAuth()
+
+	const reportLessonError = async (errorDetails) => {
+		if (user) {
+			await addErrorReport(user.uid, errorDetails)
+			console.log("Error report added successfully")
+		}
+	}
+
+	useEffect(() => {
+		console.log("Current Index useEFfect running: ", currentIndex)
+	}, [currentIndex])
+
 	const openScoreModal = () => {
 		console.log("Opening score modal")
 		setIsScoreModalOpen(true)
@@ -47,8 +62,14 @@ export const TranslationProvider = ({ children }) => {
 
 	useEffect(() => {
 		updateWordCount()
+		console.log("sentenceIndex use effect runnin: index:", sentenceIndex)
 	}, [sentenceIndex])
+
 	const assignNextHighlightedIndex = () => {
+		console.log(
+			"Running assign next highlighted indext, currentIndex: ",
+			currentIndex
+		)
 		// Check if the current sentence exists
 		const sentenceData =
 			spanishData.lessons[lessonNumber]?.sentences[sentenceIndex]?.data
@@ -84,9 +105,7 @@ export const TranslationProvider = ({ children }) => {
 			nextSentence()
 		}
 	}
-	useEffect(() => {
-		console.log("sentenceIndex use effect runnin: index:", sentenceIndex)
-	}, [sentenceIndex])
+
 	// useEffect to automatically assign the next index when translatedWords changes
 	useEffect(() => {
 		assignNextHighlightedIndex()
@@ -108,15 +127,16 @@ export const TranslationProvider = ({ children }) => {
 	}
 
 	const nextSentence = () => {
-		console.log("Next sentence running")
+		console.log("Next sentence running sentenceIndex: ", sentenceIndex)
 		const newIndex = sentenceIndex + 1
 		console.log(
 			"Attempting to move to the next sentence. Current index:",
 			sentenceIndex
 		)
+		setCurrentIndex(-1)
 
 		if (newIndex < spanishData.lessons[lessonNumber]?.sentences.length) {
-			setSentenceIndex(newIndex)
+			setSentenceIndex((prevIndex) => prevIndex + 1)
 			setTranslatedWords({})
 			console.log(
 				"newIndex < sentences length, should have set Sentence Index to : ",
@@ -124,6 +144,7 @@ export const TranslationProvider = ({ children }) => {
 			)
 		} else {
 			console.log("All sentences completed for this lesson")
+			reportLessonError(errors)
 			setIsScoreModalOpen(true) // Show the score modal if all sentences are completed
 		}
 	}
@@ -210,6 +231,7 @@ export const TranslationProvider = ({ children }) => {
 
 				// Use a timeout to allow state updates to propagate before moving to the next sentence
 				setTimeout(() => {
+					console.log("assign next highlighted index, timeout thing")
 					assignNextHighlightedIndex()
 					if (currentIndex === -1) {
 						nextSentence()

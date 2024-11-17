@@ -7,10 +7,12 @@ import { useTranslation } from "@/lib/TranslationContext"
 import spanishData from "@/lib/spanishData"
 import { useState, useEffect } from "react"
 
+import { useAuth } from "@/lib/useAuth"
+
 // import SpreadWord from "./SpreadWord"
 // import GoogleLogin from "./GoogleLogin"
 
-const Header = ({ user, onLogin }) => {
+const Header = () => {
 	const {
 		lessonNumber,
 		handleLessonChange,
@@ -20,6 +22,8 @@ const Header = ({ user, onLogin }) => {
 		changeSentence,
 	} = useTranslation()
 	const [value, setValue] = useState(3)
+
+	const { user, loginWithGoogle, logout } = useAuth()
 
 	useEffect(() => {
 		console.log("Updating sentence select dropdown to index:", sentenceIndex)
@@ -97,6 +101,24 @@ const Header = ({ user, onLogin }) => {
 							</option>
 						))}
 					</select>
+					{user ? (
+						<div>
+							<span>Welcome, {user.displayName}</span>
+							<button
+								onClick={logout}
+								className="ml-4 bg-red-500 text-white px-4 py-2 rounded"
+							>
+								Logout
+							</button>
+						</div>
+					) : (
+						<button
+							onClick={loginWithGoogle}
+							className="bg-blue-500 text-white px-4 py-2 rounded"
+						>
+							Login with Google
+						</button>
+					)}
 				</Box>
 			</Toolbar>
 		</AppBar>
