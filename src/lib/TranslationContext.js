@@ -10,7 +10,7 @@ export const TranslationProvider = ({ children }) => {
 	const [translatedWords, setTranslatedWords] = useState({})
 	const [currentIndex, setCurrentIndex] = useState(0)
 	const [sentenceIndex, setSentenceIndex] = useState(0)
-	const [score, setScore] = useState({})
+	const [score, setScore] = useState({ numCorrect: 0 })
 	const [showRedFlash, setShowRedFlash] = useState(false)
 	const [showGreenFlash, setShowGreenFlash] = useState(false)
 	const [lessonNumber, setLessonNumber] = useState(3)
@@ -30,13 +30,6 @@ export const TranslationProvider = ({ children }) => {
 		console.log("Opening score modal")
 		setIsScoreModalOpen(true)
 	}
-	useEffect(() => {
-		console.log(
-			"Is score modal open use EFfect running: status",
-			isScoreModalOpen
-		)
-	}, [isScoreModalOpen])
-
 	const updateWordCount = () => {
 		const sentenceData =
 			spanishData.lessons[lessonNumber]?.sentences[sentenceIndex]?.data
@@ -176,6 +169,10 @@ export const TranslationProvider = ({ children }) => {
 			if (sanitizedUserInput === sanitizedSentence) {
 				console.log("Correct")
 				flashGreenScreen()
+				setScore((prevScore) => ({
+					...prevScore,
+					numCorrect: prevScore.numCorrect + 1,
+				}))
 				nextSentence()
 			} else {
 				flashRedScreen()
@@ -228,12 +225,6 @@ export const TranslationProvider = ({ children }) => {
 	}
 
 	const trackError = (userInput, currentWord, sentenceData) => {
-		// console.log(
-		// 	"tracking error: current word: ",
-		// 	currentWord,
-		// 	"user Input: ",
-		// 	userInput
-		// )
 		console.log("tracking error: current word: ", currentWord)
 		console.log("user Input: ", userInput)
 		console.log("sentenceData: ", sentenceData)
@@ -255,22 +246,21 @@ export const TranslationProvider = ({ children }) => {
 
 		if (quizType === "parts") {
 			if (Array.isArray(currentSection.translation)) {
-				const translationWords = currentSection.translation.map((translation) =>
-					translation.word.toLowerCase()
-				)
+				currentSection.translation.forEach((translation) => {
+					console.log("translation: ", translation)
+					if (!userWords.includes(translation.word.toLowerCase())) {
+						console.log(
+							"word not included in user Words: ",
+							translation.word.toLowerCase()
+						)
 
-				translationWords.forEach((word) => {
-					console.log("word: ", word)
-					if (!userWords.includes(word)) {
-						console.log("word not included in user Words: ", word)
-
-						errorWords.push(word)
+						errorWords.push(translation)
 					}
 				})
 			} else if (currentSection.translation) {
 				const translationWord = currentSection.translation.word.toLowerCase()
 				if (!userWords.includes(translationWord)) {
-					errorWords.push(translationWord)
+					errorWords.push(currentSection.translation)
 				}
 			}
 		}
@@ -280,15 +270,12 @@ export const TranslationProvider = ({ children }) => {
 					if (!Array.isArray(section.translation)) {
 						const translationWord = section.translation.word.toLowerCase()
 						if (!userWords.includes(translationWord)) {
-							errorWords.push(translationWord)
+							errorWords.push(section.translation)
 						}
 					} else if (Array.isArray(section.translation)) {
-						const translationWords = section.translation.map((translation) =>
-							translation.word.toLowerCase()
-						)
-						translationWords.forEach((word) => {
-							if (!userWords.includes(word)) {
-								errorWords.push(word)
+						section.translation.forEach((translation) => {
+							if (!userWords.includes(translation.word.toLowerCase())) {
+								errorWords.push(section.translation)
 							}
 						})
 					}
@@ -327,6 +314,7 @@ export const TranslationProvider = ({ children }) => {
 			currentSection: currentSection,
 			mode: quizType,
 			references: tempRefs,
+			errorWords: errorWords,
 		}
 		// console.log("errorEntry created: ", errorEntry)
 		// Update the score state with the new error entry
@@ -400,6 +388,7 @@ export const TranslationProvider = ({ children }) => {
 				errors,
 				openScoreModal,
 				setErrors,
+				score,
 			}}
 		>
 			{children}

@@ -24,36 +24,6 @@ const WordBank = () => {
 		}
 	}
 
-	const getPosName = (word) => {
-		for (const posKey in spanishWords) {
-			const posGroup = spanishWords[posKey]
-			if (posGroup[word]) {
-				if (Array.isArray(posGroup.name)) return posGroup.name[0]
-				return posGroup.name
-			}
-		}
-		return null
-	}
-
-	const getPosNamesFromWordBank = (word) => {
-		let posMatches = []
-
-		// Iterate through each category in the wordBank
-		wordBank.forEach((category) => {
-			const [posKey] = Object.keys(category) // Get the part of speech key (e.g., 'dObj', 'artcl')
-			const words = category[posKey] // Get the list of words for this part of speech
-
-			// Check if the word exists in this list
-			words.forEach((item) => {
-				if (item.word.toLowerCase() === word.toLowerCase()) {
-					posMatches.push(posKey)
-				}
-			})
-		})
-
-		return posMatches.length > 0 ? posMatches : null
-	}
-
 	return (
 		<div className="flex flex-col items-center justify-center space-y-4">
 			{/* Navigation Arrows */}
