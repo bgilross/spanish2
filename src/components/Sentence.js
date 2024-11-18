@@ -61,7 +61,7 @@ const Sentence = ({}) => {
 						key={index}
 						className={`mr-2 ${
 							item.translation ? "text-accent font-bold" : ""
-						} ${index === currentIndex ? "border-4 border-true_blue" : ""} ${
+						} ${index === sectionIndex ? "border-4 border-true_blue" : ""} ${
 							translatedWords[index] ? "text-green-700" : ""
 						}`}
 					>

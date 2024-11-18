@@ -1,6 +1,5 @@
 "use client"
 import { useState } from "react"
-import { useTranslation } from "@/lib/TranslationContext"
 import { useQuiz } from "@/lib/QuizContext"
 import InsetInput from "./InsetInput"
 import SlidingModal from "./SlidingModal"
@@ -9,7 +8,6 @@ import "../styles/myButton.css"
 import WordBank from "./WordBank"
 import LessonInfo from "./LessonInfo"
 const InputArea = () => {
-	const { handleSubmit } = useTranslation()
 	const [userInput, setUserInput] = useState("")
 
 	const [leftModalOpen, setLeftModalOpen] = useState(false)
@@ -17,10 +15,10 @@ const InputArea = () => {
 
 	const { handleUserSubmit } = useQuiz()
 
-	const submit = async (event) => {
+	const submit = (event) => {
 		event.preventDefault()
 		if (userInput.trim()) {
-			await handleUserSubmit(userInput)
+			handleUserSubmit(userInput)
 			setUserInput("")
 		}
 	}
