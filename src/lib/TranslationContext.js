@@ -5,7 +5,6 @@ import spanishWords from "./spanishWords"
 import { useAuth } from "./useAuth"
 import { addErrorReport } from "./firestore"
 import { current } from "tailwindcss/colors"
-import { useQuiz } from "./useQuiz"
 
 const TranslationContext = createContext()
 

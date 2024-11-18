@@ -2113,7 +2113,8 @@ const spanishData = {
 						{ word: "was" },
 						{
 							word: "around",
-							translation: prep.por.info[5],
+							translation: prep.por,
+							reference: { por: [prep.por.info[5]] },
 						},
 						{ word: "here" },
 					],
@@ -2702,7 +2703,7 @@ const spanishData = {
 					data: [
 						{
 							word: "(With) What",
-							translation: [pron.con, pron.que],
+							translation: [prep.con, pron.que],
 						},
 						{
 							word: "did you eat with it",
@@ -2777,7 +2778,7 @@ const spanishData = {
 				{
 					id: 27,
 					sentence: "I can't see them(F)",
-					tranlation: "I NO LAS can see",
+					translation: "I NO LAS can see",
 					data: [
 						{ word: "I" },
 						{

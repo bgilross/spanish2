@@ -24,7 +24,7 @@ const Header = () => {
 		// changeSentence,
 	} = useTranslation()
 
-	const { currentData, setCurrentData } = useQuiz()
+	const { currentData, setCurrentData, handleLessonChange } = useQuiz()
 	const { sentenceIndex, quizType, lessonNumber } = currentData
 
 	const [value, setValue] = useState(3)
@@ -38,7 +38,9 @@ const Header = () => {
 	const quizTypeSelect = (
 		<select
 			value={quizType}
-			onChange={(e) => setQuizType(e.target.value)}
+			onChange={(e) =>
+				setCurrentData({ ...currentData, quizType: e.target.value })
+			}
 		>
 			<option value="parts">Parts</option>
 			<option value="full">Full</option>
@@ -47,7 +49,7 @@ const Header = () => {
 	const sentenceSelect = (
 		<select
 			value={sentenceIndex}
-			onChange={(e) => changeSentence(e.target.value)}
+			onChange={(e) => assignNextSentence(sentenceIndex, e.target.value)}
 		>
 			{spanishData?.lessons[lessonNumber]?.sentences.map((sentence, index) => {
 				return (
@@ -59,6 +61,24 @@ const Header = () => {
 					</option>
 				)
 			})}
+		</select>
+	)
+	const lessonSelect = (
+		<select
+			className="text-primary font-bold"
+			value={lessonNumber}
+			onChange={(e) => {
+				handleLessonChange(e.target.value)
+			}}
+		>
+			{Object.keys(spanishData.lessons).map((key) => (
+				<option
+					key={key}
+					value={key}
+				>
+					{spanishData.lessons[key].name} {spanishData.lessons[key].details}
+				</option>
+			))}
 		</select>
 	)
 
@@ -89,24 +109,8 @@ const Header = () => {
 							{sentenceSelect}
 						</div>
 					</div>
-					<select
-						className="text-primary font-bold"
-						value={value}
-						onChange={(e) => {
-							setValue(e.target.value)
-							handleLessonChange(e.target.value)
-						}}
-					>
-						{Object.keys(spanishData.lessons).map((key) => (
-							<option
-								key={key}
-								value={key}
-							>
-								{spanishData.lessons[key].name}{" "}
-								{spanishData.lessons[key].details}
-							</option>
-						))}
-					</select>
+					{lessonSelect}
+
 					<GoogleLogin />
 				</Box>
 			</Toolbar>

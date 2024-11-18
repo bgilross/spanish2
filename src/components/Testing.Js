@@ -4,20 +4,13 @@ import { useQuiz } from "@/lib/QuizContext"
 import spanishData from "@/lib/spanishData"
 
 const Testing = () => {
-	// const {
-	// 	handleSubmit,
-	// 	lessonNumber,
-	// 	setQuizType,
-	// 	setScore,
-	// 	setIsScoreModalOpen,
-	// 	openScoreModal,
-	// 	setErrors,
-	// 	changeSentence,
-	// 	sentenceIndex,
-	// } = useTranslation()
-
-	const { currentData, handleUserSubmit, displayStatus, setDisplayStatus } =
-		useQuiz()
+	const {
+		currentData,
+		handleUserSubmit,
+		displayStatus,
+		setDisplayStatus,
+		getNextSection,
+	} = useQuiz()
 
 	const { lessonNumber, sentenceIndex } = currentData
 
@@ -36,7 +29,13 @@ const Testing = () => {
 
 			// Simulate incorrect input
 			const incorrectInput = "incorrect text"
-			const incorrectResult = handleUserSubmit(incorrectInput, sentenceIndex)
+			const tempSectionIndex = getNextSection(sentence, {})
+			console.log("Temp Section Index: ", tempSectionIndex)
+			const incorrectResult = handleUserSubmit(
+				incorrectInput,
+				sentenceIndex,
+				tempSectionIndex
+			)
 			testResults.push({
 				input: incorrectInput,
 				result: incorrectResult,
@@ -45,7 +44,11 @@ const Testing = () => {
 
 			// Simulate correct input
 			const correctInput = translation
-			const correctResult = handleUserSubmit(correctInput, sentenceIndex)
+			const correctResult = handleUserSubmit(
+				correctInput,
+				sentenceIndex,
+				tempSectionIndex
+			)
 			testResults.push({
 				input: correctInput,
 				result: correctResult,

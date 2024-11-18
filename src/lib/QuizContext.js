@@ -116,11 +116,10 @@ export const QuizProvider = ({ children }) => {
 		//check quiz type and set/clean correct answer based on sentence or section
 		const correctAnswer = getCorrectAnswer(currentSection, currentSentence)
 		if (cleanInput === correctAnswer) {
-			handleCorrectAnswer({
-				currentSection,
-				currentSentence,
-				sentenceInd,
-			})
+			console.log("going to handle correct answer. sentenceInd: ", sentenceInd)
+			console.log("currentSentence: ", currentSentence)
+			console.log("currentSection: ", currentSection)
+			handleCorrectAnswer(sentenceInd, currentSentence, currentSection)
 		} else {
 			console.log("going to handle incorrect answer Input: ", input)
 			handleIncorrectAnswer(input, currentSentence, currentSection)
@@ -220,10 +219,13 @@ export const QuizProvider = ({ children }) => {
 	}
 
 	const handleCorrectAnswer = (
-		currentSection,
+		sentenceInd,
 		currentSentence,
-		sentenceInd
+		currentSection
 	) => {
+		console.log("handlingCorrectAnswer. Current Section: ", currentSection)
+		console.log("Current Sentence: ", currentSentence)
+		console.log("Current SentenceInd: ", sentenceInd)
 		if (currentData.quizType === "parts") {
 			//if parts add the correct word to the translatedWords array
 			tempTranslatedWords.push(currentSection.translation.word)
@@ -247,7 +249,8 @@ export const QuizProvider = ({ children }) => {
 		}
 		if (currentData.quizType === "full") {
 			//next Sentence
-			assignNextSentence(sentenceInd)
+			console.log("going to run assignNextSentence: sentenceInd: ", sentenceInd)
+			assignNextSentence({ sentenceInd })
 		}
 		if (lessonOver) {
 			console.log("lessonOver: ", lessonOver)
@@ -279,30 +282,39 @@ export const QuizProvider = ({ children }) => {
 		return index
 	}
 
-	const assignNextSentence = (sentenceInd) => {
-		console.log("assigning next sentence, sentenceInd: ", sentenceInd)
+	const assignNextSentence = ({ sentenceInd, newIndex } = {}) => {
+		const lesson = spanishData.lessons[currentData.lessonNumber]
+		console.log("assigning next sentence, sentenceInd:", sentenceInd)
 
-		console.log(
-			"# of sentences: ",
-			spanishData.lessons[currentData.lessonNumber].sentences.length
-		)
-		const index = sentenceInd ? sentenceInd : currentData.sentenceIndex
+		// Use defaults if arguments are not provided
+		const index =
+			typeof sentenceInd === "number" ? sentenceInd : currentData.sentenceIndex
+		console.log("# of sentences:", lesson.sentences.length)
+		console.log("current index:", index)
 
-		console.log("index: ", index)
-		tempSentenceIndex = index + 1
-		console.log("tempSentenceIndex: ", tempSentenceIndex)
-		if (
-			tempSentenceIndex >
-			spanishData.lessons[currentData.lessonNumber].sentences.length
-		) {
+		// Use newIndex if provided, otherwise increment the index
+		const nextIndex = typeof newIndex === "number" ? newIndex : index + 1
+		console.log("nextIndex:", nextIndex)
+
+		// Check if we're at the end of the lesson
+		if (nextIndex >= lesson.sentences.length) {
 			console.log("No more sentences")
 			lessonOver = true
 			return
 		}
+
+		// Update temporary variables and state
+		tempSentenceIndex = nextIndex
+		tempTranslatedWords = {}
+		tempSectionIndex = getNextSection(
+			lesson.sentences[nextIndex],
+			tempTranslatedWords
+		)
+
 		setCurrentData((prev) => ({
 			...prev,
-			sentenceIndex: tempSentenceIndex,
-			sectionIndex: null,
+			sentenceIndex: nextIndex,
+			sectionIndex: tempSectionIndex,
 			translatedWords: {},
 		}))
 	}
@@ -340,6 +352,7 @@ export const QuizProvider = ({ children }) => {
 				setDisplayStatus,
 				handleLessonChange,
 				logData,
+				getNextSection,
 			}}
 		>
 			{children}
