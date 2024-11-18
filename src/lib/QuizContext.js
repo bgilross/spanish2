@@ -29,7 +29,7 @@ export const QuizProvider = ({ children }) => {
 	})
 
 	let tempErrors = []
-	let tempLessonIndex = 0
+	let tempLessonNumber = 0
 	let tempSentenceIndex = 0
 	let tempSectionIndex = 0
 	let tempTranslatedWords = {}
@@ -41,7 +41,7 @@ export const QuizProvider = ({ children }) => {
 		console.log("currentData: ", currentData)
 		console.log("displayStatus: ", displayStatus)
 		console.log("tempErrors: ", tempErrors)
-		console.log("tempLessonIndex: ", tempLessonIndex)
+		console.log("tempLessonNumber: ", tempLessonNumber)
 		console.log("tempSentenceIndex: ", tempSentenceIndex)
 		console.log("tempSectionIndex: ", tempSectionIndex)
 		console.log("tempTranslatedWords: ", tempTranslatedWords)
@@ -51,7 +51,7 @@ export const QuizProvider = ({ children }) => {
 		return {
 			state: currentData,
 			tempErrors: tempErrors,
-			tempLessonIndex: tempLessonIndex,
+			tempLessonNumber: tempLessonNumber,
 			tempSentenceIndex: tempSentenceIndex,
 			tempSectionIndex: tempSectionIndex,
 			tempTranslatedWords: tempTranslatedWords,
@@ -125,7 +125,7 @@ export const QuizProvider = ({ children }) => {
 			console.log("going to handle incorrect answer Input: ", input)
 			handleIncorrectAnswer(input, currentSentence, currentSection)
 		}
-		return tempLessonIndex, tempSentenceIndex, tempSectionIndex
+		return tempLessonNumber, tempSentenceIndex, tempSectionIndex
 	}
 
 	const handleIncorrectAnswer = (input, currentSentence, currentSection) => {

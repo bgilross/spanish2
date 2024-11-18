@@ -6,21 +6,27 @@ import { Box } from "@mui/system"
 import { useTranslation } from "@/lib/TranslationContext"
 import spanishData from "@/lib/spanishData"
 import { useState, useEffect } from "react"
+import { useQuiz } from "@/lib/QuizContext"
 
 import { useAuth } from "@/lib/useAuth"
+import GoogleLogin from "./GoogleLogin"
 
 // import SpreadWord from "./SpreadWord"
 // import GoogleLogin from "./GoogleLogin"
 
 const Header = () => {
 	const {
-		lessonNumber,
-		handleLessonChange,
-		quizType,
-		setQuizType,
-		sentenceIndex,
-		changeSentence,
+		// lessonNumber,
+		// handleLessonChange,
+		// quizType,
+		// setQuizType,
+		// sentenceIndex,
+		// changeSentence,
 	} = useTranslation()
+
+	const { currentData, setCurrentData } = useQuiz()
+	const { sentenceIndex, quizType, lessonNumber } = currentData
+
 	const [value, setValue] = useState(3)
 
 	const { user, loginWithGoogle, logout } = useAuth()
@@ -101,24 +107,7 @@ const Header = () => {
 							</option>
 						))}
 					</select>
-					{user ? (
-						<div>
-							<span>Welcome, {user.displayName}</span>
-							<button
-								onClick={logout}
-								className="ml-4 bg-red-500 text-white px-4 py-2 rounded"
-							>
-								Logout
-							</button>
-						</div>
-					) : (
-						<button
-							onClick={loginWithGoogle}
-							className="bg-blue-500 text-white px-4 py-2 rounded"
-						>
-							Login with Google
-						</button>
-					)}
+					<GoogleLogin />
 				</Box>
 			</Toolbar>
 		</AppBar>
