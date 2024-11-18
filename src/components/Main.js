@@ -6,10 +6,11 @@ import { useTranslation } from "@/lib/TranslationContext"
 import WordModal from "./WordModal"
 import "../styles/flashOverlay.css"
 import Testing from "./Testing"
+import { useQuiz } from "@/lib/QuizContext"
 
 export default function Main() {
 	const {
-		logData,
+		// logData,
 		isScoreModalOpen,
 		setIsScoreModalOpen,
 		isWordModalOpen,
@@ -20,6 +21,7 @@ export default function Main() {
 		showRedFlash,
 		showGreenFlash,
 	} = useTranslation()
+	const { displayStatus, setDisplayStatus, logData } = useQuiz()
 
 	const RedFlashOverlay = () => {
 		return showRedFlash ? <div className="red-flash-overlay"></div> : null
@@ -55,8 +57,10 @@ export default function Main() {
 				<InputArea />
 			</div>
 			<ScoreSummary
-				isOpen={isScoreModalOpen}
-				onClose={() => setIsScoreModalOpen(false)}
+				isOpen={displayStatus.showScoreModal}
+				onClose={() =>
+					setDisplayStatus((prev) => ({ ...prev, showScoreModal: false }))
+				}
 			/>
 		</div>
 	)

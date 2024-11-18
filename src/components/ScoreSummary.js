@@ -1,7 +1,10 @@
 import { useTranslation } from "@/lib/TranslationContext"
+import { useQuiz } from "@/lib/QuizContext"
 
 const ScoreSummary = ({ isOpen, onClose }) => {
-	const { score, lessonNumber, handleLessonChange, errors } = useTranslation()
+	// const { score, lessonNumber, handleLessonChange, errors } = useTranslation()
+	const { currentData, handleLessonChange } = useQuiz()
+	const { errors, lessonNumber } = currentData
 
 	const analyzeErrors = (errors) => {
 		console.log("Analyzing errors: ", errors)
@@ -55,7 +58,6 @@ const ScoreSummary = ({ isOpen, onClose }) => {
 		<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
 			<div className="bg-secondary w-3/4 md:w-1/2 lg:w-1/3 p-6 rounded-lg shadow-xl relative">
 				<h2 className="text-3xl font-bold text-primary mb-4">Lesson Summary</h2>
-				<h3>Number Correct: {score.numCorrect}</h3>
 
 				{/* Error Breakdown */}
 				<div className="mb-6 max-h-[400px] overflow-y-auto">
@@ -93,15 +95,17 @@ const ScoreSummary = ({ isOpen, onClose }) => {
 									key={index}
 									className="mb-4"
 								>
-									<strong>Sentence:</strong> {error.sentenceData.sentence}
+									<strong>Sentence:</strong> {error.currentSentence.sentence}
 									<br />
-									<strong>Translation:</strong> {error.sentenceData.translation}
+									<strong>Translation:</strong>{" "}
+									{error.currentSentence.translation}
 									<br />
 									<strong>Your Answer:</strong> {error.userInput}
 									<br />
-									<strong>Correct Word:</strong>{" "}
-									{error.currentWord.translation?.word.toUpperCase() ||
-										error.currentSection?.phraseTranslation?.toUpperCase()}
+									<strong>Correct Words:</strong>{" "}
+									{error.errorWords.map((translation, i) => (
+										<span key={i}>{translation.word}</span>
+									))}
 									<br />
 									<strong>Notes:</strong> <br />
 									{error.references.length > 0 ? (

@@ -172,7 +172,7 @@ export const TranslationProvider = ({ children }) => {
 	}
 
 	const handleSubmit = (userInput) => {
-		handleUserSubmit(userInput)
+		// handleUserSubmit(userInput)
 	}
 
 	const handleSubmit2 = (userInput, sentenceIndex) => {

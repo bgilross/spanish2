@@ -14,7 +14,6 @@ export const QuizProvider = ({ children }) => {
 	const [currentData, setCurrentData] = useState({
 		lessonNumber: 3,
 		quizType: "full",
-		wordCount: 0,
 		sentenceIndex: 0,
 		sectionIndex: null,
 		lessonIndex: 0,
@@ -38,6 +37,16 @@ export const QuizProvider = ({ children }) => {
 
 	const { user } = useAuth()
 
+	const logData = () => {
+		console.log("currentData: ", currentData)
+		console.log("displayStatus: ", displayStatus)
+		console.log("tempErrors: ", tempErrors)
+		console.log("tempLessonIndex: ", tempLessonIndex)
+		console.log("tempSentenceIndex: ", tempSentenceIndex)
+		console.log("tempSectionIndex: ", tempSectionIndex)
+		console.log("tempTranslatedWords: ", tempTranslatedWords)
+	}
+
 	const getData = () => {
 		return {
 			state: currentData,
@@ -52,13 +61,13 @@ export const QuizProvider = ({ children }) => {
 	const resetStates = () => {
 		setCurrentData((prev) => ({
 			...prev,
-			wordCount: 0,
 			sentenceIndex: 0,
 			sectionIndex: null,
 			translatedWords: {},
 			tempSentenceIndex: 0,
 			tempTranslatedWords: {},
 			tempSectionIndex: 0,
+			errors: [],
 		}))
 	}
 
@@ -87,6 +96,16 @@ export const QuizProvider = ({ children }) => {
 		sectionInd = currentData.sectionIndex,
 		lessonNum = currentData.lessonNumber
 	) => {
+		console.log(
+			"handling user submit: Input is",
+			input,
+			"Sentence Ind:",
+			sentenceInd,
+			"Section Ind:",
+			sectionInd,
+			"Lesson Num:",
+			lessonNum
+		)
 		//get current sentence and section info, if sentence index or section index isn't provided default to state?
 		const currentLesson = spanishData.lessons[lessonNum]
 		const currentSentence = currentLesson.sentences[sentenceInd]
@@ -98,27 +117,122 @@ export const QuizProvider = ({ children }) => {
 		const correctAnswer = getCorrectAnswer(currentSection, currentSentence)
 		if (cleanInput === correctAnswer) {
 			handleCorrectAnswer({
-				currentSentence,
 				currentSection,
+				currentSentence,
+				sentenceInd,
 			})
 		} else {
-			handleIncorrectAnswer(
-				currentSection,
-				currentSentence,
-				input,
-				cleanInput,
-				correctAnswer
-			)
+			console.log("going to handle incorrect answer Input: ", input)
+			handleIncorrectAnswer(input, currentSentence, currentSection)
 		}
 		return tempLessonIndex, tempSentenceIndex, tempSectionIndex
 	}
 
-	const handleCorrectAnswer = (currentSentence, currentSection) => {
+	const handleIncorrectAnswer = (input, currentSentence, currentSection) => {
+		//create error log
+		const errorData = getErrorData(input, currentSentence, currentSection)
+
+		//add error to state
+		setCurrentData((prev) => ({
+			...prev,
+			errors: [...prev.errors, errorData],
+		}))
+		tempErrors.push(errorData)
+		//ADD: add error to firestore
+	}
+
+	const getErrorData = (input, currentSentence, currentSection) => {
+		console.log("input: ", input)
+		const userWords = input.split(" ").map((word) => word.trim().toLowerCase())
+
+		let errorWords = []
+		let tempRefs = []
+
+		if (currentData.quizType === "parts") {
+			if (Array.isArray(currentSection.translation)) {
+				currentSection.translation.forEach((translation) => {
+					console.log("translation: ", translation)
+					if (!userWords.includes(translation.word.toLowerCase())) {
+						console.log(
+							"word not included in user Words: ",
+							translation.word.toLowerCase()
+						)
+
+						errorWords.push(translation)
+					}
+				})
+			} else if (currentSection.translation) {
+				const translationWord = currentSection.translation.word.toLowerCase()
+				if (!userWords.includes(translationWord)) {
+					errorWords.push(currentSection.translation)
+				}
+			}
+		}
+		if (currentData.quizType === "full") {
+			currentSentence.data.forEach((section) => {
+				if (section.translation) {
+					if (!Array.isArray(section.translation)) {
+						const translationWord = section.translation.word.toLowerCase()
+						if (!userWords.includes(translationWord)) {
+							errorWords.push(section.translation)
+						}
+					} else if (Array.isArray(section.translation)) {
+						section.translation.forEach((translation) => {
+							if (!userWords.includes(translation.word.toLowerCase())) {
+								errorWords.push(section.translation)
+							}
+						})
+					}
+				}
+			})
+		}
+		console.log("errorWords: ", errorWords)
+		if (currentData.quizType === "parts") {
+			errorWords.map((word) => {
+				currentSection.reference?.[word].map((ref) => {
+					tempRefs.push(ref)
+				})
+			})
+		} else if (currentData.quizType === "full") {
+			console.log("quizType is full")
+			errorWords.map((word) => {
+				currentSentence.data.map((section) => {
+					section.reference?.[word.word]?.map((ref) => {
+						console.log("ref: ", ref)
+						if (tempRefs.includes(ref)) {
+							return
+						}
+						tempRefs.push(ref)
+					})
+				})
+			})
+		}
+		const errorEntry = {
+			userInput: input,
+			currentSentence: currentSentence,
+			currentSection: currentSection,
+			lessonNumber: currentData.lessonNumber,
+			errorWords: errorWords,
+			references: tempRefs,
+			mode: currentData.quizType,
+		}
+		return errorEntry
+	}
+
+	const handleCorrectAnswer = (
+		currentSection,
+		currentSentence,
+		sentenceInd
+	) => {
 		if (currentData.quizType === "parts") {
 			//if parts add the correct word to the translatedWords array
-			translatedWords.push(currentSection.translation.word)
+			tempTranslatedWords.push(currentSection.translation.word)
+			setCurrentData((prev) => ({
+				...prev,
+				translatedWords: tempTranslatedWords,
+			}))
 			//try to get the next section index to translate in the sentence
-			nextSection = getNextSection(sentenceIndex)
+			nextSection = getNextSection(currentSentence, tempTranslatedWords)
 			if (nextSection === null) {
 				//move to next sentence
 				assignNextSentence()
@@ -133,9 +247,10 @@ export const QuizProvider = ({ children }) => {
 		}
 		if (currentData.quizType === "full") {
 			//next Sentence
-			assignNextSentence()
+			assignNextSentence(sentenceInd)
 		}
 		if (lessonOver) {
+			console.log("lessonOver: ", lessonOver)
 			setCurrentData((prev) => ({
 				...prev,
 				showScoreModal: true,
@@ -143,8 +258,7 @@ export const QuizProvider = ({ children }) => {
 		}
 	}
 
-	const getNextSection = (sentenceInd) => {
-		const currentSentence = sentenceInd ? sentenceInd : sentenceIndex
+	const getNextSection = (currentSentence, translatedWords) => {
 		const entries = Object.entries(currentSentence.data)
 
 		const index = entries.findIndex(([key, item]) => {
@@ -166,14 +280,24 @@ export const QuizProvider = ({ children }) => {
 	}
 
 	const assignNextSentence = (sentenceInd) => {
+		console.log("assigning next sentence, sentenceInd: ", sentenceInd)
+
+		console.log(
+			"# of sentences: ",
+			spanishData.lessons[currentData.lessonNumber].sentences.length
+		)
 		const index = sentenceInd ? sentenceInd : currentData.sentenceIndex
+
+		console.log("index: ", index)
 		tempSentenceIndex = index + 1
+		console.log("tempSentenceIndex: ", tempSentenceIndex)
 		if (
 			tempSentenceIndex >
 			spanishData.lessons[currentData.lessonNumber].sentences.length
 		) {
 			console.log("No more sentences")
 			lessonOver = true
+			return
 		}
 		setCurrentData((prev) => ({
 			...prev,
@@ -207,7 +331,17 @@ export const QuizProvider = ({ children }) => {
 	}
 
 	return (
-		<QuizContext.Provider value={{ handleUserSubmit, currentData }}>
+		<QuizContext.Provider
+			value={{
+				handleUserSubmit,
+				currentData,
+				setCurrentData,
+				displayStatus,
+				setDisplayStatus,
+				handleLessonChange,
+				logData,
+			}}
+		>
 			{children}
 		</QuizContext.Provider>
 	)
