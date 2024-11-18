@@ -2314,9 +2314,10 @@ const spanishData = {
 			details: "Articles and Direct Obj Pronouns: LOS and LAS",
 			info: [
 				"LOS and LAS can be DIRECT OBJ PRONOUNS that mean THEM (M/F) in Spanish ",
-				"LOS and LAS can also be ARTICLES that mean pluralized THE (M/F), in Spanish, The/LOS Men, The/LAS women",
+				"LOS and LAS can also be ARTICLES that mean THE (pluralized) : The/LOS Men, The/LAS women",
 				"Que' is another Pronoun meaning WHAT, usually used to turn sentences into questions",
 			],
+			wordBank: [artcl.los, artcl.las, dObj.los, dObj.las],
 			sentences: [
 				{
 					id: 1,

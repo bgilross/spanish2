@@ -3,24 +3,30 @@
 import { useTranslation } from "@/lib/TranslationContext"
 import spanishData from "@/lib/spanishData"
 import { useState } from "react"
+import { useQuiz } from "@/lib/QuizContext"
 
 const Sentence = ({}) => {
-	const {
-		currentIndex,
-		translatedWords,
-		lessonNumber,
-		sentenceIndex,
-		changeSentence,
-		quizType,
-		setQuizType,
-		wordCount,
-	} = useTranslation()
+	// const {
+	// 	currentIndex,
+	// 	translatedWords,
+	// 	lessonNumber,
+	// 	sentenceIndex,
+	// 	quizType,
+	// } = useTranslation()
 
-	const [numToTranslate, setNumToTranslate] = useState(0)
+	const { currentData } = useQuiz()
+	const {
+		sectionIndex,
+		wordCount,
+		quizType,
+		sentenceIndex,
+		lessonNumber,
+		translatedWords,
+	} = currentData
 
 	const currentSentence =
 		spanishData?.lessons[lessonNumber]?.sentences?.[sentenceIndex]
-	const currentSection = currentSentence?.data?.[currentIndex]
+	const currentSection = currentSentence?.data?.[sectionIndex]
 
 	const wordsInSection = (() => {
 		// Get the current section based on currentIndex
@@ -42,17 +48,12 @@ const Sentence = ({}) => {
 		return 0
 	})()
 
-	const sentenceData =
-		spanishData?.lessons?.[lessonNumber]?.sentences?.[sentenceIndex]
-
 	const untranslatedSentence = (() => {
 		// Return null if sentenceData is not available
-		if (!sentenceData) return null
+		if (!currentSentence) return null
 
 		if (quizType === "parts") {
-			const sentenceParts =
-				spanishData?.lessons?.[lessonNumber]?.sentences?.[sentenceIndex]?.data
-
+			const sentenceParts = currentSentence.data
 			// If sentence parts exist, return a JSX fragment with mapped items
 			if (sentenceParts) {
 				return Object.values(sentenceParts).map((item, index) => (
@@ -72,7 +73,7 @@ const Sentence = ({}) => {
 
 		// If quizType is "full", return the full sentence
 		if (quizType === "full") {
-			return sentenceData.sentence
+			return currentSentence.sentence
 		}
 
 		return null
@@ -82,11 +83,11 @@ const Sentence = ({}) => {
 		quizType === "full" ? (
 			// If quizType is "full", display a single blank line
 			<div className="mb-4 border-b-4 border-accent inline-block w-full h-8">
-				{"\u00A0".repeat(sentenceData?.sentence.length + 12 || 20)}
+				{"\u00A0".repeat(currentSentence?.sentence.length + 12 || 20)}
 			</div>
 		) : (
 			// If quizType is not "full", proceed with the usual translation logic
-			sentenceData?.data?.map((word, index) => (
+			currentSentence?.data?.map((word, index) => (
 				<span
 					key={index}
 					className={`mr-2 ${
@@ -100,7 +101,7 @@ const Sentence = ({}) => {
 					{/* If this is the current index, show the wordsInSection count */}
 					{word.translation
 						? translatedWords[index] ||
-						  (index === currentIndex
+						  (index === sectionIndex
 								? `${wordsInSection} Spanish Word(s)`
 								: "__________________")
 						: word.word}
@@ -110,7 +111,7 @@ const Sentence = ({}) => {
 
 	// JSX Return Statement
 
-	if (!sentenceData) return null
+	if (!currentSentence) return null
 	return (
 		<div className="text-6xl text-primary flex flex-col justify-center items-center space-y-6">
 			<div>{untranslatedSentence}</div>

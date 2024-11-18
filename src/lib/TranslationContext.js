@@ -5,6 +5,7 @@ import spanishWords from "./spanishWords"
 import { useAuth } from "./useAuth"
 import { addErrorReport } from "./firestore"
 import { current } from "tailwindcss/colors"
+import { useQuiz } from "./useQuiz"
 
 const TranslationContext = createContext()
 
@@ -27,6 +28,11 @@ export const TranslationProvider = ({ children }) => {
 	const [isWordModalOpen, setIsWordModalOpen] = useState(false)
 	const [selectedWord, setSelectedWord] = useState(null)
 	const [errors, setErrors] = useState([])
+
+	let tempSentenceIndex = 0
+	let tempSectionIndex = 0
+	let tempLessonIndex = 0
+	let tempTranslatedWords = {}
 
 	const { user } = useAuth()
 
@@ -165,7 +171,11 @@ export const TranslationProvider = ({ children }) => {
 		return str.replace(/[.,/#!$%^&*;:{}=\-_`~()?']/g, "").trim()
 	}
 
-	const handleSubmit = (userInput, sentenceIndex) => {
+	const handleSubmit = (userInput) => {
+		handleUserSubmit(userInput)
+	}
+
+	const handleSubmit2 = (userInput, sentenceIndex) => {
 		console.log("Handling Submit. userInput:", userInput)
 		console.log("quizType: ", quizType)
 		console.log("sentenceIndex: ", sentenceIndex)

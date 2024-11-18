@@ -3,6 +3,7 @@ import "./globals.css"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 import { TranslationProvider } from "@/lib/TranslationContext"
+import { QuizProvider } from "@/lib/QuizContext"
 
 const geistSans = localFont({
 	src: "./fonts/GeistVF.woff",
@@ -28,9 +29,11 @@ export default function RootLayout({ children }) {
 			>
 				<div className="flex flex-col justify-between h-full">
 					<TranslationProvider>
-						<Header />
-						{children}
-						<Footer />
+						<QuizProvider>
+							<Header />
+							{children}
+							<Footer />
+						</QuizProvider>
 					</TranslationProvider>
 				</div>
 			</body>
