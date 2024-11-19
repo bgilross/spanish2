@@ -134,13 +134,23 @@ export const QuizProvider = ({ children }) => {
 				sectionInd
 			)
 		} else {
-			handleIncorrectAnswer(input, currentSentence, currentSection)
+			handleIncorrectAnswer(input, currentSentence, currentSection, sectionInd)
 		}
 	}
 
-	const handleIncorrectAnswer = (input, currentSentence, currentSection) => {
+	const handleIncorrectAnswer = (
+		input,
+		currentSentence,
+		currentSection,
+		sectionInd
+	) => {
 		//create error log
-		const errorData = getErrorData(input, currentSentence, currentSection)
+		const errorData = logErrorData(
+			input,
+			currentSentence,
+			currentSection,
+			sectionInd
+		)
 
 		//add error to state
 		setCurrentData((prev) => ({
@@ -151,73 +161,24 @@ export const QuizProvider = ({ children }) => {
 		//ADD: add error to firestore
 	}
 
-	const getErrorData = (input, currentSentence, currentSection) => {
+	const logErrorData = (input, currentSentence, currentSection, sectionInd) => {
 		console.log("input: ", input)
 		const userWords = input.split(" ").map((word) => word.trim().toLowerCase())
 
-		let errorWords = []
-		let tempRefs = []
+		const errorWords = findErrors({
+			currentSection,
+			currentSentence,
+			userWords,
+		})
+		const tempRefs = findErrorRefs({
+			currentSection,
+			currentSentence,
+			errorWords,
+		})
 
-		if (currentData.quizType === "parts") {
-			if (Array.isArray(currentSection.translation)) {
-				currentSection.translation.forEach((translation) => {
-					console.log("translation: ", translation)
-					if (!userWords.includes(translation.word.toLowerCase())) {
-						console.log(
-							"word not included in user Words: ",
-							translation.word.toLowerCase()
-						)
-
-						errorWords.push(translation)
-					}
-				})
-			} else if (currentSection.translation) {
-				const translationWord = currentSection.translation.word.toLowerCase()
-				if (!userWords.includes(translationWord)) {
-					errorWords.push(currentSection.translation)
-				}
-			}
-		}
-		if (currentData.quizType === "full") {
-			currentSentence.data.forEach((section) => {
-				if (section.translation) {
-					if (!Array.isArray(section.translation)) {
-						const translationWord = section.translation.word.toLowerCase()
-						if (!userWords.includes(translationWord)) {
-							errorWords.push(section.translation)
-						}
-					} else if (Array.isArray(section.translation)) {
-						section.translation.forEach((translation) => {
-							if (!userWords.includes(translation.word.toLowerCase())) {
-								errorWords.push(section.translation)
-							}
-						})
-					}
-				}
-			})
-		}
 		console.log("errorWords: ", errorWords)
 		console.log("currentSection: ", currentSection)
-		if (currentData.quizType === "parts") {
-			errorWords.map((word) => {
-				currentSection.reference?.[word].map((ref) => {
-					tempRefs.push(ref)
-				})
-			})
-		} else if (currentData.quizType === "full") {
-			console.log("quizType is full")
-			errorWords.map((word) => {
-				currentSentence.data.map((section) => {
-					section.reference?.[word.word]?.map((ref) => {
-						console.log("ref: ", ref)
-						if (tempRefs.includes(ref)) {
-							return
-						}
-						tempRefs.push(ref)
-					})
-				})
-			})
-		}
+
 		const errorEntry = {
 			userInput: input,
 			currentSentence: currentSentence,
@@ -230,12 +191,112 @@ export const QuizProvider = ({ children }) => {
 		return errorEntry
 	}
 
-	const handleCorrectAnswer = (
-		currentSentence,
-		sentenceInd,
-		currentSection,
-		sectionInd
-	) => {
+	const findErrors = ({ currentSection, currentSentence, userWords }) => {
+		let errorWords = []
+		if (currentData.quizType === "parts") {
+			if (Array.isArray(currentSection.translation)) {
+				currentSection.translation.forEach((translation) => {
+					console.log("translation: ", translation)
+					if (
+						!userWords.includes(translation.word.cleanString().toLowerCase())
+					) {
+						console.log(
+							"word not included in user Words: ",
+							translation.word.toLowerCase()
+						)
+						errorWords.push({
+							word: translation.word,
+							sectionInd: sectionInd,
+							phrase: currentSection.phraseTranslation,
+						})
+					}
+				})
+			} else if (currentSection.translation) {
+				const translationWord = currentSection.translation.word.toLowerCase()
+				if (!userWords.includes(translationWord)) {
+					errorWords.push({
+						word: currentSection.translation,
+						sectionInd: sectionInd,
+						phrase: currentSection.phraseTranslation,
+					})
+				}
+			}
+		}
+		if (currentData.quizType === "full") {
+			currentSentence.data.forEach((section, index) => {
+				if (section.translation) {
+					if (!Array.isArray(section.translation)) {
+						const translationWord = section.translation.word.toLowerCase()
+						if (!userWords.includes(translationWord)) {
+							errorWords.push({
+								word: section.translation,
+								sectionInd: index,
+								phrase: currentSection.phraseTranslation,
+							})
+						}
+					} else if (Array.isArray(section.translation)) {
+						section.translation.forEach((translation) => {
+							if (!userWords.includes(translation.word.toLowerCase())) {
+								errorWords.push({
+									word: section.translation,
+									sectionInd: index,
+									phrase: currentSection.phraseTranslation,
+									currentSection: currentSection,
+								})
+							}
+						})
+					}
+				}
+			})
+		}
+		return errorWords
+	}
+
+	const findErrorRefs = ({ currentSection, currentSentence, errorWords }) => {
+		let tempRefs = []
+		if (currentData.quizType === "parts") {
+			//check for references first in the currentSection:
+			if (currentSection.reference) {
+				errorWords.map((word) => {
+					//check errorWord index matches currentSection index
+					if (word.sectionInd === sectionInd) {
+						//check if word.word is a key in the reference object:
+						if (currentSection.reference[word.word]) {
+							tempRefs.push(
+								currentSection.reference
+							)							
+						}			
+
+						
+					}
+			}
+		)
+		} else if (currentData.quizType === "full") {
+			console.log("quizType is full")
+			errorWords.map((word) => {
+				const ref = currentSentence.data[word.sectionInd].reference
+				//for each error word, check for references at it's section index?
+				//and check if ref."word" is a thing
+				if (ref && ref[word.word]) {
+					
+					ref[word.word].map((ref) => {
+						console.log("ref: ", ref)
+						if (tempRefs.includes(ref)) {
+							return
+						}
+						tempRefs.push(ref)
+					})
+				}
+				else {
+					console.log("no ref found")
+				}
+					
+				})				
+		}
+		return tempRefs
+	}
+
+	const handleCorrectAnswer = (sentenceInd, currentSection, sectionInd) => {
 		const translationEntry =
 			currentData.quizType === "full"
 				? null

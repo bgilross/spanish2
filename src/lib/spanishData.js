@@ -69,7 +69,6 @@ const spanishData = {
 				},
 				{
 					id: 2,
-					reference: { que: [conj.que.info[1]] },
 					sentence: "We said that was fine",
 					translation: "We said QUE ESO was fine",
 					data: [
@@ -77,7 +76,7 @@ const spanishData = {
 							phrase: "We said",
 							translation: conj.que,
 							phraseTranslation: "We said QUE",
-							reference: { que: [conj.que.info[1]] },
+							reference: { "conj.que": [1] },
 						},
 						{ word: "that", translation: pron.eso },
 						{ word: "was" },
@@ -124,7 +123,6 @@ const spanishData = {
 				},
 				{
 					id: 6,
-					reference: { que: [conj.que.info[1]] },
 					sentence: "I told them that was in the way",
 					translation: "I told them QUE ESO was in the way",
 					data: [
@@ -132,7 +130,7 @@ const spanishData = {
 							phrase: "I told them",
 							translation: conj.que,
 							phraseTranslation: "I told them QUE",
-							reference: { que: [conj.que.info[1]] },
+							reference: { "conj.que": [1] },
 						},
 						{ word: "that", translation: pron.eso },
 						{ word: "was" },
@@ -143,7 +141,6 @@ const spanishData = {
 				},
 				{
 					id: 7,
-					reference: { que: [conj.que.info[1]] },
 					sentence: "I hope he gets that soon",
 					translation: "I hope QUE he gets ESO soon",
 					data: [
@@ -151,7 +148,7 @@ const spanishData = {
 							phrase: "I hope",
 							translation: conj.que,
 							phraseTranslation: "I hope QUE",
-							reference: { que: [conj.que.info[1]] },
+							reference: { "conj.que": [1] },
 						},
 						{ word: "he" },
 						{ word: "gets" },
@@ -173,7 +170,6 @@ const spanishData = {
 				},
 				{
 					id: 9,
-					reference: { que: [conj.que.info[1]] },
 					sentence: "He said they said that!",
 					translation: "He said QUE they said ESO!",
 					data: [
@@ -181,7 +177,7 @@ const spanishData = {
 							phrase: "He said",
 							translation: conj.que,
 							phraseTranslation: "He said QUE",
-							reference: { que: [conj.que.info[1]] },
+							reference: { "conj.que": [1] },
 						},
 						{ word: "they" },
 						{ word: "said" },
@@ -295,13 +291,13 @@ const spanishData = {
 							phrase: "I hope",
 							translation: conj.que,
 							phraseTranslation: "I hope QUE",
-							reference: { que: [conj.que.info[1]] },
+							reference: { "conj.que": [1] },
 						},
 						{
 							phrase: "he told you",
 							translation: conj.que,
 							phraseTranslation: "he told you QUE",
-							reference: { que: [conj.que.info[1]] },
+							reference: { "conj.que": [1] },
 						},
 						{ word: "he was here" },
 					],
@@ -327,7 +323,6 @@ const spanishData = {
 			sentences: [
 				{
 					id: 1,
-					reference: { no: [advrb.no.info[6]] },
 					sentence: "She can't be at the house",
 					translation: "She NO can be at the house",
 					data: [
@@ -336,7 +331,7 @@ const spanishData = {
 							phrase: "Can't be",
 							translation: advrb.no,
 							phraseTranslation: "NO can be",
-							reference: { no: [advrb.no.info[6]] },
+							reference: { "advrb.no": [7] },
 						},
 						{ word: "at" },
 						{ word: "the" },
@@ -345,7 +340,6 @@ const spanishData = {
 				},
 				{
 					id: 2,
-					reference: { no: [advrb.no.info[7]], que: [conj.que.info[1]] },
 					sentence: "Don't say you're not here",
 					translation: "NO say QUE you NO are here",
 					data: [
@@ -353,7 +347,7 @@ const spanishData = {
 							phrase: "Don't say",
 							translation: [advrb.no, conj.que],
 							phraseTranslation: "NO say QUE",
-							reference: { no: [advrb.no.info[7]], que: [conj.que.info[1]] },
+							reference: { "advrb.no": [7], "conj.que": [1] },
 						},
 						{
 							phrase: "you're not",
@@ -365,7 +359,6 @@ const spanishData = {
 				},
 				{
 					id: 3,
-					reference: { no: [advrb.no.info[7]] },
 					sentence: "We didn't go to this store",
 					translation: "We NO went A this store",
 					data: [
@@ -374,7 +367,7 @@ const spanishData = {
 							phrase: "didn't go",
 							translation: advrb.no,
 							phraseTranslation: "NO went",
-							reference: { no: [advrb.no.info[7]] },
+							reference: { "advrb.no": [7] },
 						},
 						{ word: "to", translation: prep.a },
 						{ word: "this" },
@@ -383,7 +376,6 @@ const spanishData = {
 				},
 				{
 					id: 4,
-					reference: { no: [advrb.no.info[6]] },
 					sentence: "She won't send that to her sister",
 					translation: "She NO will send ESO A her sister",
 					data: [
@@ -392,7 +384,7 @@ const spanishData = {
 							phrase: "won't send",
 							translation: advrb.no,
 							phraseTranslation: "NO will send",
-							reference: { no: [advrb.no.info[6]] },
+							reference: { "advrb.no": [6] },
 						},
 						{ word: "that", translation: pron.eso },
 						{ word: "to", translation: prep.a },
@@ -415,7 +407,6 @@ const spanishData = {
 				},
 				{
 					id: 6,
-					reference: { no: [advrb.no.info[6]] },
 					sentence: "This isn't your stuff",
 					translation: "This NO is your stuff",
 					data: [
@@ -424,7 +415,7 @@ const spanishData = {
 							phrase: "isn't",
 							translation: advrb.no,
 							phraseTranslation: "NO is",
-							reference: { no: [advrb.no.info[6]] },
+							reference: { "advrb.no": [6] },
 						},
 						{ word: "your" },
 						{ word: "stuff" },
@@ -432,7 +423,6 @@ const spanishData = {
 				},
 				{
 					id: 7,
-					reference: { no: [advrb.no.info[6]] },
 					sentence: "We can't do that",
 					translation: "We NO can do ESO",
 					data: [
@@ -441,7 +431,7 @@ const spanishData = {
 							phrase: "can't do",
 							translation: advrb.no,
 							phraseTranslation: "NO can do",
-							reference: { no: [advrb.no.info[6]] },
+							reference: { "advrb.no": [6] },
 						},
 						{ word: "that", translation: pron.eso },
 					],
@@ -462,7 +452,6 @@ const spanishData = {
 				},
 				{
 					id: 9,
-					reference: { no: [advrb.no.info[6]] },
 					sentence: "I can't have more of that",
 					translation: "I NO can have more of ESO",
 					data: [
@@ -471,7 +460,7 @@ const spanishData = {
 							phrase: "can't have",
 							translation: advrb.no,
 							phraseTranslation: "NO can have",
-							reference: { no: [advrb.no.info[6]] },
+							reference: { "advrb.no": [6] },
 						},
 						{ word: "more" },
 						{ word: "of" },
@@ -493,7 +482,6 @@ const spanishData = {
 				},
 				{
 					id: 11,
-					reference: { no: [advrb.no.info[6]], que: [conj.que.info[1]] },
 					sentence: "We won't say you have that",
 					translation: "We NO will say QUE you have ESO",
 					data: [
@@ -502,20 +490,19 @@ const spanishData = {
 							phrase: "won't say",
 							translation: [advrb.no],
 							phraseTranslation: "NO will say",
-							reference: { no: [advrb.no.info[6]] },
+							reference: { "advrb.no": [6] },
 						},
 						{
 							word: "you have",
 							translation: conj.que,
 							phraseTranslation: "QUE you have",
-							reference: { que: [conj.que.info[1]] },
+							reference: { "conj.que": [1] },
 						},
 						{ word: "that", translation: pron.eso },
 					],
 				},
 				{
 					id: 12,
-					reference: { no: [advrb.no.info[7]] },
 					sentence: "She doesn't have that",
 					translation: "She NO has ESO",
 					data: [
@@ -524,14 +511,13 @@ const spanishData = {
 							phrase: "doesn't have",
 							translation: advrb.no,
 							phraseTranslation: "NO has",
-							reference: { no: [advrb.no.info[7]] },
+							reference: { "advrb.no": [7] },
 						},
 						{ word: "that", translation: pron.eso },
 					],
 				},
 				{
 					id: 13,
-					reference: { no: [advrb.no.info[7]], que: [conj.que.info[1]] },
 					sentence: "This doesn't tell us that is done",
 					translation: "This NO tells us QUE ESO is done",
 					data: [
@@ -540,13 +526,13 @@ const spanishData = {
 							phrase: "doesn't tell",
 							translation: advrb.no,
 							phraseTranslation: "NO tells",
-							reference: { no: [advrb.no.info[7]] },
+							reference: { "advrb.no": [7] },
 						},
 						{
 							phrase: "us that",
 							translation: conj.que,
 							phraseTranslation: "us QUE",
-							reference: { que: [conj.que.info[1]] },
+							reference: { "conj.que": [1] },
 						},
 						{ word: "is" },
 						{ word: "done" },
@@ -630,7 +616,6 @@ const spanishData = {
 				},
 				{
 					id: 20,
-					reference: { no: [advrb.no.info[6]] },
 					sentence: "This isn't my house",
 					translation: "This NO is my house",
 					data: [
@@ -639,7 +624,7 @@ const spanishData = {
 							phrase: "isn't",
 							translation: advrb.no,
 							phraseTranslation: "NO is",
-							reference: { no: [advrb.no.info[6]] },
+							reference: { "advrb.no": [6] },
 						},
 						{ word: "my" },
 						{ word: "house" },
@@ -647,7 +632,6 @@ const spanishData = {
 				},
 				{
 					id: 21,
-					reference: { no: [advrb.no.info[6]] },
 					sentence: "She can't walk very fast",
 					translation: "She NO can walk very fast",
 					data: [
@@ -656,7 +640,7 @@ const spanishData = {
 							phrase: "can't",
 							translation: advrb.no,
 							phraseTranslation: "NO can",
-							reference: { no: [advrb.no.info[6]] },
+							reference: { "advrb.no": [6] },
 						},
 						{ word: "walk" },
 						{ word: "very" },
@@ -665,7 +649,6 @@ const spanishData = {
 				},
 				{
 					id: 22,
-					reference: { no: [advrb.no.info[7]] },
 					sentence: "They don't see why",
 					translation: "They NO see why",
 					data: [
@@ -674,14 +657,13 @@ const spanishData = {
 							phrase: "don't see",
 							translation: advrb.no,
 							phraseTranslation: "NO see",
-							reference: { no: [advrb.no.info[7]] },
+							reference: { "advrb.no": [7] },
 						},
 						{ word: "why" },
 					],
 				},
 				{
 					id: 23,
-					reference: { no: [advrb.no.info[6]] },
 
 					sentence: "That won't matter",
 					translation: "ESO NO will matter",
@@ -691,13 +673,12 @@ const spanishData = {
 							phrase: "won't mattter",
 							translation: advrb.no,
 							phraseTranslation: "NO will matter",
-							reference: { no: [advrb.no.info[6]] },
+							reference: { "advrb.no": [6] },
 						},
 					],
 				},
 				{
 					id: 24,
-					reference: { no: [advrb.no.info[7]] },
 					sentence: "This doesn't tell us much",
 					translation: "This NO tells us much",
 					data: [
@@ -706,7 +687,7 @@ const spanishData = {
 							phrase: "doesn't tell",
 							translation: advrb.no,
 							phraseTranslation: "NO tells",
-							reference: { no: [advrb.no.info[7]] },
+							reference: { "advrb.no": [6] },
 						},
 						{ word: "us" },
 						{ word: "much" },
@@ -714,7 +695,6 @@ const spanishData = {
 				},
 				{
 					id: 25,
-					reference: { no: [advrb.no.info[7]] },
 					sentence: "He didn't know",
 					translation: "He NO knew",
 					data: [
@@ -723,7 +703,7 @@ const spanishData = {
 							phrase: "didn't know",
 							translation: advrb.no,
 							phraseTranslation: "NO knew",
-							reference: { no: [advrb.no.info[7]] },
+							reference: { "advrb.no": [7] },
 						},
 					],
 				},
@@ -743,7 +723,6 @@ const spanishData = {
 			sentences: [
 				{
 					id: 1,
-					reference: { de: [prep.de.info[2], prep.de.info[4]] },
 					sentence: "It's Samuel's water bottle!",
 					translation: "It's the bottle DE water DE Samuel",
 					data: [
@@ -752,13 +731,12 @@ const spanishData = {
 							phrase: "Samuel's water bottle",
 							phraseTranslation: "the bottle DE water DE Samuel",
 							translation: [prep.de, prep.de],
-							reference: { de: [prep.de.info[2], prep.de.info[4]] },
+							reference: { "prep.de": [2, 4] },
 						},
 					],
 				},
 				{
 					id: 2,
-					reference: { no: [advrb.no.info[6]], que: [conj.que.info[1]] },
 					sentence: "You won't tell me they did it?",
 					translation: "You NO will tell QUE they did it?",
 					data: [
@@ -900,12 +878,14 @@ const spanishData = {
 							phrase: "She hoped",
 							translation: conj.que,
 							phraseTranslation: "She hoped QUE",
+							reference: [conj.que.info[1]],
 						},
 						{ word: "we" },
 						{
 							phrase: "woudn't go",
 							phraseTranslation: "NO would go",
 							translation: advrb.no,
+							reference: [advrb.no.info[6]],
 						},
 						{ word: "to", translation: prep.a },
 						{ word: "Canada" },
@@ -922,6 +902,7 @@ const spanishData = {
 							phrase: "couldn't believe",
 							translation: advrb.no,
 							phraseTranslation: "NO could believe",
+							reference: [advrb.no.info[6]],
 						},
 						{ word: "that!", translation: pron.eso },
 					],
@@ -938,6 +919,8 @@ const spanishData = {
 							phrase: "Maria's plastic chair",
 							phraseTranslation: "the chair DE plastic DE Maria",
 							translation: prep.de,
+							// reference: [prep.de.info[4], prep.de.info[2]],
+							reference: { "prep.de": [4, 2] },
 						},
 					],
 				},
