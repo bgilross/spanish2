@@ -342,6 +342,7 @@ export const QuizProvider = ({ children }) => {
 		setCurrentData((prev) => ({
 			...prev,
 			lessonNumber: tempLessonNumber,
+			showLessonModal: true,
 		}))
 		resetStates()
 	}

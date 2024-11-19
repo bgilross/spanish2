@@ -11,18 +11,28 @@ const LessonInfoBig = ({ isOpen, onClose }) => {
 
 	return (
 		<div className="fixed inset-0 flex text-lg items-center bg-black bg-opacity-50 z-50 text-secondary justify-center">
-			<div className="bg-primary w-4/5 h-4/5 rounded-lg shadow-2xl shadow-primary p-4 overflow-hidden">
-				<div className="text-5xl font-bold mb-4">{lesson.name}</div>
-				<div className="p-4 overflow-y-auto h-3/5">
+			<div className="bg-primary flex flex-col w-4/5 h-[90%] rounded-lg shadow-2xl shadow-primary p-4 overflow-hidden">
+				<div className="flex  items-center">
+					<div className="text-5xl font-bold mb-4">{lesson.name}:</div>
+
+					<div className="h-full w-[70%] text-2xl ml-10 ">
+						<span className="text-accent font-bold border-b-2 border-accent">
+							{lesson.details}
+						</span>
+					</div>
+				</div>
+				<div className="p-4 overflow-y-auto h-full">
 					{lesson.info?.map((info, index) => (
 						<div
 							key={index}
-							className="mt-2"
+							className="mt-2 flex"
 						>
-							<h3>
-								<span className="font-bold text-accent">{index + 1}</span>:{" "}
+							<div className="font-bold text-accent w-[25px] text-right">
+								{index + 1}:
+							</div>{" "}
+							<div className="whitespace-pre-wrap ml-2 w-[90%]">
 								<ClickableText>{info}</ClickableText>
-							</h3>
+							</div>
 						</div>
 					))}
 				</div>

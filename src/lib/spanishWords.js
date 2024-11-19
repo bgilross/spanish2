@@ -81,7 +81,7 @@ const spanishWords = {
 				"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=that&tl=es&total=1&idx=0&textlen=4",
 			pos: "Conjunction",
 			info: [
-				"Que is the NUMBER 1 Word in Spanish, but English THAT is not even in the Top 5, why is that? In Spanish if you CAN use Que as a connector then you MUST. Where in English we can say things like 'We hope we get there soon!' In spanish you would have to say 'We hope THAT we get there soon!'",
+				"Que is a CONJUNCTION meaning 'that', and the NUMBER 1 Word in Spanish, but English's THAT is not even in the Top 5, why is that? In Spanish if you CAN use QUE as a connector then you MUST. Where in English we can say things like 'We hope we get there soon!' In spanish you would have to say 'We hope THAT we get there soon!'",
 
 				"If you CAN add QUE / that in Spanish as a connector then you HAVE to!",
 			],
@@ -92,7 +92,7 @@ const spanishWords = {
 			audio:
 				"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=and&tl=es&total=1&idx=0&textlen=3",
 			pos: "Conjunction",
-			info: ["Y is a direct translation of AND"],
+			info: ["Y is another CONJUNCTION and is a direct translation of AND"],
 		},
 	},
 
@@ -106,7 +106,7 @@ const spanishWords = {
 				"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=that&tl=es&total=1&idx=0&textlen=4",
 			pos: "Pronoun",
 			info: [
-				"ESO is likely the MOST VERSATILE word in Spanish! It is interchangeable with any NOUN or NOUN PHRASE, it can also represent actions and concepts",
+				"likely the MOST VERSATILE word in Spanish! It is interchangeable with any NOUN or NOUN PHRASE, it can also represent actions and concepts",
 			],
 		},
 		que: {
@@ -226,17 +226,17 @@ const spanishWords = {
 	noun: {
 		name: "Noun",
 		info: [
-			"FOOD TEST: Nouns in Spanish function as any WORD or PHRASE that can be substituted for the word FOOD!",
-			"NOUNS aren't just PEOPLE, PLACES, or THINGS, they can also be ACTIONS! Such as: I enjoy LOSING MYSELF IN A NEW CITY",
+			"FOOD TEST: Nouns in Spanish function as any WORD or PHRASE that can be substituted for the word FOOD! I enjoy FOOD!",
+			`NOUNS aren't just PEOPLE, PLACES, or THINGS, they can also be ACTIONS! Such as: \nI enjoy LOSING MYSELF IN A NEW CITY. \nLOSING MYSELF IN A NEW CITY is the NOUN PHRASE!`,
 			"EVERY Noun in Spanish is either Masculine or Feminine.",
 		],
 	},
 	verb: {
 		name: "Verb",
 		info: [
-			"EAT TEST: Verbs are any word that can be replaced by EAT, EATS or ATE!",
-			"What about EATING? EATING or EATEN actually don't behave as verbs in the EAT test! EATING is my Favority activiy, EATING is the NOUN!",
-			"Proper Spanish sentence can ONLY have ONE verb! (EATS EAT or ATE (NOT EATING/EATEN(Those are Nouns sorta!))), conjunctions allow combining phrases/sentences",
+			"EAT TEST: Verbs are any word that can be replaced by EAT, EATS or ATE! I EAT food!",
+			"What about EATING? EATING or EATEN actually don't behave as verbs in the EAT test! EATING is my Favority activiy, EATING is the NOUN! IS is the VERB!",
+			"Proper Spanish sentence can ONLY have ONE verb! (EATS EAT or ATE (NOT EATING/EATEN(Those function as NOUNS))), \nCONJUNCTIONS allow combining phrases/sentences",
 			"VERB PHRASES are where multiple verbs are functioning as only one verb! 'I want to have more!' looks like two verbs, WANT and HAVE but it counts as one! 'I will continue eating my food' Three verbs which counts as ONE! you could change it to 'I EAT my food'",
 		],
 	},

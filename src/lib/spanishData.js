@@ -50,7 +50,7 @@ const spanishData = {
 				conj.que.info[0],
 				conj.que.info[1],
 				verb.info[3],
-				pron.eso.info[0],
+				`ESO is a PRONOUN meaning THAT. ${pron.eso.info[0]}`,
 				conj.y.info[0],
 			],
 			wordBank: [conj.y, conj.que, pron.eso],
