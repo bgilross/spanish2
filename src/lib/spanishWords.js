@@ -7,7 +7,7 @@ const spanishWords = {
 		{ idiom: "por eso", translations: ["because of that", "that's why"] },
 		{ idiom: "para eso", translations: "intended for that" },
 		{
-			idiom: "para que",
+			idiom: "para qué",
 			translations: [
 				"intended for what",
 				"for what purposre",
@@ -17,6 +17,10 @@ const spanishWords = {
 		{
 			idiom: "por que",
 			translations: ["because of what", "why"],
+		},
+		{
+			idiom: "para que",
+			translations: ["so that", "in order that"],
 		},
 	],
 
@@ -75,15 +79,16 @@ const spanishWords = {
 			"Proper Spanish sentence can ONLY have ONE verb! (EATS EAT or ATE (NOT EATING/EATEN(Those are Nouns sorta!))), conjunctions allow combining phrases/sentences",
 		],
 		que: {
-			translations: ["that"],
+			translations: ["that", "than"],
 			word: "que",
 			audio:
 				"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=that&tl=es&total=1&idx=0&textlen=4",
 			pos: "Conjunction",
 			info: [
 				"Que is a CONJUNCTION meaning 'that', and the NUMBER 1 Word in Spanish, but English's THAT is not even in the Top 5, why is that? In Spanish if you CAN use QUE as a connector then you MUST. Where in English we can say things like 'We hope we get there soon!' In spanish you would have to say 'We hope THAT we get there soon!'",
-
 				"If you CAN add QUE / that in Spanish as a connector then you HAVE to!",
+				"'Para que' is an idiom which means 'So that' or 'In order that'",
+				"Que can also mean than, in the sense of 'He is taller THAN his brother'",
 			],
 		},
 		y: {
@@ -112,6 +117,9 @@ const spanishWords = {
 		que: {
 			translations: ["what"],
 			word: "que",
+			info: [
+				"Qué can mean HOW in the sense of HOW lucky, would be Qué Lucky! or What Lucky!/What Luck!",
+			],
 		},
 	},
 	prep: {
@@ -167,6 +175,7 @@ const spanishWords = {
 				"PARA this Evening means: Do it BY this evening! We are emphasizing a point, meaking a due date",
 				"PARA ESO means `Intended for that`",
 				"PARA QUE` means `intended for what`, or `for what intended use, for what purpose` ",
+				"'Para que' is an idiom which means 'So that' or 'In order that'",
 			],
 		},
 		por: {
@@ -194,7 +203,7 @@ const spanishWords = {
 				`POR and the FOUNTAIN: always remember the image of flowing water produced BY the fountain, AROUND it, ALONG side, NEARBY it, and existing BECASUE of it!`,
 				"POR this Evening means: DURING the evening, in a general way, AROUND this evening.",
 				"POR ESO mean 'Becasue of that', or 'That's Why'",
-				"POR QUE' means 'Because of what', or 'Why'",
+				"POR qué' means 'Because of what', or 'Why'",
 			],
 		},
 	},

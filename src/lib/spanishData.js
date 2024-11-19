@@ -2795,6 +2795,514 @@ const spanishData = {
 				},
 			],
 		},
+		11: {
+			lesson: 11,
+			name: "Lesson 11",
+			details: "Expressing abstract ideas",
+			wordBank: [],
+			info: [
+				"Learning to express abstract concepts is more constructive to Deep Language Learning than learning lots of vocab words.",
+				"MOST of what we say in any language doesn't consist of simple concrete labels for things, instead we talk about intangible ideas almost constantly",
+				"Consider the sentence: `I'd prefer that they do it by this afternoon`, seems simple in English, but to express this in another language requires some really deep knowledge of how the language works.",
+				"That sentence is a sort of INTENTION, you are expressing that this IDEA of them doing it by this afernoon is SOMETHING that you want.",
+				"This sentence type is commonly seen like: 'I predict that they'll....' or 'I like that they....'",
+				"We will learn the words you use for preferring, or predicting, or liking something soon, but currently we want to know exactly HOW and WHERE those words get used in a sentence",
+				"Let's play the FOOD game with the previous Sentence; 'I'd prefer that they do it by this afternoon'. \nThis can be turned into 'I'd prefer FOOD!",
+				"This is the magic of turning rich, complex ideas into nouns! Imagine mastering the lanugage so well that you can take all you most unique thoughts, opinions, reactions, and interntions, and express them as easily as a simple word like FOOD!",
+				"The whole KEY to doing this is the #1 word in Spanish... QUE!. \nThis word lets us take any abstract idea and package it as a NOUN PHRASE to use in a sentence.",
+				"In sentences like 'I predict that...' the entire phrase that starts with that / QUE can be treated as the noun, we call this a 'QUE PHRASE!'",
+				"A common idiom related to this idea is PARA QUE, meaning 'So that' or 'In order that'",
+				"PARA being a Preposition, needs to be followed by a noun, and in this case it is since QUE is the start of the NOUN PHRASE. 'I brought him PARA (QUE he could meet her)'.",
+				"Another QUE phrase includes the other qué meaning WHAT, like What Luck!. Qué luck! In English we use HOW for this. HOW strange that he's here = Qué stange QUE he's here!",
+				"One last use for QUE the Conjunction (no accent) besides THAT is THAN, as in 'He is taller THAN his brother'.",
+			],
+			sentences: [
+				{
+					id: 1,
+					sentence: "She did it so that I would notice her",
+					translation: "She LO did PARA QUE I LA would notice",
+					data: [
+						{
+							phrase: "She did it",
+							translation: dObj.lo,
+							phraseTranslation: "She LO did",
+						},
+						{
+							phrase: "so that",
+							translation: [prep.para, conj.que],
+							phraseTranslation: "PARA QUE",
+							reference: { para: [prep.para.info[5]] },
+						},
+						{
+							phrase: "I would notice her",
+							translation: [dObj.la],
+							phraseTranslation: "I LA would notice",
+						},
+					],
+				},
+				{
+					id: 2,
+					sentence: "The girls are here so that you can take a break",
+					translation: "LAS girls are here PARA QUE you can take a break",
+					data: [
+						{ word: "The", translation: artcl.las },
+						{ word: "girls are here" },
+						{
+							phrase: "so that",
+							translation: [prep.para, conj.que],
+							phraseTranslation: "PARA QUE",
+							reference: { para: [prep.para.info[5]] },
+						},
+						{
+							phrase: "you can take a break",
+						},
+					],
+				},
+				{
+					id: 3,
+					sentence: "How scary that you almost crashed",
+					translation: "Que scary QUE you almost crashed",
+					data: [
+						{
+							phrase: "How scary",
+							translation: pron.que,
+							reference: { que: [pron.que.info[0]] },
+						},
+						{
+							phrase: "that",
+							translation: conj.que,
+						},
+						{
+							phrase: "you almost crashed",
+						},
+					],
+				},
+				{
+					id: 4,
+					sentence: "How cool that he's with her",
+					translation: "QUE cool QUE he's with her",
+					data: [
+						{
+							phrase: "How cool",
+							translation: pron.que,
+							reference: { que: [pron.que.info[0]] },
+						},
+						{
+							phrase: "that",
+							translation: conj.que,
+						},
+						{
+							word: "he's",
+						},
+						{
+							phrase: "with",
+							translation: prep.con,
+						},
+						{
+							phrase: "her",
+						},
+					],
+				},
+				{
+					id: 5,
+					sentence: "How sad that the girl didn't win",
+					translation: "Que sad QUE LA girl no did win",
+					data: [
+						{
+							phrase: "How sad",
+							translation: pron.que,
+							reference: { que: [pron.que.info[0]] },
+						},
+						{
+							phrase: "that",
+							translation: conj.que,
+						},
+						{
+							word: "The girl",
+							translation: artcl.la,
+							phraseTranslation: "LA girl",
+						},
+						{
+							phrase: "didn't win",
+							translation: advrb.no,
+							phraseTranslation: "NO did win",
+							reference: { no: [advrb.no.info[7]] },
+						},
+					],
+				},
+				{
+					id: 6,
+					sentence: "She and I said he was with him",
+					translation: "She Y I said QUE he was CON him",
+					data: [
+						{
+							phrase: "She",
+						},
+						{
+							phrase: "and",
+							translation: conj.y,
+						},
+						{
+							phrase: "I",
+						},
+						{
+							phrase: "said",
+							translation: conj.que,
+							phraseTranslation: "said QUE",
+							reference: { que: [conj.que.info[1]] },
+						},
+						{
+							phrase: "he was",
+						},
+						{
+							phrase: "with",
+							translation: prep.con,
+						},
+						{
+							phrase: "him",
+						},
+					],
+				},
+				{
+					id: 7,
+					sentence: "That it's a paper airplane amuses me",
+					translation: "QUE it's an airplace DE paper ME amuses",
+					data: [
+						{
+							phrase: "That",
+							translation: conj.que,
+						},
+						{
+							phrase: "it's a",
+						},
+						{
+							phrase: "paper airplane",
+							phraseTranslation: "airplace DE paper",
+							translation: [prep.de],
+							reference: { de: [prep.de.info[4]] },
+						},
+						{
+							phrase: "amuses me",
+							phraseTranslation: "ME amuses",
+							translation: dObj.me,
+						},
+					],
+				},
+				{
+					id: 8,
+					sentence: "Why did he go along this street?",
+					translation: "POR QUE did he go POR this street?",
+					data: [
+						{
+							phrase: "Why",
+							translation: [prep.por, pron.que],
+							phraseTranslation: "POR QUE",
+							reference: { por: [prep.por.info[10]] },
+						},
+						{
+							phrase: "did he go",
+						},
+						{
+							phrase: "along",
+							translation: prep.por,
+							reference: { por: [prep.por.info[6]] },
+						},
+						{
+							phrase: "this street",
+						},
+					],
+				},
+				{
+					id: 9,
+					sentence: "A man did it so that she would find you",
+					translation: "UN man LO did PARA QUE she TE would find",
+					data: [
+						{
+							phrase: "A man",
+							translation: artcl.un,
+							phraseTranslation: "UN man",
+						},
+						{
+							phrase: "did it",
+							translation: advrb.lo,
+							phraseTranslation: "LO did",
+						},
+						{
+							phrase: "so that",
+							translation: [prep.para, conj.que],
+							phraseTranslation: "PARA QUE",
+						},
+						{
+							phrase: "She would find you",
+							translation: [dObj.te],
+							phraseTranslation: "She TE would find",
+						},
+					],
+				},
+				{
+					id: 10,
+					sentence: "This can't be becasue of a girl",
+					translation: "This NO can be POR UNA girl",
+					data: [
+						{
+							phrase: "This",
+						},
+						{
+							phrase: "can't be",
+							translation: advrb.no,
+							phraseTranslation: "NO can be",
+							reference: { no: [advrb.no.info[6]] },
+						},
+						{
+							phrase: "becasue of",
+							translation: prep.por,
+							reference: { por: [prep.por.info[3]] },
+						},
+						{
+							phrase: "a girl",
+							translation: artcl.una,
+							phraseTranslation: "UNA girl",
+						},
+					],
+				},
+				{
+					id: 11,
+					sentence: "How funny that that wasn't for him",
+					translation: "Que funny QUE ESO NO was PARA him",
+					data: [
+						{
+							phrase: "How funny",
+							translation: conj.que,
+							phraseTranslation: "Que funny",
+						},
+						{
+							phrase: "that",
+							translation: conj.que,
+						},
+						{
+							word: "that",
+							translation: pron.eso,
+						},
+						{
+							phrase: "wasn't",
+							translation: advrb.no,
+							phraseTranslation: "NO was",
+							reference: { no: [advrb.no.info[6]] },
+						},
+						{
+							phrase: "for",
+							translation: prep.para,
+							reference: { para: [prep.para.info[0]] },
+						},
+					],
+				},
+				{
+					id: 12,
+					sentence: "What do you do around here?",
+					translation: "Que do you do POR here?",
+					data: [
+						{
+							phrase: "Que",
+							translation: pron.que,
+						},
+						{
+							phrase: "do you do",
+						},
+						{
+							phrase: "around",
+							translation: prep.por,
+							reference: { por: [prep.por.info[5]] },
+						},
+						{
+							phrase: "here",
+						},
+					],
+				},
+				{
+					id: 13,
+					sentence: "I met them(F) at the park, how unlikely!",
+					translation: "I LAS met EN the park, QUE unlikely!",
+					data: [
+						{ word: "I" },
+						{
+							word: "met them",
+							translation: dObj.las,
+							phraseTranslation: "LAS met",
+						},
+						{
+							word: "at",
+							translation: prep.en,
+						},
+						{ word: "the" },
+						{ word: "park" },
+						{
+							phrase: "how unlikely",
+							translation: pron.que,
+							phraseTranslation: "QUE unlikely",
+						},
+					],
+				},
+				{
+					id: 14,
+					sentence: "He is from Peru, that's why the guys know him",
+					translation: "He is DE Peru, POR ESO LOS guys LO know",
+					data: [
+						{ word: "He is" },
+						{
+							phrase: "from",
+							translation: prep.de,
+						},
+						{
+							phrase: "Peru",
+						},
+						{
+							phrase: "that's why",
+							translation: [prep.por, pron.eso],
+							phraseTranslation: "POR ESO",
+							reference: { por: [prep.por.info[9]] },
+						},
+						{
+							phrase: "the",
+							translation: artcl.los,
+						},
+						{ word: "guys" },
+						{
+							phrase: "know him",
+							translation: dObj.lo,
+							phraseTranslation: "LO know",
+						},
+					],
+				},
+				{
+					id: 15,
+					sentence: "The man will be at the bank at 1:30",
+					translation: "EL man will be EN the bank A 1:30",
+					data: [
+						{ word: "The", translation: artcl.el },
+						{ word: "man" },
+						{
+							phrase: "will be",
+						},
+						{
+							phrase: "at",
+							translation: prep.en,
+						},
+						{ word: "the" },
+						{ word: "bank" },
+						{
+							phrase: "at 1:30",
+							translation: prep.a,
+							phraseTranslation: "A 1:30",
+							reference: { a: [prep.a.info[0]] },
+						},
+					],
+				},
+				{
+					id: 16,
+					sentence: "How nice that the girl found her",
+					translation: "Que nice QUE LA girl LA found",
+					data: [
+						{
+							phrase: "How nice",
+							translation: pron.que,
+							phraseTranslation: "Que nice",
+						},
+						{
+							phrase: "that",
+							translation: conj.que,
+						},
+						{
+							phrase: "the",
+							translation: artcl.la,
+						},
+						{ word: "girl" },
+						{
+							phrase: "found her",
+							translation: dObj.la,
+							phraseTranslation: "LA found",
+						},
+					],
+				},
+				{
+					id: 17,
+					sentence: "That should impress them(M) by tomorrow",
+					translation: "ESO LOS should impress PARA tomorrow",
+					data: [
+						{
+							phrase: "That",
+							translation: pron.eso,
+						},
+						{
+							phrase: "should impress them",
+							translation: dObj.los,
+							phraseTranslation: "LOS should impress",
+						},
+						{
+							phrase: "by",
+							translation: prep.para,
+							reference: { para: [prep.para.info[2]] },
+						},
+						{
+							phrase: "tomorrow",
+						},
+					],
+				},
+				{
+					id: 18,
+					sentence: "My mom's book is by a Columbian author (M)",
+					translation: "The book DE my mom is POR UN columbian author",
+					data: [
+						{
+							phrase: "My mom's book",
+							translation: prep.de,
+							phraseTranslation: "The book DE my mom",
+						},
+						{
+							word: "is",
+						},
+						{
+							phrase: "by",
+							translation: prep.por,
+							reference: { por: [prep.por.info[1]] },
+						},
+						{
+							word: "A",
+							translation: artcl.un,
+						},
+						{
+							phrase: "Columbian author",
+						},
+					],
+				},
+				{
+					id: 19,
+					sentence: "The ladies said that so that I would find him",
+					translation: "LAS ladies said ESO PARA QUE I LO would find",
+					data: [
+						{
+							phrase: "The",
+							translation: artcl.las,
+						},
+						{ word: "ladies" },
+						{
+							phrase: "said",
+						},
+						{
+							phrase: "that",
+							translation: pron.eso,
+						},
+						{
+							phrase: "so that",
+							translation: [prep.para, conj.que],
+							reference: { para: [prep.para.info[5]] },
+						},
+						{
+							phrase: "I would find him",
+						},
+					],
+				},
+			],
+		},
 	},
 }
 
