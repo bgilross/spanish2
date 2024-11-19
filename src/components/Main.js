@@ -7,6 +7,7 @@ import WordModal from "./WordModal"
 import "../styles/flashOverlay.css"
 import Testing from "./Testing"
 import { useQuiz } from "@/lib/QuizContext"
+import LessonInfoBig from "./LessonInfoBig"
 
 export default function Main() {
 	const {
@@ -21,7 +22,7 @@ export default function Main() {
 		showRedFlash,
 		showGreenFlash,
 	} = useTranslation()
-	const { displayStatus, setDisplayStatus, logData } = useQuiz()
+	const { currentData, setCurrentData, logData } = useQuiz()
 
 	const RedFlashOverlay = () => {
 		return showRedFlash ? <div className="red-flash-overlay"></div> : null
@@ -57,9 +58,15 @@ export default function Main() {
 				<InputArea />
 			</div>
 			<ScoreSummary
-				isOpen={displayStatus.showScoreModal}
+				isOpen={currentData.showScoreModal}
 				onClose={() =>
-					setDisplayStatus((prev) => ({ ...prev, showScoreModal: false }))
+					setCurrentData((prev) => ({ ...prev, showScoreModal: false }))
+				}
+			/>
+			<LessonInfoBig
+				isOpen={currentData.showLessonModal}
+				onClose={() =>
+					setCurrentData((prev) => ({ ...prev, showLessonModal: false }))
 				}
 			/>
 		</div>

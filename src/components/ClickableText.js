@@ -72,11 +72,12 @@ const ClickableText = ({ children }) => {
 						word={word}
 					>
 						<span
-							className="cursor-pointer border-b-accent text-accent font-bold "
+							className="cursor-pointer border-b-2 border-secondary hover:text-true_blue hover:border-true_blue font-bold "
 							// onClick={(e) => handleWordClick(e, word)}
 						>
-							{word}{" "}
+							{word}
 						</span>
+						<span> </span>
 					</PopOut>
 				)
 			}

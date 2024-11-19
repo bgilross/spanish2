@@ -4,13 +4,8 @@ import { useQuiz } from "@/lib/QuizContext"
 import spanishData from "@/lib/spanishData"
 
 const Testing = () => {
-	const {
-		currentData,
-		handleUserSubmit,
-		displayStatus,
-		setDisplayStatus,
-		getNextSection,
-	} = useQuiz()
+	const { currentData, handleUserSubmit, setCurrentData, getNextSection } =
+		useQuiz()
 
 	const { lessonNumber, sentenceIndex } = currentData
 
@@ -64,7 +59,7 @@ const Testing = () => {
 		const testResults = runTestsForLesson()
 		// generateReport(testResults)
 		// setIsScoreModalOpen(true)
-		setDisplayStatus((prev) => ({ ...prev, showScoreModal: true }))
+		// setCurrentData((prev) => ({ ...prev, showScoreModal: true }))
 	}
 
 	const generateReport = (testResults) => {

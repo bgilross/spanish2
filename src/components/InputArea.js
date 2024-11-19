@@ -50,7 +50,7 @@ const InputArea = () => {
 			</SlidingModal>
 
 			{/* Buttons */}
-			<div className="flex items-start justify-around w-full h-1/3">
+			<div className="flex items-start justify-around w-full h-1/3 pt-2">
 				<MyButton onClick={toggleLeftModal}>Word Bank</MyButton>
 				<MyButton>Hints</MyButton>
 				<MyButton onClick={toggleRightModal}>Lesson Info</MyButton>

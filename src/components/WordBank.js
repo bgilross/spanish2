@@ -28,7 +28,7 @@ const WordBank = () => {
 		}
 	}
 
-	console.log("wordBank: ", wordBank)
+	// console.log("wordBank: ", wordBank)
 
 	return (
 		<div className="flex flex-col items-center justify-center space-y-4">

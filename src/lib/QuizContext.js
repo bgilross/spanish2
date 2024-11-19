@@ -2,11 +2,7 @@
 
 import { createContext, useState, useContext, useEffect } from "react"
 import spanishData from "./spanishData"
-import spanishWords from "./spanishWords"
 import { useAuth } from "./useAuth"
-import { addErrorReport } from "./firestore"
-import { ShowChart } from "@mui/icons-material"
-import { current } from "tailwindcss/colors"
 
 const QuizContext = createContext()
 
@@ -17,8 +13,10 @@ export const QuizProvider = ({ children }) => {
 		sentenceIndex: 0,
 		sectionIndex: null,
 		lessonIndex: 0,
-		translatedWords: {},
+		translatedWords: [],
 		errors: [],
+		showScoreModal: false,
+		showLessonModal: false,
 	})
 	const [displayStatus, setDisplayStatus] = useState({
 		showRedFlash: false,
@@ -32,7 +30,7 @@ export const QuizProvider = ({ children }) => {
 	let tempLessonNumber = 0
 	let tempSentenceIndex = 0
 	let tempSectionIndex = 0
-	let tempTranslatedWords = {}
+	let tempTranslatedWords = []
 	let lessonOver = false
 
 	const { user } = useAuth()
@@ -48,10 +46,8 @@ export const QuizProvider = ({ children }) => {
 
 		setCurrentData((prev) => ({
 			...prev,
-			sectionIndex: getNextSection(
-				spanishData.lessons[prev.lessonNumber].sentences[prev.sentenceIndex],
-				{}
-			),
+			sectionIndex: getNextSection(0, []),
+			showLessonModal: true,
 		}))
 	}, [])
 
@@ -81,9 +77,9 @@ export const QuizProvider = ({ children }) => {
 			...prev,
 			sentenceIndex: 0,
 			sectionIndex: null,
-			translatedWords: {},
+			translatedWords: [],
 			tempSentenceIndex: 0,
-			tempTranslatedWords: {},
+			tempTranslatedWords: [],
 			tempSectionIndex: 0,
 			errors: [],
 		}))
@@ -117,35 +113,29 @@ export const QuizProvider = ({ children }) => {
 		sectionInd = currentData.sectionIndex,
 		lessonNum = currentData.lessonNumber
 	) => {
-		console.log(
-			"handling user submit: Input is",
-			input,
-			"Sentence Ind:",
-			sentenceInd,
-			"Section Ind:",
-			sectionInd,
-			"Lesson Num:",
-			lessonNum
-		)
-		//get current sentence and section info, if sentence index or section index isn't provided default to state?
-		const currentLesson = spanishData.lessons[lessonNum]
-		const currentSentence = currentLesson.sentences[sentenceInd]
+		// console.log("handleUserSubmit running")
+		// console.log("input: ", input)
+		// console.log("sentenceInd: ", sentenceInd)
+		// console.log("sectionInd: ", sectionInd)
+		// console.log("lessonNum: ", lessonNum)
+		// console.log("currentData: ", currentData)
+		const currentSentence =
+			spanishData.lessons[currentData.lessonNumber].sentences[sentenceInd]
 		const currentSection = currentSentence.data[sectionInd]
 
-		//sanitize user input
 		const cleanInput = cleanString(input)
-		//check quiz type and set/clean correct answer based on sentence or section
 		const correctAnswer = getCorrectAnswer(currentSection, currentSentence)
+
 		if (cleanInput === correctAnswer) {
-			console.log("going to handle correct answer. sentenceInd: ", sentenceInd)
-			console.log("currentSentence: ", currentSentence)
-			console.log("currentSection: ", currentSection)
-			handleCorrectAnswer(sentenceInd, currentSentence, currentSection)
+			handleCorrectAnswer(
+				currentSentence,
+				sentenceInd,
+				currentSection,
+				sectionInd
+			)
 		} else {
-			console.log("going to handle incorrect answer Input: ", input)
 			handleIncorrectAnswer(input, currentSentence, currentSection)
 		}
-		return tempLessonNumber, tempSentenceIndex, tempSectionIndex
 	}
 
 	const handleIncorrectAnswer = (input, currentSentence, currentSection) => {
@@ -207,6 +197,7 @@ export const QuizProvider = ({ children }) => {
 			})
 		}
 		console.log("errorWords: ", errorWords)
+		console.log("currentSection: ", currentSection)
 		if (currentData.quizType === "parts") {
 			errorWords.map((word) => {
 				currentSection.reference?.[word].map((ref) => {
@@ -240,137 +231,96 @@ export const QuizProvider = ({ children }) => {
 	}
 
 	const handleCorrectAnswer = (
-		sentenceInd,
 		currentSentence,
-		currentSection
+		sentenceInd,
+		currentSection,
+		sectionInd
 	) => {
-		console.log("Handling correct answer. Current Section:", currentSection)
-		console.log("Current Sentence:", currentSentence)
-		console.log("Current SentenceInd:", sentenceInd)
+		const translationEntry =
+			currentData.quizType === "full"
+				? null
+				: {
+						index: sectionInd,
+						words: Array.isArray(currentSection.translation)
+							? currentSection.translation.map((item) => item.word)
+							: [currentSection.translation?.word],
+						phraseTranslation: currentSection.phraseTranslation || null,
+				  }
 
-		if (currentData.quizType === "parts") {
-			// Add the correct word to the translatedWords object
-			tempTranslatedWords[currentSection.translation.word] = true
+		const updatedTranslatedWords =
+			currentData.quizType === "full"
+				? []
+				: [...currentData.translatedWords, translationEntry]
+		const nextSection = getNextSection(sentenceInd, updatedTranslatedWords)
 
-			setCurrentData((prev) => ({
-				...prev,
-				translatedWords: {
-					...prev.translatedWords,
-					[currentSection.translation.word]: true,
-				},
-			}))
-
-			// Try to get the next section index to translate in the sentence
-			console.log("trying to get next section index")
-			console.log("tempTranslatedWords: ", tempTranslatedWords)
-
-			const nextSection = getNextSection(currentSentence, tempTranslatedWords)
+		if (nextSection && currentData.quizType === "parts") {
 			console.log("nextSection: ", nextSection)
-
-			if (nextSection === null) {
-				console.log(
-					"nextSection is null running assign next sentence, sentenceInd: ",
-					sentenceInd
-				)
-				assignNextSentence(sentenceInd)
-			} else {
-				setCurrentData((prev) => ({
-					...prev,
-					sectionIndex: nextSection,
-				}))
-				tempSectionIndex = nextSection
-			}
-		}
-
-		if (currentData.quizType === "full") {
-			// Move to the next sentence
-			assignNextSentence({ sentenceInd })
-		}
-
-		if (lessonOver) {
-			console.log("Lesson is over")
 			setCurrentData((prev) => ({
 				...prev,
-				showScoreModal: true,
+				sectionIndex: nextSection,
+				translatedWords: updatedTranslatedWords,
 			}))
 		}
+		//if next section null move to next sentence
+		if (nextSection === null || currentData.quizType === "full") {
+			//check if there are more sentences
+			getNextSentence(sentenceInd + 1)
+		}
 	}
 
-	const getNextSection = (currentSentence, translatedWords) => {
-		console.log("Getting next section. Current Sentence:", currentSentence)
-		const entries = Object.entries(currentSentence.data)
-		console.log("entries:", entries)
-
-		const index = entries.findIndex(([key, item]) => {
-			// If the item has an array of translations
-			if (Array.isArray(item.translation)) {
-				console.log("item.translation is an array:", item.translation)
-
-				const hasUntranslatedItem = item.translation.some(
-					(translation) =>
-						translation.word &&
-						!translatedWords[translation.word] &&
-						!currentData.translatedWords[translation.word]
-				)
-				console.log("hasUntranslatedItem:", hasUntranslatedItem)
-
-				return hasUntranslatedItem
-			}
-
-			// If the item has a single translation
-			const hasTranslation =
-				item?.translation &&
-				!translatedWords[item.translation.word] &&
-				!currentData.translatedWords[item.translation.word] &&
-				item.translation.word
-
-			return hasTranslation
-		})
-
-		// Return null if no next section is found
-		if (index === -1) {
-			return null
-		}
-
-		return index
-	}
-
-	const assignNextSentence = (sentenceInd, newIndex) => {
-		const lesson = spanishData.lessons[currentData.lessonNumber]
-		console.log("Assigning next sentence, sentenceInd:", sentenceInd)
-
-		// Determine the current index to use
-		const index =
-			typeof sentenceInd === "number" ? sentenceInd : currentData.sentenceIndex
-		console.log("# of sentences:", lesson.sentences.length)
-		console.log("Current index:", index)
-
-		// Determine the next index to use
-		const nextIndex = typeof newIndex === "number" ? newIndex : index + 1
-		console.log("nextIndex:", nextIndex)
-
-		// Check if we've reached the end of the sentences
-		if (nextIndex >= lesson.sentences.length) {
-			console.log("No more sentences")
-			lessonOver = true
-			return
-		}
-
-		// Update temporary variables
-		tempSentenceIndex = nextIndex
-		tempTranslatedWords = {} // Reset translated words for the new sentence
-		tempSectionIndex = getNextSection(
-			lesson.sentences[nextIndex],
-			tempTranslatedWords
+	const getNextSentence = (index = currentData.sentenceIndex) => {
+		console.log("getNextSentence running")
+		console.log("index: ", index)
+		console.log(
+			"length: ",
+			spanishData.lessons[currentData.lessonNumber].sentences.length
 		)
 
-		// Update the React state
-		setCurrentData((prev) => ({
-			...prev,
-			sentenceIndex: nextIndex,
-			sectionIndex: tempSectionIndex,
-			translatedWords: {},
-		}))
+		if (
+			index < spanishData.lessons[currentData.lessonNumber].sentences.length
+		) {
+			//if there are more sentences, move to next sentence
+			console.log("There are more sentences, moving to next sentence")
+
+			setCurrentData((prev) => ({
+				...prev,
+				sentenceIndex: prev.sentenceIndex + 1,
+				sectionIndex: getNextSection(prev.sentenceIndex + 1, []),
+				translatedWords: [],
+			}))
+		} else if (
+			index === spanishData.lessons[currentData.lessonNumber].sentences.length
+		) {
+			//no more sentences, show score modal
+			console.log("There are no more sentences, showing score modal")
+			setCurrentData((prev) => ({ ...prev, showScoreModal: true }))
+		}
+	}
+	const getNextSection = (
+		sentenceIndex = currentData.sentenceIndex,
+		translatedWords = currentData.translatedWords
+	) => {
+		console.log("getNextSection running")
+		console.log("sentenceIndex:", sentenceIndex)
+		console.log("translatedWords:", translatedWords)
+
+		const currentSentence =
+			spanishData.lessons[currentData.lessonNumber].sentences[sentenceIndex]
+
+		console.log("currentSentence: ", currentSentence)
+		if (!currentSentence) return
+
+		// Finding the next section index that has a translation but hasn't been translated yet
+		const nextIndex = currentSentence.data.findIndex((section, index) => {
+			const hasTranslation = section.translation !== undefined
+			const isNotYetTranslated = !translatedWords.some(
+				(entry) => entry.index === index
+			)
+
+			return hasTranslation && isNotYetTranslated
+		})
+
+		return nextIndex === -1 ? null : nextIndex
 	}
 
 	const handleLessonChange = (newLessonNumber) => {
@@ -407,6 +357,7 @@ export const QuizProvider = ({ children }) => {
 				handleLessonChange,
 				logData,
 				getNextSection,
+				getNextSentence,
 			}}
 		>
 			{children}

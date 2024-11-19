@@ -8,36 +8,25 @@ import spanishData from "@/lib/spanishData"
 import { useState, useEffect } from "react"
 import { useQuiz } from "@/lib/QuizContext"
 
-import { useAuth } from "@/lib/useAuth"
 import GoogleLogin from "./GoogleLogin"
 
 // import SpreadWord from "./SpreadWord"
 // import GoogleLogin from "./GoogleLogin"
 
 const Header = () => {
-	const {
-		// lessonNumber,
-		// handleLessonChange,
-		// quizType,
-		// setQuizType,
-		// sentenceIndex,
-		// changeSentence,
-	} = useTranslation()
-
-	const { currentData, setCurrentData, handleLessonChange } = useQuiz()
-	const { sentenceIndex, quizType, lessonNumber } = currentData
-
-	const [value, setValue] = useState(3)
-
-	const { user, loginWithGoogle, logout } = useAuth()
+	const { currentData, setCurrentData, handleLessonChange, getNextSentence } =
+		useQuiz()
 
 	useEffect(() => {
-		console.log("Updating sentence select dropdown to index:", sentenceIndex)
-	}, [sentenceIndex])
+		console.log(
+			"Updating sentence select dropdown to index:",
+			currentData.sentenceIndex
+		)
+	}, [currentData.sentenceIndex])
 
 	const quizTypeSelect = (
 		<select
-			value={quizType}
+			value={currentData.quizType}
 			onChange={(e) =>
 				setCurrentData({ ...currentData, quizType: e.target.value })
 			}
@@ -48,25 +37,27 @@ const Header = () => {
 	)
 	const sentenceSelect = (
 		<select
-			value={sentenceIndex}
-			onChange={(e) => assignNextSentence(sentenceIndex, e.target.value)}
+			value={currentData.sentenceIndex}
+			onChange={(e) => getNextSentence(e.target.value)}
 		>
-			{spanishData?.lessons[lessonNumber]?.sentences.map((sentence, index) => {
-				return (
-					<option
-						key={index}
-						value={index}
-					>
-						{sentence.id}
-					</option>
-				)
-			})}
+			{spanishData?.lessons[currentData.lessonNumber]?.sentences.map(
+				(sentence, index) => {
+					return (
+						<option
+							key={index}
+							value={Number(index)}
+						>
+							{sentence.id}
+						</option>
+					)
+				}
+			)}
 		</select>
 	)
 	const lessonSelect = (
 		<select
 			className="text-primary font-bold"
-			value={lessonNumber}
+			value={currentData.lessonNumber}
 			onChange={(e) => {
 				handleLessonChange(e.target.value)
 			}}
@@ -82,7 +73,7 @@ const Header = () => {
 		</select>
 	)
 
-	console.log("Current lessonNumber in Header:", lessonNumber)
+	// console.log("Current lessonNumber in Header:", lessonNumber)
 
 	return (
 		<AppBar

@@ -303,7 +303,7 @@ const spanishData = {
 							phraseTranslation: "he told you QUE",
 							reference: { que: [conj.que.info[1]] },
 						},
-						{ phrase: "he was here" },
+						{ word: "he was here" },
 					],
 				},
 			],

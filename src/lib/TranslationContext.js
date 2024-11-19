@@ -38,12 +38,12 @@ export const TranslationProvider = ({ children }) => {
 	const reportLessonError = async (errorDetails) => {
 		if (user) {
 			await addErrorReport(user.uid, errorDetails)
-			console.log("Error report added successfully")
+			// console.log("Error report added successfully")
 		}
 	}
 
 	useEffect(() => {
-		console.log("Current Index useEFfect running: ", currentIndex)
+		// console.log("Current Index useEFfect running: ", currentIndex)
 	}, [currentIndex])
 
 	const openScoreModal = () => {
@@ -67,14 +67,14 @@ export const TranslationProvider = ({ children }) => {
 
 	useEffect(() => {
 		updateWordCount()
-		console.log("sentenceIndex use effect runnin: index:", sentenceIndex)
+		// console.log("sentenceIndex use effect runnin: index:", sentenceIndex)
 	}, [sentenceIndex])
 
 	const assignNextHighlightedIndex = () => {
-		console.log(
-			"Running assign next highlighted indext, currentIndex: ",
-			currentIndex
-		)
+		// console.log(
+		// 	"Running assign next highlighted indext, currentIndex: ",
+		// 	currentIndex
+		// )
 		// Check if the current sentence exists
 		const sentenceData =
 			spanishData.lessons[lessonNumber]?.sentences[sentenceIndex]?.data
