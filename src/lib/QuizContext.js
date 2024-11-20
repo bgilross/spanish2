@@ -9,7 +9,7 @@ const QuizContext = createContext()
 export const QuizProvider = ({ children }) => {
 	const [currentData, setCurrentData] = useState({
 		lessonNumber: 3,
-		quizType: "parts",
+		quizType: "full",
 		sentenceIndex: 0,
 		sectionIndex: null,
 		lessonIndex: 0,
@@ -341,9 +341,9 @@ export const QuizProvider = ({ children }) => {
 
 	const handleCorrectAnswer = (sentenceInd, currentSection, sectionInd) => {
 		console.log("handlingCorrectAnswer")
-		// console.log("sentenceInd: ", sentenceInd)
-		// console.log("currentSection: ", currentSection)
-		// console.log("sectionInd: ", sectionInd)
+		console.log("sentenceInd: ", sentenceInd)
+		console.log("currentSection: ", currentSection)
+		console.log("sectionInd: ", sectionInd)
 
 		const translationEntry =
 			currentData.quizType === "full"

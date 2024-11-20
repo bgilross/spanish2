@@ -90,19 +90,28 @@ const Testing = () => {
 
 		// Use a for...of loop instead of forEach to handle async correctly
 		for (const [sentenceIndex, sentence] of lesson.sentences.entries()) {
-			console.log("sentenceIndex: ", sentenceIndex)
-			console.log("sentence: ", sentence)
+			console.log("testing sentenceIndex: ", sentenceIndex)
+			console.log("testing sentence: ", sentence)
 			const { translation } = sentence
 			console.log("translation: ", translation)
+			console.log("testing translation: ", translation)
+
+			const sections = sentence.data
+				.map((section, index) => {
+					if (section.translation) {
+						return { section, index }
+					}
+					return null // Explicitly return null for non-matching sections
+				})
+				.filter(Boolean) // Filter out any null or undefined values
 
 			// Simulate incorrect input
 			const incorrectInput = "incorrect text"
-			const tempSectionIndex = getNextSection(sentence, {})
-			console.log("Temp Section Index: ", tempSectionIndex)
+
 			const incorrectResult = handleUserSubmit(
 				incorrectInput,
 				sentenceIndex,
-				tempSectionIndex
+				sections[0].index
 			)
 			testResults.push({
 				input: incorrectInput,
@@ -115,17 +124,16 @@ const Testing = () => {
 			const correctResult = handleUserSubmit(
 				correctInput,
 				sentenceIndex,
-				tempSectionIndex
+				sections[0].index
 			)
 			testResults.push({
 				input: correctInput,
 				result: correctResult,
 				expected: true,
 			})
-
-			console.log("Test Results:", testResults)
-			return testResults
 		}
+		console.log("Test Results:", testResults)
+		return testResults
 	}
 
 	const runAllTests = () => {
