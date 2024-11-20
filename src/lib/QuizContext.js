@@ -270,7 +270,7 @@ export const QuizProvider = ({ children }) => {
 		}
 		return errorWords
 	}
-
+	//
 	const findErrorRefs = ({
 		currentSection,
 		currentSentence,
