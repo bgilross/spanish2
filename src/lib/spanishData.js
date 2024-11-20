@@ -2675,6 +2675,7 @@ const spanishData = {
 						{
 							word: "(With) What",
 							translation: [prep.con, pron.que],
+							phraseTranslation: "CON QUE",
 						},
 						{
 							word: "did you eat with it",
