@@ -382,6 +382,7 @@ export const QuizProvider = ({ children }) => {
 			getNextSentence(nextIndex)
 		}
 	}
+	//
 
 	const getNextSentence = (index = currentData.sentenceIndex) => {
 		console.log("getNextSentence running")
