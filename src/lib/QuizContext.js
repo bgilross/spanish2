@@ -296,34 +296,40 @@ export const QuizProvider = ({ children }) => {
 						console.log("errorWord index matches currentSection index")
 
 						//check if word.word is a key in the reference object:
-						if (currentSection.reference[error.word]) {
+						if (currentSection.reference[error.word.id]) {
 							console.log(
-								"word.word",
-								error.word,
+								"error.word.id",
+								error.word.id,
 								" is a key in the reference object: ",
 								currentSection.reference
 							)
-							tempRefs.push(currentSection.reference)
+							currentSection.reference[error.word.id].map((index) => {
+								console.log("Word Info Index: ", index)
+								const ref = error.word.info[index]
+								tempRefs.push(ref)
+							})
 						}
 					}
 				})
 			} else if (currentData.quizType === "full") {
 				console.log("quizType is full")
-				errorWords.map((word) => {
-					const ref = currentSentence.data[word.sectionInd].reference
+				errorWords.map((error) => {
+					const refs = currentSentence.data[error.sectionInd].reference
 					//for each error word, check for references at it's section index?
 					//and check if ref."word" is a thing
-					if (ref && ref[word.word]) {
-						ref[word.word].map((ref) => {
-							console.log("ref: ", ref)
-							if (tempRefs.includes(ref)) {
-								return
-							}
-							tempRefs.push(ref)
-						})
-					} else {
-						console.log("no ref found")
-					}
+					refs.map((ref) => {
+						if (ref[error.word.id]) {
+							ref[error.word.id].map((ref) => {
+								console.log("ref: ", ref)
+								if (tempRefs.includes(ref)) {
+									return
+								}
+								tempRefs.push(ref)
+							})
+						} else {
+							console.log("no ref found")
+						}
+					})
 				})
 			}
 			return tempRefs
