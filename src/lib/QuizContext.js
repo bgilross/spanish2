@@ -279,13 +279,30 @@ export const QuizProvider = ({ children }) => {
 	}) => {
 		let tempRefs = []
 		if (currentData.quizType === "parts") {
+			console.log('checking for refs in "parts" mode')
+			console.log("errorWords: ", errorWords)
+			console.log("currentSection: ", currentSection)
+			console.log("sectionInd: ", sectionInd)
+			console.log("currentSentence: ", currentSentence)
+
 			//check for references first in the currentSection:
 			if (currentSection.reference) {
-				errorWords.map((word) => {
+				console.log("currentSection.reference: ", currentSection.reference)
+				errorWords.map((error) => {
+					console.log("mapping errorwords, currentError: ", error)
+
 					//check errorWord index matches currentSection index
-					if (word.sectionInd === sectionInd) {
+					if (error.sectionInd === sectionInd) {
+						console.log("errorWord index matches currentSection index")
+
 						//check if word.word is a key in the reference object:
-						if (currentSection.reference[word.word]) {
+						if (currentSection.reference[error.word]) {
+							console.log(
+								"word.word",
+								error.word,
+								" is a key in the reference object: ",
+								currentSection.reference
+							)
 							tempRefs.push(currentSection.reference)
 						}
 					}

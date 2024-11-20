@@ -18,7 +18,6 @@ const Testing = () => {
 	const runTestsForLessonParts = () => {
 		const lesson = spanishData.lessons[lessonNumber]
 		const testResults = []
-		let tempTranslatedWords = []
 
 		console.log(`Running tests for Lesson ${lessonNumber}: ${lesson.name}`)
 
@@ -60,11 +59,12 @@ const Testing = () => {
 
 				// Simulate correct input
 				let correctInput
-				if (section.phraseTranslation) {
+				if (section.section.phraseTranslation) {
 					correctInput = section.section.phraseTranslation
 				} else {
 					correctInput = section.section.translation.word
 				}
+				console.log("correctInput: ", correctInput)
 
 				const correctResult = handleUserSubmit(
 					correctInput,
@@ -76,22 +76,6 @@ const Testing = () => {
 					result: correctResult,
 					expected: true,
 				})
-
-				// tempTranslatedWords.push({
-				// 	index: section.index,
-				// 	words: Array.isArray(section.section.translation)
-				// 		? section.section.translation.map((item) => item.word)
-				// 		: section.section.translation.word,
-				// 	phraseTranslation: section.section.phraseTranslation || null,
-				// })
-
-				//increment tempSectionIndex
-				// console.log("calling get next secttion: ")
-				// console.log("sentenceIndex: ", sentenceIndex)
-				// console.log("tempTranslatedWords: ", tempTranslatedWords)
-
-				// tempSectionIndex = getNextSection(sentenceIndex, tempTranslatedWords)
-				// console.log("updated temp Section index = ", tempSectionIndex)
 			})
 		}
 		console.log("Test Results:", testResults)

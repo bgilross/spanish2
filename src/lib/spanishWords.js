@@ -31,6 +31,7 @@ const spanishWords = {
 			"Articles are really just part of the NOUN PHRASE",
 		],
 		el: {
+			id: "artcl.el",
 			translations: ["the (M)"],
 			word: "el",
 			audio:
@@ -39,12 +40,14 @@ const spanishWords = {
 			gender: "masculine",
 		},
 		los: {
+			id: "artcl.los",
 			translations: ["the (M)"],
 			word: "los",
 			pos: "Article",
 			gender: "masculine",
 		},
 		la: {
+			id: "artcl.la",
 			translations: ["the (F)"],
 			word: "la",
 			audio:
@@ -53,18 +56,21 @@ const spanishWords = {
 			gender: "feminine",
 		},
 		las: {
+			id: "artcl.las",
 			translations: ["the (F)"],
 			word: "las",
 			pos: "Article",
 			gender: "feminine",
 		},
 		un: {
+			id: "artcl.un",
 			translations: ["A (M)", "An (M)"],
 			word: "un",
 			pos: "Article",
 			gender: "masculine",
 		},
 		una: {
+			id: "artcl.una",
 			translations: ["A (F)", "An (F)"],
 			word: "una",
 			pos: "Article",
@@ -72,6 +78,7 @@ const spanishWords = {
 		},
 	},
 	conj: {
+		id: "conj",
 		name: "Conjunction",
 		info: [
 			"CONJUNCTIONS don't pass the FOOD or the EAT test they are something New!",
@@ -79,6 +86,7 @@ const spanishWords = {
 			"Proper Spanish sentence can ONLY have ONE verb! (EATS EAT or ATE (NOT EATING/EATEN(Those are Nouns sorta!))), conjunctions allow combining phrases/sentences",
 		],
 		que: {
+			id: "conj.que",
 			translations: ["that", "than"],
 			word: "que",
 			audio:
@@ -92,6 +100,7 @@ const spanishWords = {
 			],
 		},
 		y: {
+			id: "conj.y",
 			translations: ["and"],
 			word: "y",
 			audio:
@@ -102,9 +111,11 @@ const spanishWords = {
 	},
 
 	pron: {
+		id: "pron",
 		name: "Pronoun",
 		info: ["PRONOUNS are INTERCHANGEABLE with NOUNS!"],
 		eso: {
+			id: "pron.eso",
 			translations: ["that"],
 			word: "eso",
 			audio:
@@ -115,6 +126,7 @@ const spanishWords = {
 			],
 		},
 		que: {
+			id: "pron.que",
 			translations: ["what"],
 			word: "que",
 			info: [
@@ -124,12 +136,14 @@ const spanishWords = {
 		},
 	},
 	prep: {
+		id: "prep",
 		name: "Preposition",
 		info: [
 			"PREPOSITIONS are ALWAYS used directly before a NOUN of some type, that's why they are call PRE-POSITIONS!",
 			"As a rule Prepositions DON'T translate one-to-one between Spanish and English",
 		],
 		de: {
+			id: "prep.de",
 			translations: ["from", "of"],
 			word: "de",
 			pos: "Preposition",
@@ -144,6 +158,7 @@ const spanishWords = {
 				"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=from&tl=es&total=1&idx=0&textlen=4",
 		},
 		a: {
+			id: "prep.a",
 			translations: ["to"],
 			word: "a",
 			pos: "Preposition",
@@ -154,11 +169,13 @@ const spanishWords = {
 			],
 		},
 		con: {
+			id: "prep.con",
 			translations: ["with"],
 			word: "con",
 			pos: "Preposition",
 		},
 		en: {
+			id: "prep.en",
 			translations: ["at", "on", "in"],
 			word: "en",
 			pos: "Preposition",
@@ -167,6 +184,7 @@ const spanishWords = {
 			],
 		},
 		para: {
+			id: "prep.para",
 			translations: ["for"],
 			word: "para",
 			pos: "Preposition",
@@ -180,6 +198,7 @@ const spanishWords = {
 			],
 		},
 		por: {
+			id: "prep.por",
 			translations: [
 				"by",
 				"because of",
@@ -209,6 +228,7 @@ const spanishWords = {
 		},
 	},
 	advrb: {
+		id: "advrb",
 		name: "Adverb",
 		info: [
 			"Adverbs can go anywhere in a sentence and mean all kinds of things!",
@@ -234,6 +254,7 @@ const spanishWords = {
 		},
 	},
 	noun: {
+		id: "noun",
 		name: "Noun",
 		info: [
 			"FOOD TEST: Nouns in Spanish function as any WORD or PHRASE that can be substituted for the word FOOD! I enjoy FOOD!",
@@ -242,6 +263,7 @@ const spanishWords = {
 		],
 	},
 	verb: {
+		id: "verb",
 		name: "Verb",
 		info: [
 			"EAT TEST: Verbs are any word that can be replaced by EAT, EATS or ATE! I EAT food!",
@@ -252,6 +274,7 @@ const spanishWords = {
 	},
 
 	dObj: {
+		id: "dObj",
 		name: ["Direct Object", "Direct Obj"],
 		info: [
 			`If a pronoun is interchangeable with "him", it's probably a direct object pronoun. "We found it!" We found HIM`,
@@ -260,35 +283,42 @@ const spanishWords = {
 			`When NO and LO are together: The Direct Object Pronoun is most important to be next to the verb.`,
 		],
 		lo: {
+			id: "dObj.lo",
+
 			translations: ["him", "it (M)"],
 			word: "lo",
 			pos: "Direct Object Pronoun",
 			gender: "masculine",
 		},
 		los: {
+			id: "dObj.los",
 			translations: ["them (M)"],
 			word: "los",
 			pos: "Direct Object Pronoun",
 			gender: "masculine",
 		},
 		la: {
+			id: "dObj.la",
 			translations: ["her", "it (F)"],
 			word: "la",
 			pos: "Direct Object Pronoun",
 			gender: "feminine",
 		},
 		las: {
+			id: "dObj.las",
 			translations: ["them (F)"],
 			word: "las",
 			pos: "Direct Object Pronoun",
 			gender: "feminine",
 		},
 		me: {
+			id: "dObj.me",
 			translations: ["me"],
 			word: "me",
 			pos: "Direct Object Pronoun",
 		},
 		te: {
+			id: "dObj.te",
 			translations: ["you"],
 			word: "te",
 			pos: "Direct Object Pronoun",
