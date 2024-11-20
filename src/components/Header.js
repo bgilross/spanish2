@@ -31,7 +31,7 @@ const Header = () => {
 	const sentenceSelect = (
 		<select
 			value={currentData.sentenceIndex}
-			onChange={(e) => getNextSentence(e.target.value)}
+			onChange={(e) => getNextSentence(e.target.value - 1)}
 		>
 			{spanishData?.lessons[currentData.lessonNumber]?.sentences.map(
 				(sentence, index) => {

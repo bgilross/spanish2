@@ -274,13 +274,15 @@ export const QuizProvider = ({ children }) => {
 		errorWords,
 		sectionInd,
 	}) => {
+		console.log("findErrorRefs running")
+		console.log("errorWords: ", errorWords)
+		console.log("currentSection: ", currentSection)
+		console.log("sectionInd: ", sectionInd)
+		console.log("currentSentence: ", currentSentence)
+
 		let tempRefs = []
 		if (currentData.quizType === "parts") {
 			console.log('checking for refs in "parts" mode')
-			console.log("errorWords: ", errorWords)
-			console.log("currentSection: ", currentSection)
-			console.log("sectionInd: ", sectionInd)
-			console.log("currentSentence: ", currentSentence)
 
 			//check for references first in the currentSection:
 			if (currentSection.reference) {
@@ -314,29 +316,47 @@ export const QuizProvider = ({ children }) => {
 						}
 					}
 				})
-			} else if (currentData.quizType === "full") {
-				console.log("quizType is full")
-				errorWords.map((error) => {
-					const refs = currentSentence.data[error.sectionInd].reference
-					//for each error word, check for references at it's section index?
-					//and check if ref."word" is a thing
-					refs.map((ref) => {
-						if (ref[error.word.id]) {
-							ref[error.word.id].map((ref) => {
-								console.log("ref: ", ref)
-								if (tempRefs.includes(ref)) {
-									return
+			}
+		} else if (currentData.quizType === "full") {
+			console.log("checking for refs in full mode")
+			errorWords.map((error) => {
+				console.log("mapping error words, current error: ", error)
+
+				let refs = []
+
+				// Iterate over each error word
+				errorWords.forEach((error) => {
+					console.log("Processing error word:", error.word)
+
+					// Iterate over the sentence's data sections
+					currentSentence.data.forEach((section) => {
+						if (section.reference?.[error.word.id]) {
+							console.log("Reference found for word:", error.word.word)
+							console.log("Section reference:", section.reference)
+
+							// Push corresponding info entries to tempRefs
+							section.reference[error.word.id].forEach((index) => {
+								const ref = error.word.info[index]
+								if (ref && !refs.includes(ref)) {
+									refs.push(ref)
 								}
-								tempRefs.push(ref)
 							})
-						} else {
-							console.log("no ref found")
 						}
 					})
 				})
-			}
-			return tempRefs
+
+				refs.map((ref) => {
+					console.log("mappings refs, current ref: ", ref)
+
+					console.log("ref: ", ref)
+					if (tempRefs.includes(ref)) {
+						return
+					}
+					tempRefs.push(ref)
+				})
+			})
 		}
+		return tempRefs
 	}
 
 	const handleCorrectAnswer = (sentenceInd, currentSection, sectionInd) => {
