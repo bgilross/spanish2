@@ -392,15 +392,17 @@ export const QuizProvider = ({ children }) => {
 		)
 
 		if (
-			index < spanishData.lessons[currentData.lessonNumber].sentences.length
+			Number(index) <
+			spanishData.lessons[currentData.lessonNumber].sentences.length
 		) {
 			//if there are more sentences, move to next sentence
 			console.log("There are more sentences, moving to next sentence")
+			console.log("index + 1: ", Number(index) + 1)
 
 			setCurrentData((prev) => ({
 				...prev,
-				sentenceIndex: prev.sentenceIndex + 1,
-				sectionIndex: getNextSection(prev.sentenceIndex + 1, []),
+				sentenceIndex: Number(index) + 1,
+				sectionIndex: getNextSection(Number(index) + 1, []),
 				translatedWords: [],
 			}))
 		} else if (
@@ -415,9 +417,9 @@ export const QuizProvider = ({ children }) => {
 		sentenceIndex = currentData.sentenceIndex,
 		translatedWords = currentData.translatedWords
 	) => {
-		// console.log("getNextSection running")
-		// console.log("sentenceIndex:", sentenceIndex)
-		// console.log("translatedWords:", translatedWords)
+		console.log("getNextSection running")
+		console.log("sentenceIndex:", sentenceIndex)
+		console.log("translatedWords:", translatedWords)
 
 		const currentSentence =
 			spanishData.lessons[currentData.lessonNumber].sentences[sentenceIndex]
