@@ -6,6 +6,9 @@ const ScoreSummary = ({ isOpen, onClose }) => {
 	const { currentData, handleLessonChange } = useQuiz()
 	const { errors, lessonNumber } = currentData
 
+	// console.log("From Score Summary: ")
+	// console.log("Errors: ", errors)
+
 	const analyzeErrors = (errors) => {
 		console.log("Analyzing errors: ", errors)
 		const wordFrequency = {}
@@ -14,23 +17,12 @@ const ScoreSummary = ({ isOpen, onClose }) => {
 
 		errors.forEach((error) => {
 			// Count words
-			error.errorWords.forEach((translation) => {
-				wordFrequency[translation.word] =
-					(wordFrequency[translation.word] || 0) + 1
-				posFrequency[translation.pos] = (posFrequency[translation.pos] || 0) + 1
+			error.errorWords.forEach((errorItem) => {
+				wordFrequency[errorItem.word.word] =
+					(wordFrequency[errorItem.word.word] || 0) + 1
+				posFrequency[errorItem.word.pos] =
+					(posFrequency[errorItem.word.pos] || 0) + 1
 			})
-
-			// Count parts of speech
-			// const pos = error.partOfSpeech
-			// if (pos) {
-			// 	posFrequency[pos] = (posFrequency[pos] || 0) + 1
-			// }
-
-			// // Count gender
-			// const gender = error.gender
-			// if (gender) {
-			// 	genderFrequency[gender] = (genderFrequency[gender] || 0) + 1
-			// }
 		})
 
 		// Sort by frequency
@@ -100,15 +92,29 @@ const ScoreSummary = ({ isOpen, onClose }) => {
 									<strong>Translation:</strong>{" "}
 									{error.currentSentence.translation}
 									<br />
+									{currentData.quizType === "parts" ? (
+										<div>
+											<strong>Section:</strong>{" "}
+											{error.currentSection.phraseTranslation
+												? error.currentSection.word
+													? error.currentSection.word +
+													  " = " +
+													  error.currentSection.phraseTranslation
+													: error.currentSection.phrase +
+													  " = " +
+													  error.currentSection.phraseTranslation
+												: error.currentSection.translation.word}
+										</div>
+									) : null}
 									<strong>Your Answer:</strong> {error.userInput}
 									<br />
-									<strong>Correct Words:</strong>{" "}
+									{/* <strong>Correct Words:</strong>{" "}
 									{error.errorWords.map((translation, i) => (
 										<span key={i}>{translation.word}</span>
 									))}
-									<br />
+									<br /> */}
 									<strong>Notes:</strong> <br />
-									{error.references.length > 0 ? (
+									{error.references?.length > 0 ? (
 										error.references.map((ref, i) => (
 											<span
 												key={i}

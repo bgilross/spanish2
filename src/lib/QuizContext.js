@@ -9,7 +9,7 @@ const QuizContext = createContext()
 export const QuizProvider = ({ children }) => {
 	const [currentData, setCurrentData] = useState({
 		lessonNumber: 3,
-		quizType: "full",
+		quizType: "parts",
 		sentenceIndex: 0,
 		sectionIndex: null,
 		lessonIndex: 0,
@@ -113,26 +113,31 @@ export const QuizProvider = ({ children }) => {
 		sectionInd = currentData.sectionIndex,
 		lessonNum = currentData.lessonNumber
 	) => {
-		// console.log("handleUserSubmit running")
-		// console.log("input: ", input)
-		// console.log("sentenceInd: ", sentenceInd)
-		// console.log("sectionInd: ", sectionInd)
-		// console.log("lessonNum: ", lessonNum)
-		// console.log("currentData: ", currentData)
+		console.log("handleUserSubmit running")
+		console.log("input: ", input)
+		console.log("sentenceInd: ", sentenceInd)
+		console.log("sectionInd: ", sectionInd)
+		console.log("lessonNum: ", lessonNum)
+		console.log("currentData: ", currentData)
 		const currentSentence =
 			spanishData.lessons[currentData.lessonNumber].sentences[sentenceInd]
 		const currentSection = currentSentence.data[sectionInd]
+		// console.log("currentSentence: ", currentSentence)
+		console.log("hanldle submit current section: ", currentSection)
 
 		const cleanInput = cleanString(input)
 		const correctAnswer = getCorrectAnswer(currentSection, currentSentence)
 
+		console.log("correctAnswer: ", correctAnswer)
+
 		if (cleanInput === correctAnswer) {
-			handleCorrectAnswer(
-				currentSentence,
-				sentenceInd,
-				currentSection,
-				sectionInd
-			)
+			console.log("calling handleCorrectAnswer")
+			// console.log("currentSentence: ", currentSentence)
+			// console.log("sentenceInd: ", sentenceInd)
+			// console.log("currentSection: ", currentSection)
+			// console.log("sectionInd: ", sectionInd)
+
+			handleCorrectAnswer(sentenceInd, currentSection, sectionInd)
 		} else {
 			handleIncorrectAnswer(input, currentSentence, currentSection, sectionInd)
 		}
@@ -162,22 +167,29 @@ export const QuizProvider = ({ children }) => {
 	}
 
 	const logErrorData = (input, currentSentence, currentSection, sectionInd) => {
-		console.log("input: ", input)
+		console.log("logging error Data")
+		// console.log("input: ", input)
+		// console.log("currentSentence: ", currentSentence)
+		// console.log("currentSection: ", currentSection)
+		// console.log("sectionInd: ", sectionInd)
+
 		const userWords = input.split(" ").map((word) => word.trim().toLowerCase())
 
 		const errorWords = findErrors({
 			currentSection,
 			currentSentence,
 			userWords,
+			sectionInd,
 		})
 		const tempRefs = findErrorRefs({
 			currentSection,
 			currentSentence,
 			errorWords,
+			sectionInd,
 		})
 
-		console.log("errorWords: ", errorWords)
-		console.log("currentSection: ", currentSection)
+		// console.log("errorWords: ", errorWords)
+		// console.log("currentSection: ", currentSection)
 
 		const errorEntry = {
 			userInput: input,
@@ -188,10 +200,17 @@ export const QuizProvider = ({ children }) => {
 			references: tempRefs,
 			mode: currentData.quizType,
 		}
+
+		console.log("errorEntry: ", errorEntry)
 		return errorEntry
 	}
 
-	const findErrors = ({ currentSection, currentSentence, userWords }) => {
+	const findErrors = ({
+		currentSection,
+		currentSentence,
+		userWords,
+		sectionInd,
+	}) => {
 		let errorWords = []
 		if (currentData.quizType === "parts") {
 			if (Array.isArray(currentSection.translation)) {
@@ -252,7 +271,12 @@ export const QuizProvider = ({ children }) => {
 		return errorWords
 	}
 
-	const findErrorRefs = ({ currentSection, currentSentence, errorWords }) => {
+	const findErrorRefs = ({
+		currentSection,
+		currentSentence,
+		errorWords,
+		sectionInd,
+	}) => {
 		let tempRefs = []
 		if (currentData.quizType === "parts") {
 			//check for references first in the currentSection:
@@ -262,41 +286,39 @@ export const QuizProvider = ({ children }) => {
 					if (word.sectionInd === sectionInd) {
 						//check if word.word is a key in the reference object:
 						if (currentSection.reference[word.word]) {
-							tempRefs.push(
-								currentSection.reference
-							)							
-						}			
-
-						
-					}
-			}
-		)
-		} else if (currentData.quizType === "full") {
-			console.log("quizType is full")
-			errorWords.map((word) => {
-				const ref = currentSentence.data[word.sectionInd].reference
-				//for each error word, check for references at it's section index?
-				//and check if ref."word" is a thing
-				if (ref && ref[word.word]) {
-					
-					ref[word.word].map((ref) => {
-						console.log("ref: ", ref)
-						if (tempRefs.includes(ref)) {
-							return
+							tempRefs.push(currentSection.reference)
 						}
-						tempRefs.push(ref)
-					})
-				}
-				else {
-					console.log("no ref found")
-				}
-					
-				})				
+					}
+				})
+			} else if (currentData.quizType === "full") {
+				console.log("quizType is full")
+				errorWords.map((word) => {
+					const ref = currentSentence.data[word.sectionInd].reference
+					//for each error word, check for references at it's section index?
+					//and check if ref."word" is a thing
+					if (ref && ref[word.word]) {
+						ref[word.word].map((ref) => {
+							console.log("ref: ", ref)
+							if (tempRefs.includes(ref)) {
+								return
+							}
+							tempRefs.push(ref)
+						})
+					} else {
+						console.log("no ref found")
+					}
+				})
+			}
+			return tempRefs
 		}
-		return tempRefs
 	}
 
 	const handleCorrectAnswer = (sentenceInd, currentSection, sectionInd) => {
+		console.log("handlingCorrectAnswer")
+		// console.log("sentenceInd: ", sentenceInd)
+		// console.log("currentSection: ", currentSection)
+		// console.log("sectionInd: ", sectionInd)
+
 		const translationEntry =
 			currentData.quizType === "full"
 				? null
@@ -325,7 +347,13 @@ export const QuizProvider = ({ children }) => {
 		//if next section null move to next sentence
 		if (nextSection === null || currentData.quizType === "full") {
 			//check if there are more sentences
-			getNextSentence(sentenceInd + 1)
+			console.log(
+				'nextSection is null, or quizType is "full", sentenceInd: ',
+				sentenceInd
+			)
+
+			const nextIndex = sentenceInd + 1
+			getNextSentence(nextIndex)
 		}
 	}
 
@@ -350,7 +378,7 @@ export const QuizProvider = ({ children }) => {
 				translatedWords: [],
 			}))
 		} else if (
-			index === spanishData.lessons[currentData.lessonNumber].sentences.length
+			index >= spanishData.lessons[currentData.lessonNumber].sentences.length
 		) {
 			//no more sentences, show score modal
 			console.log("There are no more sentences, showing score modal")
@@ -361,14 +389,14 @@ export const QuizProvider = ({ children }) => {
 		sentenceIndex = currentData.sentenceIndex,
 		translatedWords = currentData.translatedWords
 	) => {
-		console.log("getNextSection running")
-		console.log("sentenceIndex:", sentenceIndex)
-		console.log("translatedWords:", translatedWords)
+		// console.log("getNextSection running")
+		// console.log("sentenceIndex:", sentenceIndex)
+		// console.log("translatedWords:", translatedWords)
 
 		const currentSentence =
 			spanishData.lessons[currentData.lessonNumber].sentences[sentenceIndex]
 
-		console.log("currentSentence: ", currentSentence)
+		// console.log("currentSentence: ", currentSentence)
 		if (!currentSentence) return
 
 		// Finding the next section index that has a translation but hasn't been translated yet

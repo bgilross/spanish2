@@ -2969,7 +2969,7 @@ const spanishData = {
 					data: [
 						{
 							phrase: "Why",
-							translation: [prop.por, pron.que],
+							translation: [prep.por, pron.que],
 							phraseTranslation: "POR QUE",
 							reference: { "prep.por": [10] },
 						},

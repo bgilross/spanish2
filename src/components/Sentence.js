@@ -35,9 +35,9 @@ const Sentence = () => {
 	})()
 
 	const isTranslated = (index) => {
-		console.log("currentData: ", currentData)
-		console.log("Checking if translatedWords contains index:", index)
-		console.log("translatedWords: ", currentData.translatedWords)
+		// console.log("currentData: ", currentData)
+		// console.log("Checking if translatedWords contains index:", index)
+		// console.log("translatedWords: ", currentData.translatedWords)
 		return currentData.translatedWords.some((entry) => entry.index === index)
 	}
 

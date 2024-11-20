@@ -17,13 +17,6 @@ const Header = () => {
 	const { currentData, setCurrentData, handleLessonChange, getNextSentence } =
 		useQuiz()
 
-	useEffect(() => {
-		console.log(
-			"Updating sentence select dropdown to index:",
-			currentData.sentenceIndex
-		)
-	}, [currentData.sentenceIndex])
-
 	const quizTypeSelect = (
 		<select
 			value={currentData.quizType}
