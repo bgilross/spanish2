@@ -219,12 +219,9 @@ export const QuizProvider = ({ children }) => {
 					if (
 						!userWords.includes(cleanString(translation.word.toLowerCase()))
 					) {
-						console.log(
-							"word not included in user Words: ",
-							translation.word.toLowerCase()
-						)
+						console.log("word not included in user Words: ", translation.word)
 						errorWords.push({
-							word: currentSection.translation.word,
+							word: translation,
 							sectionInd: sectionInd,
 							phrase: currentSection.phraseTranslation,
 						})
