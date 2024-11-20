@@ -217,7 +217,7 @@ export const QuizProvider = ({ children }) => {
 				currentSection.translation.forEach((translation) => {
 					console.log("translation: ", translation)
 					if (
-						!userWords.includes(translation.word.cleanString().toLowerCase())
+						!userWords.includes(cleanString(translation.word.toLowerCase()))
 					) {
 						console.log(
 							"word not included in user Words: ",

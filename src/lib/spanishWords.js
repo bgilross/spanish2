@@ -235,6 +235,7 @@ const spanishWords = {
 		],
 
 		no: {
+			id: "advrb.no",
 			translations: ["not", "no"],
 			word: "no",
 			pos: "Adverb",
