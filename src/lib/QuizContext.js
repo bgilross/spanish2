@@ -294,6 +294,12 @@ export const QuizProvider = ({ children }) => {
 					//check errorWord index matches currentSection index
 					if (error.sectionInd === sectionInd) {
 						console.log("errorWord index matches currentSection index")
+						console.log("error.word: ", error.word)
+						console.log("error.wordid: ", error.word.id)
+						console.log(
+							"currentSection.reference[error.word.id]: ",
+							currentSection.reference[error.word.id]
+						)
 
 						//check if word.word is a key in the reference object:
 						if (currentSection.reference[error.word.id]) {
@@ -436,9 +442,10 @@ export const QuizProvider = ({ children }) => {
 	}
 
 	const handleLessonChange = (newLessonNumber) => {
+		console.log("handleLessonChange running")
 		if (newLessonNumber > Object.keys(spanishData.lessons).length + 2) {
 			console.log(
-				"newLessonNumber > lesson length, length: ",
+				"newLessonNumber > lesson.length, length: ",
 				Object.keys(spanishData.lessons).length
 			)
 			return

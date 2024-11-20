@@ -730,7 +730,7 @@ const spanishData = {
 						{
 							phrase: "Samuel's water bottle",
 							phraseTranslation: "the bottle DE water DE Samuel",
-							translation: [prep.de, prep.de],
+							translation: [prep.de],
 							reference: { "prep.de": [2, 4] },
 						},
 					],

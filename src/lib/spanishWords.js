@@ -152,7 +152,7 @@ const spanishWords = {
 				"ORIGIN: In english we say Sydney is a City in Australia, but Spanish would say Sydney is a city OF or DE Autralia. Other examples include: 'The birds of Africa', 'The wind from the cellar' 'My friend from Toronto', 'The largest cities of Columbia'",
 				"POSSESION: English says 'My friends father' but spanish would say 'The father OF my friend!' other examples include: 'The cap of the bottle', 'the door of the house' and 'the hand of the writer'",
 				"POSSESION2: English uses Contractions like 'The bottle's cap' but Spanish DOESN'T have this! You need to change the order and use DE",
-				"MATERIAL: The Statue of Bronze. The Table of Stone. The horse of wood. ETC!",
+				"MATERIAL: The Statue DE Bronze. The Table DE Stone. The horse DE wood. etc!",
 			],
 			audio:
 				"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=from&tl=es&total=1&idx=0&textlen=4",
@@ -246,8 +246,8 @@ const spanishWords = {
 				"When translating English to Spanish and dealing with Contractions (Can't, Don't, Won't) Simply UNTIE the NOT! Turning Can't into Can not!",
 				"In Spanish verb types like CAN BE have to stick together, and the adverb NO must go first!",
 				"In Spanish DO HAVE isn't a real concept, we remove the word DO: I Don't Have that! = I no have that. 'Untie the Knot, and make the D Disappear!'",
-				"There are no contraction in Spanish. For verb types like Can't: Untie the NOT, then move it to front: NO CAN BE!",
-				"There are no contractions and also no concept for DO or DID (Do have, do say, do whatever) in Spanish. Untie the NOT, and make the Do DISAPPEAR!",
+				"There are no contraction in Spanish. For verb types like Can't: Untie the NOT (can't be = can not be), then move not/NO to the front: NO CAN BE!",
+				"There are no contractions and no concept for DO or DID in Spanish (Do have, do say, do whatever). \nUntie the NOT (don't want = do not want), and make the Do DISAPPEAR! (no want)",
 				"You might think NO should work like 'She can NO be' but adverbs don't work like this. Verb Structures like CAN BE have to stick together, and the adverb has to go first!",
 			],
 			audio:

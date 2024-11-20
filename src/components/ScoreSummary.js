@@ -47,7 +47,7 @@ const ScoreSummary = ({ isOpen, onClose }) => {
 	}
 
 	return (
-		<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+		<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 whitespace-pre-wrap">
 			<div className="bg-secondary w-3/4 md:w-1/2 lg:w-1/3 p-6 rounded-lg shadow-xl relative">
 				<h2 className="text-3xl font-bold text-primary mb-4">Lesson Summary</h2>
 
