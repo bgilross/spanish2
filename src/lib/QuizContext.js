@@ -224,7 +224,7 @@ export const QuizProvider = ({ children }) => {
 							translation.word.toLowerCase()
 						)
 						errorWords.push({
-							word: translation.word,
+							word: currentSection.translation.word,
 							sectionInd: sectionInd,
 							phrase: currentSection.phraseTranslation,
 						})
