@@ -31,6 +31,10 @@ const sideLessonPotential = [
 			"explains posisitions of direct object vs direct object pronouns",
 		],
 	},
+	{
+		lesson: 12,
+		info: ["Guess if is is being used as ES"],
+	},
 ]
 
 const spanishData = {
@@ -3279,6 +3283,487 @@ const spanishData = {
 						},
 						{
 							phrase: "I would find him",
+						},
+					],
+				},
+			],
+		},
+		12: {
+			lesson: 12,
+			name: "Lesson 12",
+			details: "Verbs: SER: to be!",
+			info: [
+				verb.info[4],
+				verb.info[5],
+				verb.info[6],
+				verb.info[7],
+				verb.info[8],
+				verb.present.es.info[0],
+				"ES is actually a CONJUGATION of SER, which we will discuss next lesson, it is also the 7th most common word!",
+				verb.present.es.info[1],
+				verb.present.es.info[2],
+				"For all the sentences in this lesson we will only be using IS/ES if it has a noun right after it, to describe WHAT that SOMETHING is! Basically if there's not a noun after IS don't translate it as ES, leave as English.",
+			],
+			sentences: [
+				{
+					id: 1,
+					sentence: "The girl in the car is my friend",
+					translation: "LA girl EN the car ES my friend",
+					data: [
+						{
+							phrase: "The",
+							translation: artcl.la,
+						},
+						{ word: "girl" },
+						{
+							phrase: "in",
+							translation: prep.en,
+						},
+						{
+							phrase: "the",
+						},
+						{ word: "car" },
+						{
+							phrase: "is",
+							translation: verb.ser.present.es,
+						},
+						{
+							phrase: "my friend",
+						},
+					],
+				},
+				{
+					id: 2,
+					sentence: "The man with glasses is a nice guy",
+					translation: "EL man CON glasses ES UN nice guy",
+					data: [
+						{
+							phrase: "The",
+							translation: artcl.el,
+						},
+						{ word: "man" },
+						{
+							phrase: "with",
+							translation: prep.con,
+						},
+						{
+							phrase: "glasses",
+						},
+						{
+							phrase: "is",
+							translation: verb.ser.present.es,
+						},
+						{
+							phrase: "a",
+							translation: artcl.un,
+						},
+						{
+							phrase: "nice guy",
+						},
+					],
+				},
+				{
+					id: 3,
+					sentence: "What is that?",
+					translation: "Que es eso?",
+					data: [
+						{
+							phrase: "What",
+							translation: pron.que,
+						},
+						{
+							phrase: "is",
+							translation: verb.ser.present.es,
+						},
+						{
+							phrase: "that",
+							translation: pron.eso,
+						},
+					],
+				},
+				{
+					id: 4,
+					sentence: "Yes, that's why the book is on the table",
+					translation: "Yes, POR ESO the book is ON the table",
+					data: [
+						{
+							phrase: "Yes",
+						},
+						{
+							phrase: "that's why",
+							translation: [prep.por, pron.eso],
+							phraseTranslation: "POR ESO",
+							reference: { "prep.por": [9] },
+						},
+						{
+							phrase: "the book",
+						},
+						{
+							phrase: "is on the table",
+							translation: [prep.en],
+							phraseTranslation: "is ON the table",
+							mixup: verb.ser.present.es,
+						},
+					],
+				},
+				{
+					id: 5,
+					sentence: "This is my mom's dog(F)",
+					translation: "This ES LA dog DE my mom",
+					data: [
+						{
+							phrase: "This",
+						},
+						{
+							phrase: "is",
+							translation: verb.ser.present.es,
+						},
+						{
+							phrase: "my mom's dog",
+							translation: [artcl.la, dObj.de],
+							phraseTranslation: "LA dog DE my mom",
+						},
+					],
+				},
+				{
+					id: 6,
+					sentence: "He is here during the mornings",
+					translation: "He is here POR the mornings",
+
+					data: [
+						{
+							phrase: "He is here",
+							mixup: verb.ser.present.es,
+						},
+						{
+							phrase: "during",
+							translation: prep.por,
+							reference: { "prep.por": [8] },
+						},
+						{
+							phrase: "the mornings	",
+						},
+					],
+				},
+				{
+					id: 7,
+					sentence: "How embarrassing",
+					translation: "Que embarrassing",
+					data: [
+						{
+							phrase: "How",
+							translation: pron.que,
+							reference: { "pron.que": [0] },
+						},
+						{
+							phrase: "embarrassing",
+						},
+					],
+				},
+				{
+					id: 8,
+					sentence: "I made dinner so that you could rest",
+					translation: "I made dinner PARA QUE you could rest",
+					data: [
+						{
+							phrase: "I made dinner",
+						},
+						{
+							phrase: "so that",
+							translation: [prep.para, conj.que],
+							phraseTranslation: "PARA QUE",
+							reference: { "prep.para": [5] },
+						},
+						{
+							phrase: "you could rest",
+						},
+					],
+				},
+				{
+					id: 9,
+					sentence: "Why did you walk along this road in the snow?",
+					translation: "POR QUE did you walk POR this road EN the snow?",
+					data: [
+						{
+							phrase: "Why",
+							translation: [prep.por, pron.que],
+							phraseTranslation: "POR QUE",
+							reference: { "prep.por": [10] },
+						},
+						{
+							phrase: "did you walk",
+						},
+						{
+							phrase: "along",
+							translation: prep.por,
+							reference: { "prep.por": [6] },
+						},
+						{
+							phrase: "this road",
+						},
+						{
+							phrase: "in",
+							translation: prep.en,
+						},
+						{
+							phrase: "the snow",
+						},
+					],
+				},
+				{
+					id: 10,
+					sentence: "This is a paper book by a young author(M)",
+					translation: "This ES a book DE paper POR UN young author",
+					data: [
+						{
+							phrase: "This",
+						},
+						{
+							phrase: "is",
+							translation: verb.ser.present.es,
+						},
+						{
+							phrase: "a",
+						},
+						{
+							phrase: "paper book",
+							phraseTranslation: "book DE paper",
+							translation: dObj.de,
+						},
+						{
+							phrase: "by",
+							translation: prep.por,
+							reference: { "prep.por": [1] },
+						},
+						{
+							phrase: "a young author",
+							translation: [artcl.un],
+							phraseTranslation: "UN young author",
+						},
+					],
+				},
+				{
+					id: 11,
+					sentence: "This is the man who met them(M).",
+					translation: "This ES EL man who LOS met.",
+					data: [
+						{
+							phrase: "This",
+						},
+						{
+							phrase: "is",
+							translation: verb.ser.present.es,
+						},
+						{
+							phrase: "the man",
+							translation: [artcl.el],
+							phraseTranslation: "EL man",
+						},
+						{
+							phrase: "who",
+						},
+						{
+							phrase: "met them",
+							translation: dObj.los,
+							phraseTranslation: "LOS met",
+						},
+					],
+				},
+				{
+					id: 12,
+					sentence: "You can't do better than that",
+					translation: "You NO can do better QUE ESO",
+					data: [
+						{
+							phrase: "You",
+						},
+						{
+							phrase: "can't do",
+							translation: advrb.no,
+							phraseTranslation: "NO can do",
+							reference: { "advrb.no": [6] },
+						},
+						{
+							phrase: "better",
+						},
+						{
+							phrase: "than",
+							translation: conj.que,
+							reference: { "conj.que": [3] },
+						},
+						{
+							phrase: "that",
+							translation: pron.eso,
+						},
+					],
+				},
+				{
+					id: 13,
+					sentence: "He is always at work at 7:00",
+					translation: "He is always EN work A 7:00",
+					data: [
+						{
+							phrase: "He is always",
+							mixup: verb.ser.present.es,
+						},
+						{
+							phrase: "at",
+							translation: prep.en,
+						},
+						{
+							phrase: "work",
+						},
+						{
+							phrase: "at",
+							translation: prep.a,
+							reference: { "prep.a": [0] },
+						},
+						{
+							phrase: "7:00",
+						},
+					],
+				},
+				{
+					id: 14,
+					sentence: "We made this for you, because of your good work",
+					translation: "We made this PARA you, POR your good work",
+					data: [
+						{
+							phrase: "We made this",
+						},
+						{
+							phrase: "for",
+							translation: prep.para,
+							reference: { "prep.para": [0] },
+						},
+						{
+							phrase: "you",
+						},
+						{
+							phrase: "because of",
+							translation: prep.por,
+							reference: { "prep.por": [3] },
+						},
+						{
+							phrase: "your good work",
+						},
+					],
+				},
+				{
+					id: 15,
+					sentence: "How strange that this is translated into Spanglish",
+					translation: "Que strange QUE is translated into Spanglish",
+					data: [
+						{
+							phrase: "How strange",
+							translation: pron.que,
+							phraseTranslation: "Que strange",
+							reference: { "pron.que": [0] },
+						},
+						{
+							phrase: "that",
+							translation: conj.que,
+							reference: { "conj.que": [3] },
+						},
+						{
+							phrase: "this is translated into Spanglish",
+							mixup: verb.ser.present.es,
+						},
+					],
+				},
+				{
+					id: 16,
+					sentence: "Sara's son saw them(M) with that",
+					translation: "EL son DE sara LOS saw CON ESO",
+					data: [
+						{
+							phrase: "Sara's son",
+							translation: [artcl.el, prep.de],
+							phraseTranslation: "EL son DE sara",
+						},
+						{
+							phrase: "saw them",
+							translation: dObj.los,
+							phraseTranslation: "LOS saw",
+						},
+						{
+							phrase: "with",
+							translation: prep.con,
+						},
+						{
+							phrase: "that",
+							translation: pron.eso,
+						},
+					],
+				},
+				{
+					id: 17,
+					sentence: "This is the homework that I must do by tonight",
+					translation: "This ES the homework QUE I must do PARA tonight",
+					data: [
+						{
+							phrase: "This",
+						},
+						{
+							phrase: "is",
+							translation: verb.ser.present.es,
+						},
+						{
+							phrase: "the homework",
+						},
+						{
+							phrase: "that",
+							translation: conj.que,
+						},
+						{
+							phrase: "I must do",
+						},
+						{
+							phrase: "by",
+							translation: prep.para,
+							reference: { "prep.para": [2] },
+						},
+						{
+							phrase: "tonight",
+						},
+					],
+				},
+				{
+					id: 18,
+					sentence: "The girl that is walking near the park is my friend",
+					translation: "LA girl QUE is walking POR the park ES my friend",
+					data: [
+						{
+							phrase: "The",
+							translation: artcl.la,
+						},
+						{
+							phrase: "girl",
+						},
+						{
+							phrase: "that",
+							translation: conj.que,
+						},
+						{
+							phrase: "is",
+						},
+						{
+							phrase: "walking",
+						},
+						{
+							phrase: "near",
+							translation: prep.por,
+							reference: { "prep.por": [5] },
+						},
+						{
+							phrase: "the park",
+						},
+						{
+							phrase: "is",
+							translation: verb.ser.present.es,
+						},
+						{
+							phrase: "my friend",
 						},
 					],
 				},

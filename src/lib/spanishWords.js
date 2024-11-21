@@ -271,7 +271,36 @@ const spanishWords = {
 			"What about EATING? EATING or EATEN actually don't behave as verbs in the EAT test! EATING is my Favority activiy, EATING is the NOUN! IS is the VERB!",
 			"Proper Spanish sentence can ONLY have ONE verb! (EATS EAT or ATE (NOT EATING/EATEN(Those function as NOUNS))), \nCONJUNCTIONS allow combining phrases/sentences",
 			"VERB PHRASES are where multiple verbs are functioning as only one verb! 'I want to have more!' looks like two verbs, WANT and HAVE but it counts as one! 'I will continue eating my food' Three verbs which counts as ONE! you could change it to 'I EAT my food'",
+			"Verbs are the absolute heart of Spanish sentences, and what makes them so different from English sentences.",
+			"You can make a proper Spanish sentence without any nouns or anything even functioning like a noun! 'It's Impossible' in Spanish would be 'ES/is Impossible!'",
+			"Remember that Verbs are not strictly just 'action words'. Consider: 'Food is my favorite thing' There is no action here, but IS is the Verb. What about 'Eating is my favorite' EATING is an action, but it's actually functioning as a NOUN in this sentence.",
+			"Sometimes ACTIONS are verbs and sometimes not, also sometimes VERBS are ACTIONS, but not always!",
+			"In Spanish a verb provides the core meaning of the sentence, and usually serve as the 'Mortar' between the bricks of sentences.",
 		],
+
+		ser: {
+			id: "verb.ser",
+			translations: ["to be, is, am, are, was, will, etc.", "ser"],
+			word: "ser",
+			pos: "Verb",
+			info: [],
+			tense: {
+				present: {
+					es: {
+						id: "verb.ser.past.es",
+						word: "es",
+						translations: ["is"],
+						pos: "Verb",
+						tense: "Present",
+						info: [
+							"ES is the most common verb, roughly meaning IS, but specifically ES is used to describe 'WHAT something IS' it's not an ACTION word but a 'LINKING VERB' it doesn't mean much on it's own but hold sentences together.",
+							"Be careful! ES doesn't translate directly to the word 'IS'. In English we use IS to mean all sorts of things, 'He IS a doctor' 'It is raining hard' 'She is here' Spanish is more specific.",
+							"In english IS can describe WHO or WHAT something is (he IS a doctor), also an ongoing activity (It IS raining) and also WHERE someone is 'She is here'. ES can ONLY be used for the first example, WHAT something is, you can't use ES to describe WHERE someone is, or HOW they are doing, or WHAT action they are doing.",
+						],
+					},
+				},
+			},
+		},
 	},
 
 	dObj: {
