@@ -9,7 +9,7 @@ const Sentence = () => {
 	const { currentData, setCurrentData } = useQuiz()
 
 	const currentSentence =
-		spanishData?.lessons[currentData.lessonNumber].sentences[
+		spanishData?.lessons[currentData.lessonNumber].sentences?.[
 			currentData.sentenceIndex
 		]
 	const currentSection = currentSentence?.data?.[currentData.sectionIndex]

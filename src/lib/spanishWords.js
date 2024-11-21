@@ -284,20 +284,19 @@ const spanishWords = {
 			word: "ser",
 			pos: "Verb",
 			info: [],
-			tense: {
-				present: {
-					es: {
-						id: "verb.ser.past.es",
-						word: "es",
-						translations: ["is"],
-						pos: "Verb",
-						tense: "Present",
-						info: [
-							"ES is the most common verb, roughly meaning IS, but specifically ES is used to describe 'WHAT something IS' it's not an ACTION word but a 'LINKING VERB' it doesn't mean much on it's own but hold sentences together.",
-							"Be careful! ES doesn't translate directly to the word 'IS'. In English we use IS to mean all sorts of things, 'He IS a doctor' 'It is raining hard' 'She is here' Spanish is more specific.",
-							"In english IS can describe WHO or WHAT something is (he IS a doctor), also an ongoing activity (It IS raining) and also WHERE someone is 'She is here'. ES can ONLY be used for the first example, WHAT something is, you can't use ES to describe WHERE someone is, or HOW they are doing, or WHAT action they are doing.",
-						],
-					},
+
+			present: {
+				es: {
+					id: "verb.ser.past.es",
+					word: "es",
+					translations: ["is"],
+					pos: "Verb",
+					tense: "Present",
+					info: [
+						"ES is the most common verb, roughly meaning IS, but specifically ES is used to describe 'WHAT something IS' it's not an ACTION word but a 'LINKING VERB' it doesn't mean much on it's own but hold sentences together.",
+						"Be careful! ES doesn't translate directly to the word 'IS'. In English we use IS to mean all sorts of things, 'He IS a doctor' 'It is raining hard' 'She is here' Spanish is more specific.",
+						"In english IS can describe WHO or WHAT something is (he IS a doctor), also an ongoing activity (It IS raining) and also WHERE someone is 'She is here'. ES can ONLY be used for the first example, WHAT something is, you can't use ES to describe WHERE someone is, or HOW they are doing, or WHAT action they are doing.",
+					],
 				},
 			},
 		},
