@@ -1,26 +1,61 @@
+"use client"
+
 import "react-awesome-button/dist/styles.css"
 import { AwesomeButton } from "react-awesome-button"
+import { useState } from "react"
 
-const MyButton = ({ onClick, children }) => {
+const MyButton = ({
+	onClick,
+	children,
+	disabled = false,
+	isPrimary = true,
+}) => {
+	const [isHovered, setIsHovered] = useState(false)
+
+	console.log("isHovered: ", isHovered)
+
 	return (
-		<div className="flex justify-center items-center ">
+		<div
+			className="flex justify-center items-center "
+			onMouseEnter={() => {
+				setIsHovered(true)
+			}}
+			onMouseLeave={() => {
+				setIsHovered(false)
+			}}
+		>
 			<AwesomeButton
 				type="primary"
 				onPress={onClick}
 				style={{
-					"--button-primary-color": "var(--primary)",
-					"--button-primary-color-dark": "var(--primary-light)",
-					"--button-primary-color-light": "var(--secondary)",
-					"--button-font-color": "var(--secondary)",
+					"--button-primary-color": isPrimary
+						? "var(--primary)"
+						: "var(--secondary)",
+					"--button-primary-color-dark": isPrimary
+						? "var(--primary-light)"
+						: "var(--secondary-light)",
+					"--button-primary-color-light": isPrimary
+						? "var(--secondary)"
+						: "var(--primary)",
+					"--button-font-color": isHovered
+						? isPrimary
+							? "var(--cornell)"
+							: "var(--secondary-dark)"
+						: isPrimary
+						? "var(--secondary)"
+						: "var(--primary)",
 					"--button-border-radius": "0.5rem",
 					"--button-padding": "0.5rem 1rem",
-					"--button-primary-color-hover": "var(--cornell)",
+					"--button-primary-color-hover": isPrimary
+						? "var(--cornell)"
+						: "var(--secondary-dark)",
 					"--button-primary-color-active": "var(--accent)",
 					"--button-shadow-color": "rgba(0, 0, 0, 0.3)",
 					height: "4rem",
 					width: "8rem",
 					fontSize: "1.25rem",
 				}}
+				disabled={disabled}
 			>
 				{children}
 			</AwesomeButton>
@@ -28,3 +63,26 @@ const MyButton = ({ onClick, children }) => {
 	)
 }
 export default MyButton
+
+// style={{
+// 	"--button-primary-color": isPrimary
+// 		? "var(--primary)"
+// 		: "var(--secondary)",
+// 	"--button-primary-color-dark": isPrimary
+// 		? "var(--primary-light)"
+// 		: "var(--secondary-light)",
+// 	"--button-primary-color-light": isPrimary
+// 		? "var(--secondary)"
+// 		: "var(--primary)",
+// 	"--button-font-color": isPrimary
+// 		? "var(--secondary)"
+// 		: "var(--primary)",
+// 	"--button-border-radius": "0.5rem",
+// 	"--button-padding": "0.5rem 1rem",
+// 	"--button-primary-color-hover": isPrimary
+// 		? "var(--cornell)"
+// 		: "var(--cornell-light)",
+// 	"--button-primary-color-active": isPrimary
+// 		? "var(--accent)"
+// 		: "var(--secondary-accent)",
+// 	"--button-shadow-color": "rgba(0, 0, 0, 0.3)",

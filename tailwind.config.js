@@ -12,6 +12,7 @@ const wisteria = "#8E3BFF"
 const trueBlue = "#4062bb"
 const sunset = "#f0c987"
 const champagne = "#F8E7C9"
+const darkChampagne = "#edb553"
 const persianRed = "#c3423f"
 const lightCoral = "#DD9492"
 const cornellRed = "#b3001b"
@@ -32,6 +33,7 @@ module.exports = {
 				primary_light: lightCoral,
 				secondary: sunset,
 				secondary_light: champagne,
+				secondary_dark: darkChampagne,
 				accent: ultraViolet,
 				accent_light: wisteria,
 				true_blue: trueBlue,

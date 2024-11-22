@@ -3,54 +3,25 @@ import spanishData from "@/lib/spanishData"
 import { useTranslation } from "@/lib/TranslationContext"
 import ClickableText from "./ClickableText"
 import spanishWords from "@/lib/spanishWords"
+import { useQuiz } from "@/lib/QuizContext"
+import LessonButtons from "./LessonButtons"
 
 const WordBank = () => {
-	const { lessonNumber, handleLessonChange } = useTranslation()
-	const [currentLessonIndex, setCurrentLessonIndex] = useState(lessonNumber)
-	const [wordBank, setWordBank] = useState([])
-
-	const lessons = Object.keys(spanishData.lessons)
-	useEffect(() => {
-		const temp = spanishData.lessons[lessonNumber]?.wordBank
-		setWordBank(temp)
-	}, [lessonNumber])
-
-	// Handle navigation between lessons
-	const handlePrevLesson = () => {
-		if (lessonNumber > 3) {
-			handleLessonChange(lessonNumber - 1)
-		}
-	}
-
-	const handleNextLesson = () => {
-		if (lessonNumber < lessons.length + 3) {
-			handleLessonChange(lessonNumber + 1)
-		}
-	}
-
-	// console.log("wordBank: ", wordBank)
+	const { currentData } = useQuiz()
+	const [wordBank, setWordBank] = useState(
+		spanishData.lessons[currentData.lessonNumber].wordBank
+	)
 
 	return (
 		<div className="flex flex-col items-center justify-center space-y-4">
+			{spanishData.lessons[currentData.lessonNumber].name && (
+				<h2 className="text-2xl font-bold text-primary mb-4">
+					{spanishData.lessons[currentData.lessonNumber].name}
+				</h2>
+			)}
 			{/* Navigation Arrows */}
 			<div className="flex justify-between w-full mb-4">
-				<button
-					onClick={handlePrevLesson}
-					disabled={lessonNumber === 3}
-					className={`px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50`}
-				>
-					← Previous
-				</button>
-				<span className="text-xl font-bold text-accent">
-					Lesson {lessonNumber}
-				</span>
-				<button
-					onClick={handleNextLesson}
-					disabled={currentLessonIndex === lessons.length + 2}
-					className={`px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50`}
-				>
-					Next →
-				</button>
+				<LessonButtons />
 			</div>
 
 			{/* Word Bank Display */}

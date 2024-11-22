@@ -7,6 +7,7 @@
 	--primary-light: theme(colors.primary_light);
 	--secondary: theme(colors.secondary);
 	--secondary-light: theme(colors.secondary_light);
+	--secondary-dark: theme(colors.secondary_dark);
 	--accent: theme(colors.accent);
 	--accent-light: theme(colors.accent_light);
 	--true-blue: theme(colors.true_blue);

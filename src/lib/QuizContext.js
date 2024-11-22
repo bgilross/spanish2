@@ -8,7 +8,7 @@ const QuizContext = createContext()
 
 export const QuizProvider = ({ children }) => {
 	const [currentData, setCurrentData] = useState({
-		lessonNumber: 3,
+		lessonNumber: 1,
 		quizType: "full",
 		sentenceIndex: 0,
 		sectionIndex: null,
@@ -462,7 +462,10 @@ export const QuizProvider = ({ children }) => {
 	}
 
 	const handleLessonChange = (newLessonNumber) => {
-		console.log("handleLessonChange running")
+		console.log(
+			"handleLessonChange running, received newLessonNumber: ",
+			newLessonNumber
+		)
 		if (newLessonNumber > Object.keys(spanishData.lessons).length + 2) {
 			console.log(
 				"newLessonNumber > lesson.length, length: ",

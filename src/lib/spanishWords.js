@@ -258,8 +258,8 @@ const spanishWords = {
 		id: "noun",
 		name: "Noun",
 		info: [
-			"FOOD TEST: Nouns in Spanish function as any WORD or PHRASE that can be substituted for the word FOOD! I enjoy FOOD!",
-			`NOUNS aren't just PEOPLE, PLACES, or THINGS, they can also be ACTIONS! Such as: \nI enjoy LOSING MYSELF IN A NEW CITY. \nLOSING MYSELF IN A NEW CITY is the NOUN PHRASE!`,
+			"FOOD TEST: Nouns in Spanish are any WORD or PHRASE that can be substituted for the word FOOD! I enjoy FOOD!",
+			`NOUNS aren't just PEOPLE, PLACES, or THINGS, they can also be ACTIONS! Such as: \n'I enjoy losing myself in a new city'. \n'losing myself in a new city' is the NOUN PHRASE!`,
 			"EVERY Noun in Spanish is either Masculine or Feminine.",
 		],
 	},

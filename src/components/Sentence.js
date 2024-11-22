@@ -8,6 +8,8 @@ import { useEffect } from "react"
 const Sentence = () => {
 	const { currentData, setCurrentData } = useQuiz()
 
+	console.log("Sentence running. CurrentData: ", currentData)
+
 	const currentSentence =
 		spanishData?.lessons[currentData.lessonNumber].sentences?.[
 			currentData.sentenceIndex

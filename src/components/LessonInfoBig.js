@@ -1,9 +1,11 @@
 import { useQuiz } from "@/lib/QuizContext"
 import spanishData from "@/lib/spanishData"
 import ClickableText from "./ClickableText"
+import LessonButtons from "./LessonButtons"
 
 const LessonInfoBig = ({ isOpen, onClose }) => {
 	const { currentData } = useQuiz()
+	console.log("LessonInfoBig running: false: ", false)
 
 	const lesson = spanishData.lessons[currentData.lessonNumber]
 
@@ -36,13 +38,8 @@ const LessonInfoBig = ({ isOpen, onClose }) => {
 						</div>
 					))}
 				</div>
-				<div className="flex justify-end p-4">
-					<button
-						className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-						onClick={onClose}
-					>
-						Close
-					</button>
+				<div className="flex justify-around p-4">
+					<LessonButtons isPrimary={false} />
 				</div>
 			</div>
 		</div>
