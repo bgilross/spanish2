@@ -3,11 +3,9 @@
 import { useQuiz } from "@/lib/QuizContext"
 import MyButton from "./MyButton"
 import spanishData from "@/lib/spanishData"
-const LessonButtons = ({ handleClose, isPrimary }) => {
+const LessonButtons = ({ handleClose, isPrimary, onClose }) => {
 	const { currentData, setCurrentData, handleLessonChange } = useQuiz()
 	const lessons = spanishData.lessons
-
-	console.log("LessonButtons runnings: isPrimary: ", isPrimary)
 
 	return (
 		<>
@@ -19,10 +17,11 @@ const LessonButtons = ({ handleClose, isPrimary }) => {
 				Prev Lesson
 			</MyButton>
 			<MyButton
-				onClick={handleClose}
+				onClick={onClose}
+				disabled={currentData.lessonNumber < 3}
 				isPrimary={isPrimary}
 			>
-				Close
+				Take Quiz
 			</MyButton>
 			<MyButton
 				onClick={() => handleLessonChange(currentData.lessonNumber + 1)}

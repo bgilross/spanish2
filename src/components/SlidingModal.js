@@ -15,23 +15,23 @@ const SlidingModal = ({ isOpen, onClose, position = "left", children }) => {
 
 	return (
 		<div
-			className={`fixed ${positionClass} top-20 w-1/3 h-1/2 bg-secondary p-2 text-secondary
+			className={`fixed ${positionClass} top-20 w-1/3 h-[55%] bg-secondary p-2 text-secondary
              shadow-2xl shadow-primary transform ${
 								isOpen
 									? "translate-y-0 opacity-100 z-50"
 									: "translate-y-full opacity-0 z-0"
-							} transition-transform duration-300 ease-in-out`}
+							} transition-transform duration-300 ease-in-out overflow-hidden`} // Prevent scrolling on the modal itself
 		>
 			{/* Close Button */}
 			<button
 				onClick={onClose}
-				className="absolute top-4 right-4 bg-accent  p-2 rounded-full"
+				className="absolute top-4 right-8 bg-accent p-1 rounded-full w-8 flex items-center justify-center"
 			>
 				X
 			</button>
 
-			{/* Lesson Information */}
-			<div className="p-6 overflow-auto h-full bg-primary">{children}</div>
+			{/* Scrollable Content Section */}
+			<div className="p-6 overflow-y-auto h-full bg-primary">{children}</div>
 		</div>
 	)
 }

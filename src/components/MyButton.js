@@ -10,20 +10,8 @@ const MyButton = ({
 	disabled = false,
 	isPrimary = true,
 }) => {
-	const [isHovered, setIsHovered] = useState(false)
-
-	console.log("isHovered: ", isHovered)
-
 	return (
-		<div
-			className="flex justify-center items-center "
-			onMouseEnter={() => {
-				setIsHovered(true)
-			}}
-			onMouseLeave={() => {
-				setIsHovered(false)
-			}}
-		>
+		<div className="flex justify-center items-center ">
 			<AwesomeButton
 				type="primary"
 				onPress={onClick}
@@ -37,11 +25,7 @@ const MyButton = ({
 					"--button-primary-color-light": isPrimary
 						? "var(--secondary)"
 						: "var(--primary)",
-					"--button-font-color": isHovered
-						? isPrimary
-							? "var(--cornell)"
-							: "var(--secondary-dark)"
-						: isPrimary
+					"--button-font-color": isPrimary
 						? "var(--secondary)"
 						: "var(--primary)",
 					"--button-border-radius": "0.5rem",

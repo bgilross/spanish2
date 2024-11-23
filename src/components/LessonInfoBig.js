@@ -5,7 +5,6 @@ import LessonButtons from "./LessonButtons"
 
 const LessonInfoBig = ({ isOpen, onClose }) => {
 	const { currentData } = useQuiz()
-	console.log("LessonInfoBig running: false: ", false)
 
 	const lesson = spanishData.lessons[currentData.lessonNumber]
 
@@ -39,7 +38,10 @@ const LessonInfoBig = ({ isOpen, onClose }) => {
 					))}
 				</div>
 				<div className="flex justify-around p-4">
-					<LessonButtons isPrimary={false} />
+					<LessonButtons
+						isPrimary={false}
+						onClose={onClose}
+					/>
 				</div>
 			</div>
 		</div>

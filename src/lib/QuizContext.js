@@ -8,7 +8,7 @@ const QuizContext = createContext()
 
 export const QuizProvider = ({ children }) => {
 	const [currentData, setCurrentData] = useState({
-		lessonNumber: 1,
+		lessonNumber: 3,
 		quizType: "full",
 		sentenceIndex: 0,
 		sectionIndex: null,

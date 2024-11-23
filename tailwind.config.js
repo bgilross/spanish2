@@ -40,6 +40,10 @@ module.exports = {
 				blue_light: vistaBlue,
 				cornell: cornellRed,
 			},
+
+			backgroundImage: {
+				background: "url('/media/spanishBG.png')",
+			},
 		},
 	},
 	plugins: [

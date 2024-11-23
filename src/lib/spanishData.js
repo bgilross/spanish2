@@ -4303,7 +4303,7 @@ const spanishData = {
 						},
 						{
 							phrase: "didn't the girl",
-							translation: [artcl.la, pron.no, dobj.los],
+							translation: [artcl.la, pron.no, dObj.los],
 							phraseTranslation: "LA girl NO",
 							reference: { "pron.no": [7] },
 						},
