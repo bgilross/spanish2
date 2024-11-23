@@ -276,6 +276,9 @@ const spanishWords = {
 			"Remember that Verbs are not strictly just 'action words'. Consider: 'Food is my favorite thing' There is no action here, but IS is the Verb. What about 'Eating is my favorite' EATING is an action, but it's actually functioning as a NOUN in this sentence.",
 			"Sometimes ACTIONS are verbs and sometimes not, also sometimes VERBS are ACTIONS, but not always!",
 			"In Spanish a verb provides the core meaning of the sentence, and usually serve as the 'Mortar' between the bricks of sentences.",
+			"Verbs have different forms called conjugations which depend on the person, plurality, and tense of the verb.",
+			"This is because verbs aren't really just one words, but a whole family of words, all meaning the same thing, but appearing in different ways depending on the context.",
+			'For the majority of the Spanish speaking world there are five types of PEOPLE associated with any verb. "I", "YOU", "HE/SHE/IT", "WE", and "THEY"',
 		],
 
 		ser: {
@@ -286,17 +289,50 @@ const spanishWords = {
 			info: [],
 
 			present: {
+				soy: {
+					id: "verb.ser.present.soy",
+					word: "soy",
+					translations: ["am", "I am"],
+					pos: "Verb",
+					tense: "Present",
+					person: "first",
+				},
+				eres: {
+					id: "verb.ser.present.eres",
+					word: "eres",
+					translations: ["are", "you are"],
+					pos: "Verb",
+					tense: "Present",
+					person: "second",
+				},
 				es: {
 					id: "verb.ser.past.es",
 					word: "es",
-					translations: ["is"],
+					translations: ["is", "He/she/it is"],
 					pos: "Verb",
 					tense: "Present",
+					person: "third",
 					info: [
 						"ES is the most common verb, roughly meaning IS, but specifically ES is used to describe 'WHAT something IS' it's not an ACTION word but a 'LINKING VERB' it doesn't mean much on it's own but hold sentences together.",
 						"Be careful! ES doesn't translate directly to the word 'IS'. In English we use IS to mean all sorts of things, 'He IS a doctor' 'It is raining hard' 'She is here' Spanish is more specific.",
 						"In english IS can describe WHO or WHAT something is (he IS a doctor), also an ongoing activity (It IS raining) and also WHERE someone is 'She is here'. ES can ONLY be used for the first example, WHAT something is, you can't use ES to describe WHERE someone is, or HOW they are doing, or WHAT action they are doing.",
 					],
+				},
+				somos: {
+					id: "verb.ser.present.somos",
+					word: "somos",
+					translations: ["are", "we are"],
+					pos: "Verb",
+					tense: "Present",
+					person: "first plural",
+				},
+				son: {
+					id: "verb.ser.present.son",
+					word: "son",
+					translations: ["are", "they are"],
+					pos: "Verb",
+					tense: "Present",
+					person: "third plural",
 				},
 			},
 		},

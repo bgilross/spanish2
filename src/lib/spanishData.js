@@ -4,6 +4,7 @@
 import { sendError } from "next/dist/server/api-utils"
 import words from "./spanishWords"
 import { data } from "autoprefixer"
+import { EditCalendar } from "@mui/icons-material"
 
 const { conj, pron, prep, advrb, noun, verb, artcl, dObj } = words
 
@@ -27,13 +28,17 @@ const sideLessonPotential = [
 		lesson: 8,
 		info: [
 			"Find the direct object PRONOUN",
-			"First Memory Palace: Direct Obj Pronouns",
+			"Direct obj Pronoun memory palace",
 			"explains posisitions of direct object vs direct object pronouns",
 		],
 	},
 	{
 		lesson: 12,
 		info: ["Guess if is is being used as ES"],
+	},
+	{
+		lesson: 13,
+		info: ["Ser memory palace"],
 	},
 ]
 
@@ -3329,7 +3334,8 @@ const spanishData = {
 		12: {
 			lesson: 12,
 			name: "Lesson 12",
-			details: "Verbs: SER: to be!",
+			details: "Verbs: IS in Spanish. ES!",
+			wordBank: [verb.ser.present.es],
 			info: [
 				verb.info[4],
 				verb.info[5],
@@ -3802,6 +3808,566 @@ const spanishData = {
 						},
 						{
 							phrase: "my friend",
+						},
+					],
+				},
+			],
+		},
+		13: {
+			lesson: 13,
+			name: "Lesson 13",
+			details: "Verbs: Conjugating SER",
+			wordBank: [
+				verb.ser.present.soy,
+				verb.ser.present.eres,
+				verb.ser.present.es,
+				verb.ser.present.somos,
+				verb.ser.present.son,
+			],
+			info: [
+				"We learned the word ES for IS, but ES is only one small part of SER, a big Spanish verb with many different forms to learn.",
+				'It turns out we use different forms of verbs in English too, changing the word "is" to different forms, like "are" "am" etc.',
+				verb.info[10],
+				'The parent word of "are" "is" "am" etc. is TO BE, or in Spanish SER. So ES is just one of many forms of SER, like IS is a form of TO BE.',
+				'We are learning "Conjugating" which is changing the verb to agree with the context of the sentence it is a part of. I AM, you ARE, he IS',
+				verb.info[11],
+				"Conjugations for SER: \nI am = I SOY \nYou are = You ERES \nHe/She/It is = He/She/It ES \nWe are = We SOMOS \nThey are = They SON",
+				"What about the word SER itself? It's the equivalent of the term 'to be' in English. SER is the name of the verb, representing all the conjugations we've learned so far. \n'Is', 'Are', 'Am', are all conjugations of 'to be' just as ES, ERES, and SOY are all conjugations of SER!",
+				"Remember we are still only translating the IS/ES version of SER if it is SPECIFICALLY referring to WHAT something is, not where, or how, or what it is doing. Just what it is.",
+			],
+			sentences: [
+				{
+					id: 1,
+					sentence: "We are students",
+					translation: "We SOMOS students",
+					data: [
+						{
+							phrase: "We",
+						},
+						{
+							phrase: "are",
+							translation: verb.ser.present.somos,
+						},
+						{
+							phrase: "students",
+						},
+					],
+				},
+				{
+					id: 2,
+					sentence: "I am his daughter",
+					translation: "I SOY his daughter",
+					data: [
+						{
+							phrase: "I",
+						},
+						{
+							phrase: "am",
+							translation: verb.ser.present.soy,
+						},
+						{
+							phrase: "his daughter",
+						},
+					],
+				},
+				{
+					id: 3,
+					sentence: "They are students",
+					translation: "They SON students",
+					data: [
+						{
+							phrase: "They",
+						},
+						{
+							phrase: "are",
+							translation: verb.ser.present.son,
+						},
+						{
+							phrase: "students",
+						},
+					],
+				},
+				{
+					id: 4,
+					sentence: "You are my cousin",
+					translation: "You ERES my cousin",
+					data: [
+						{
+							phrase: "You",
+						},
+						{
+							phrase: "are",
+							translation: verb.ser.present.eres,
+						},
+						{
+							phrase: "my cousin",
+						},
+					],
+				},
+				{
+					id: 5,
+					sentence: "I like to be a student",
+					translation: "I like SER a student",
+					data: [
+						{
+							phrase: "I like",
+						},
+						{
+							phrase: "to be",
+							translation: verb.ser,
+						},
+						{
+							phrase: "a student",
+						},
+					],
+				},
+				{
+					id: 6,
+					sentence: "To be president would be cool",
+					translation: "SER president would be cool",
+					data: [
+						{
+							phrase: "To be",
+							translation: verb.ser,
+						},
+						{
+							phrase: "president would be cool",
+						},
+					],
+				},
+				{
+					id: 7,
+					sentence: "I want to be a good student",
+					translation: "I want SER a good student",
+					data: [
+						{
+							phrase: "I want",
+						},
+						{
+							phrase: "to be",
+							translation: verb.ser,
+						},
+						{
+							phrase: "a good student",
+						},
+					],
+				},
+				{
+					id: 8,
+					sentence: "They want to be good friends",
+					translation: "They want SER good friends",
+					data: [
+						{
+							phrase: "They want",
+						},
+						{
+							phrase: "to be",
+							translation: verb.ser,
+						},
+						{
+							phrase: "good friends",
+						},
+					],
+				},
+				{
+					id: 9,
+					sentene: "What is there in the kitchen?",
+					translation: "QUE is there in the kitchen?",
+					data: [
+						{
+							phrase: "QUE",
+							translation: pron.que,
+						},
+						{ phrase: "is there in the kitchen?", mixup: verb.ser.present.es },
+					],
+				},
+				{
+					id: 10,
+					sentence: "She and I are sisters",
+					translation: "She Y I SOMOS sisters",
+					data: [
+						{
+							phrase: "She",
+						},
+						{
+							phrase: "and",
+							translation: conj.y,
+						},
+						{
+							phrase: "I",
+						},
+						{
+							phrase: "are",
+							translation: verb.ser.present.somos,
+						},
+						{
+							phrase: "sisters",
+						},
+					],
+				},
+				{
+					id: 11,
+					sentence: "They are my friends.",
+					translation: "They SON my friends.",
+					data: [
+						{
+							phrase: "They",
+						},
+						{
+							phrase: "are",
+							translation: verb.ser.present.son,
+						},
+						{
+							phrase: "my friends.",
+						},
+					],
+				},
+				{
+					id: 12,
+					sentence: "That is a problem",
+					translation: "ESO ES a problem",
+					data: [
+						{
+							phrase: "That",
+							translation: pron.eso,
+						},
+						{
+							phrase: "is",
+							translation: verb.ser.present.es,
+						},
+						{
+							phrase: "a problem",
+						},
+					],
+				},
+				{
+					id: 13,
+					sentence: "I am working with them",
+					translation: "I am working CON them",
+					data: [
+						{
+							phrase: "I am working",
+							mixup: verb.ser.present.soy,
+						},
+						{
+							phrase: "with",
+							translation: conj.con,
+						},
+						{
+							phrase: "them",
+						},
+					],
+				},
+				{
+					id: 14,
+					sentence: "This is my brother",
+					translation: "This ES my brother",
+					data: [
+						{
+							phrase: "This",
+						},
+						{
+							phrase: "is",
+							translation: verb.ser.present.es,
+						},
+						{
+							phrase: "my brother",
+						},
+					],
+				},
+				{
+					id: 15,
+					sentence: "I am a good guy, really!",
+					translation: "I SOY UN good guy, really!",
+					data: [
+						{
+							phrase: "I",
+						},
+						{
+							phrase: "am",
+							translation: verb.ser.present.soy,
+						},
+						{
+							phrase: "a",
+							tranlations: artcl.un,
+						},
+						{
+							phrase: "good guy, really!",
+						},
+					],
+				},
+				{
+					id: 16,
+					sentence: "I think they are running around here.",
+					translation: "I think QUE they are running POR here.",
+					data: [
+						{
+							phrase: "I think",
+							translation: conj.que,
+							phraseTranslation: "I think QUE",
+							reference: { "conj.que": [1] },
+						},
+						{
+							phrase: "they are running",
+							mixup: verb.ser.present.son,
+						},
+						{
+							phrase: "POR",
+							translation: prep.por,
+							reference: { "prep.por": [5] },
+						},
+						{
+							phrase: "here.",
+						},
+					],
+				},
+				{
+					id: 17,
+					sentence: "The man and the woman are my relatives",
+					translation: "EL man Y LA woman SON my relatives",
+					data: [
+						{
+							phrase: "The",
+							translation: artcl.el,
+						},
+						{
+							phrase: "man",
+						},
+						{
+							phrase: "and",
+							translation: conj.y,
+						},
+						{
+							phrase: "the",
+							translation: artcl.la,
+						},
+						{
+							phrase: "woman",
+						},
+						{
+							phrase: "are",
+							translation: verb.ser.present.somos,
+						},
+						{
+							phrase: "my relatives",
+						},
+					],
+				},
+				{
+					id: 18,
+					sentence: "I promise I am a good student(F)",
+					translation: "I promise QUE I SOY UNA good student",
+					data: [
+						{
+							phrase: "I promise",
+							translation: conj.que,
+							phraseTranslation: "I promise QUE",
+							reference: { "conj.que": [1] },
+						},
+						{
+							phrase: "I",
+						},
+						{
+							phrase: "am",
+							translation: verb.ser.present.soy,
+						},
+						{
+							phrase: "a",
+							tranlations: artcl.una,
+						},
+						{
+							phrase: "good student",
+						},
+					],
+				},
+				{
+					id: 19,
+					sentence: "You aren't a model student(F)?",
+					translation: "You NO ERES UNA model student?",
+					data: [
+						{
+							phrase: "You",
+						},
+						{
+							phrase: "aren't",
+							translation: [verb.ser.present.eres, pron.no],
+							phraseTranslation: "NO ERES",
+							reference: { "pron.no": [6] },
+						},
+						{
+							phrase: "a",
+							tranlations: artcl.una,
+						},
+						{
+							phrase: "model student",
+						},
+					],
+				},
+				{
+					id: 20,
+					sentence: "You are in the wrong place",
+					translation: "You are EN the wrong place",
+					data: [
+						{
+							phrase: "You are",
+							mixup: verb.ser.present.eres,
+						},
+						{
+							phrase: "in",
+							translation: prep.en,
+						},
+						{
+							phrase: "the wrong place",
+						},
+					],
+				},
+				{
+					id: 21,
+					sentence: "That is slipping away",
+					translation: "ESO is slipping away",
+					data: [
+						{
+							phrase: "That",
+							translations: pron.eso,
+						},
+						{
+							phrase: "is slipping away",
+						},
+					],
+				},
+				{
+					id: 22,
+					sentence: "He wants to be governor",
+					translation: "He wants SER governor",
+					data: [
+						{
+							phrase: "He wants",
+						},
+						{
+							phrase: "to be",
+							translation: verb.ser,
+						},
+						{
+							phrase: "governor",
+						},
+					],
+				},
+				{
+					id: 23,
+					sentence: "The ladies know them(F)",
+					translation: "LAS ladies LAS know",
+					data: [
+						{
+							phrase: "The",
+							translation: artcl.las,
+						},
+						{
+							phrase: "ladies",
+						},
+						{
+							phrase: "know them",
+							translation: dObj.las,
+							phraseTranslation: "LAS know",
+						},
+					],
+				},
+				{
+					id: 24,
+					sentence: "You are not my mother",
+					translation: "You NO ERES my mother",
+					data: [
+						{
+							phrase: "You",
+						},
+						{
+							phrase: "aren't",
+							translation: [verb.ser.present.eres, pron.no],
+							phraseTranslation: "NO ERES",
+							reference: { "pron.no": [6] },
+						},
+						{
+							phrase: "my mother",
+						},
+					],
+				},
+				{
+					id: 25,
+					sentence: "Why didn't the girl see them(M)?",
+					translation: "POR QUE LA girl NO LOS saw",
+					data: [
+						{
+							phrase: "Why",
+							translation: [prep.por, pron.que],
+							phraseTranslation: "POR QUE",
+							reference: { "prep.por": [10] },
+						},
+						{
+							phrase: "didn't the girl",
+							translation: [artcl.la, pron.no, dobj.los],
+							phraseTranslation: "LA girl NO",
+							reference: { "pron.no": [7] },
+						},
+						{
+							phrase: "see them",
+							translation: dObj.los,
+							phraseTranslation: "LOS saw",
+						},
+					],
+				},
+				{
+					id: 26,
+					sentence: "The guys are with someone",
+					translation: "LOS guys are CON someone",
+					data: [
+						{
+							phrase: "The",
+							translation: artcl.los,
+						},
+						{
+							phrase: "guys",
+						},
+						{
+							phrase: "are",
+							mixup: verb.ser.present.son,
+						},
+						{
+							phrase: "with",
+							translation: prep.con,
+						},
+						{
+							phrase: "someone",
+						},
+					],
+				},
+				{
+					id: 27,
+					sentence: "We are friends and that is a good thing",
+					translation: "We SOMOS friends Y ESO ES a good thing",
+					data: [
+						{
+							phrase: "We",
+						},
+						{
+							phrase: "are",
+							mixup: verb.ser.present.somps,
+						},
+						{
+							phrase: "friends",
+						},
+						{
+							phrase: "and",
+							translation: conj.y,
+						},
+						{
+							phrase: "that",
+							translation: pron.eso,
+						},
+						{
+							phrase: "is",
+							translation: verb.ser.present.es,
+						},
+						{
+							phrase: "a good thing",
 						},
 					],
 				},

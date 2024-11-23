@@ -12,11 +12,13 @@ export const QuizProvider = ({ children }) => {
 		quizType: "full",
 		sentenceIndex: 0,
 		sectionIndex: null,
+		sectionsAmt: 0,
 		lessonIndex: 0,
 		translatedWords: [],
 		errors: [],
 		showScoreModal: false,
 		showLessonModal: false,
+		feedBackMode: true,
 	})
 	const [displayStatus, setDisplayStatus] = useState({
 		showRedFlash: false,
@@ -376,30 +378,40 @@ export const QuizProvider = ({ children }) => {
 						phraseTranslation: currentSection.phraseTranslation || null,
 				  }
 
-		const updatedTranslatedWords =
-			currentData.quizType === "full"
-				? []
-				: [...currentData.translatedWords, translationEntry]
-		const nextSection = getNextSection(sentenceInd, updatedTranslatedWords)
+		if (currentData.isFeedbackMode) {
+			if (currentData.quizType === "full") {
+				setCurrentData((prev) => ({
+					...prev,
+				}))
+			}
+			if (currentData.quizType === "parts") {
+			}
+		} else if (!currentData.isFeedbackMode) {
+			const updatedTranslatedWords =
+				currentData.quizType === "full"
+					? []
+					: [...currentData.translatedWords, translationEntry]
+			const nextSection = getNextSection(sentenceInd, updatedTranslatedWords)
 
-		if (nextSection && currentData.quizType === "parts") {
-			console.log("nextSection: ", nextSection)
-			setCurrentData((prev) => ({
-				...prev,
-				sectionIndex: nextSection,
-				translatedWords: updatedTranslatedWords,
-			}))
-		}
-		//if next section null move to next sentence
-		if (nextSection === null || currentData.quizType === "full") {
-			//check if there are more sentences
-			console.log(
-				'nextSection is null, or quizType is "full", sentenceInd: ',
-				sentenceInd
-			)
+			if (nextSection && currentData.quizType === "parts") {
+				console.log("nextSection: ", nextSection)
+				setCurrentData((prev) => ({
+					...prev,
+					sectionIndex: nextSection,
+					translatedWords: updatedTranslatedWords,
+				}))
+			}
+			//if next section null move to next sentence
+			if (nextSection === null || currentData.quizType === "full") {
+				//check if there are more sentences
+				console.log(
+					'nextSection is null, or quizType is "full", sentenceInd: ',
+					sentenceInd
+				)
 
-			const nextIndex = sentenceInd + 1
-			getNextSentence(nextIndex)
+				const nextIndex = sentenceInd + 1
+				getNextSentence(nextIndex)
+			}
 		}
 	}
 	//
