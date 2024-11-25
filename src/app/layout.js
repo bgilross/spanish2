@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
 			<body
-				className={`layoutBody ${geistSans.variable} ${geistMono.variable} antialiased bg-[url(../media/spanishBGhorizontal.png)] h-screen flex flex-col`}
+				className={`layoutBody ${geistSans.variable} ${geistMono.variable} antialiased bg-primary_light h-screen flex flex-col`}
 			>
 				<div className="flex flex-col justify-between h-full">
 					<TranslationProvider>

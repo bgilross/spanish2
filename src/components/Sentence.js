@@ -105,7 +105,7 @@ const Sentence = () => {
 					key={index}
 					className={`mr-2 ${
 						!word.translation
-							? "text-secondary"
+							? "text-green-800"
 							: isTranslated(index)
 							? "text-green-700 text-6xl"
 							: "border-b-4 border-red-500 text-sm"
@@ -113,54 +113,30 @@ const Sentence = () => {
 				>
 					{word.translation
 						? translation || // Show translation if available
-						  (index === currentData.sectionIndex
-								? `${wordsInSection} Spanish Word(s)`
-								: "__________________")
+						  (index === currentData.sectionIndex ? (
+								<span className="text-primary">
+									{`${wordsInSection} Spanish Word(s)`}
+								</span>
+						  ) : (
+								"__________________"
+						  ))
 						: word.word}
 				</span>
 			)
 		})
 	})()
 
-	// Function to handle correct translation
-	const handleCorrectTranslation = () => {
-		console.log("Correct translation! Moving to next section...")
-		const nextSectionIndex = currentData.sectionIndex + 1
-		if (nextSectionIndex < currentSentence.data.length) {
-			setCurrentData((prev) => ({
-				...prev,
-				sectionIndex: nextSectionIndex,
-			}))
-		} else {
-			console.log("End of sentence reached. Moving to next sentence...")
-			// Move to the next sentence if current sentence is completed
-			setCurrentData((prev) => ({
-				...prev,
-				sentenceIndex: sentenceIndex + 1,
-				sectionIndex: 0,
-				translatedWords: [],
-			}))
-		}
-	}
-
 	// Debugging translated words increment
 	useEffect(() => {
 		console.log("Current Data Updated:", currentData)
 	}, [currentData])
 
-	// JSX Return Statement
 	if (!currentSentence) return null
 	if (!currentData) return null
 	return (
-		<div className="text-6xl text-primary flex flex-col justify-center items-center space-y-6">
+		<div className="text-6xl text-amber-700 flex flex-col justify-center items-center space-y-6">
 			<div>{untranslatedSentence}</div>
 			<div>{translatedSentence}</div>
-			{/* <button
-				className="mt-4 p-2 bg-blue-500 text-white rounded"
-				onClick={handleCorrectTranslation}
-			>
-				Next Word (Debug)
-			</button> */}
 		</div>
 	)
 }

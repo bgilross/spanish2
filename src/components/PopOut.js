@@ -166,14 +166,15 @@ const PopOut = ({ children, wordBank, word }) => {
 				anchorEl={anchorEl}
 				anchorOrigin={{
 					vertical: "bottom",
-					horizontal: "left",
+					horizontal: "center",
 				}}
 				transformOrigin={{
 					vertical: "top",
-					horizontal: "left",
+					horizontal: "center",
 				}}
 				onClose={handlePopoverClose}
 				disableRestoreFocus
+				className="w-[75%]"
 			>
 				<div className="bg-secondary text-primary">
 					<div className="flex items-end justify-end pr-2">

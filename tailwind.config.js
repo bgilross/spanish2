@@ -1,11 +1,4 @@
-const { transform } = require("next/dist/build/swc")
-const colors = require("tailwindcss/colors")
 const plugin = require("tailwindcss/plugin")
-
-const basePrimaryColor = "red"
-const baseSecondaryColor = "amber"
-const baseAccentColor = "violet"
-const baseWarningColor = "blue"
 
 const ultraViolet = "#52489c"
 const wisteria = "#8E3BFF"
@@ -29,7 +22,7 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				primary: "#c3423f",
+				primary: persianRed,
 				primary_light: lightCoral,
 				secondary: sunset,
 				secondary_light: champagne,
@@ -41,9 +34,9 @@ module.exports = {
 				cornell: cornellRed,
 			},
 
-			backgroundImage: {
-				background: "url('/media/spanishBG.png')",
-			},
+			// backgroundImage: {
+			// 	background: "url('/media/spanishBG.png')",
+			// },
 		},
 	},
 	plugins: [
