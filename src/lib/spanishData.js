@@ -80,8 +80,8 @@ const spanishData = {
 				"Nouns and verbs function very much the same in English as in Spanish but not quite exactly. Let's review nouns and verbs, how to identify them, and how to use them in a Spanish sentence template.",
 				noun.info[1],
 				noun.info[0],
-				`ESO ist technically not a NOUN it's a PRONOUN meaning THAT. ${pron.eso.info[0]}`,
-				`Any noun or noun phrase can be replace with ESO and still make sense: 'Losing myself in a new city makes me happy' 'That/ESO makes me happy'`,
+				`ESO is technically not a NOUN it's a PRONOUN meaning THAT. ${pron.eso.info[0]}`,
+				`Any noun or noun phrase can be replaced with ESO and still make sense: 'Losing myself in a new city makes me happy' 'That/ESO makes me happy'`,
 
 				verb.info[0],
 				verb.info[1],

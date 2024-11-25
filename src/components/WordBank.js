@@ -37,7 +37,6 @@ const WordBank = () => {
 				<span className="text-sm">
 					{spanishData.lessons[displayedLesson.lesson].details}
 				</span>
-				s
 			</div>
 
 			{/* Scrollable Word Bank Section */}
@@ -46,11 +45,11 @@ const WordBank = () => {
 					wordBank.map((word, index) => (
 						<div
 							key={index}
-							className="mb-6"
+							className="mb-2"
 						>
-							<h3 className="font-bold text-lg text-primary">
-								{word.pos.toUpperCase()}
-							</h3>
+							{/* <h3 className="font-bold text-lg text-primary">
+								{word.pos.toUpperCase()} ?
+							</h3> */}
 							<div className="whitespace-pre-wrap">
 								<span className="font-bold">
 									<ClickableText>{word.word.toUpperCase()}</ClickableText>:
