@@ -141,6 +141,7 @@ const spanishWords = {
 		info: [
 			"PREPOSITIONS are ALWAYS used directly before a NOUN of some type, that's why they are call PRE-POSITIONS!",
 			"As a rule Prepositions DON'T translate one-to-one between Spanish and English",
+			"Since prepositions must come before a noun, they are not allowed to end sentences in Spanish, leading to phrases like: 'For what is that?' (Para qué es eso?) instead of 'What is that for?'",
 		],
 		de: {
 			id: "prep.de",

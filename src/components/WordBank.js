@@ -10,15 +10,32 @@ const WordBank = () => {
 		spanishData.lessons[currentData.lessonNumber].wordBank
 	)
 	const [displayedLesson, setDisplayedLesson] = useState(
-		spanishData.lessons[currentData.lessonNumber]
+		spanishData.lessons[currentData.lessonNumber].lesson
 	)
 
+	const [loading, setLoading] = useState(true)
+
+	console.log("Initial displayedLesson: ", displayedLesson)
+	console.log("Initial currentData.lessonNumber: ", currentData.lessonNumber)
+
 	useEffect(() => {
-		setDisplayedLesson(spanishData.lessons[currentData.lessonNumber])
+		console.log(
+			"use effect running. spanishData.lessons[currentData.lessonNumber].lesson: ",
+			spanishData.lessons[currentData.lessonNumber].lesson
+		)
+
+		setDisplayedLesson(spanishData.lessons[currentData.lessonNumber].lesson)
 		setWordBank(spanishData.lessons[currentData.lessonNumber].wordBank)
+		setLoading(false)
 	}, [currentData.lessonNumber])
 
-	if (!displayedLesson.lesson) return null
+	if (loading || !displayedLesson) {
+		return (
+			<button onClick={() => console.log("displayedLesson: ", displayedLesson)}>
+				Check
+			</button>
+		)
+	}
 
 	console.log(
 		"WordBank. CurrentData: ",
@@ -33,9 +50,9 @@ const WordBank = () => {
 		<div className="flex flex-col items-center w-full h-full">
 			{/* Title Section */}
 			<div className="text-center text-lg font-bold mb-4">
-				{spanishData?.lessons?.[displayedLesson.lesson]?.name}:{" "}
+				{spanishData?.lessons?.[displayedLesson]?.name}:{" "}
 				<span className="text-sm">
-					{spanishData.lessons[displayedLesson.lesson].details}
+					{spanishData.lessons[displayedLesson].details}
 				</span>
 			</div>
 
@@ -86,12 +103,10 @@ const WordBank = () => {
 			<div className="flex justify-around w-full mt-4">
 				<MyButton
 					onClick={() => {
-						setDisplayedLesson(displayedLesson.lesson - 1)
-						setWordBank(
-							spanishData.lessons[displayedLesson.lesson - 1].wordBank
-						)
+						setDisplayedLesson(displayedLesson - 1)
+						setWordBank(spanishData.lessons[displayedLesson - 1].wordBank)
 					}}
-					disabled={displayedLesson.lesson <= 1}
+					disabled={displayedLesson <= 1}
 					isPrimary={false}
 				>
 					Prev Lesson
@@ -100,15 +115,9 @@ const WordBank = () => {
 					onClick={() => {
 						console.log("Next Lesson")
 						console.log("displayedLesson: ", displayedLesson)
-						console.log(
-							"displayedLesson.lesson + 1: ",
-							displayedLesson.lesson + 1
-						)
 
-						setDisplayedLesson(displayedLesson.lesson + 1)
-						setWordBank(
-							spanishData.lessons[displayedLesson.lesson + 1].wordBank
-						)
+						setDisplayedLesson(displayedLesson + 1)
+						setWordBank(spanishData.lessons[displayedLesson + 1].wordBank)
 					}}
 					disabled={
 						displayedLesson.lesson >= Object.keys(spanishData.lessons).length
