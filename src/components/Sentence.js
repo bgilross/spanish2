@@ -120,6 +120,8 @@ const Sentence = () => {
 						  ) : (
 								"__________________"
 						  ))
+						: word.phrase
+						? word.phrase
 						: word.word}
 				</span>
 			)

@@ -3,15 +3,9 @@
 import React from "react"
 import { AppBar, Toolbar } from "@mui/material"
 import { Box } from "@mui/system"
-import { useTranslation } from "@/lib/TranslationContext"
 import spanishData from "@/lib/spanishData"
-import { useState, useEffect } from "react"
 import { useQuiz } from "@/lib/QuizContext"
-
 import GoogleLogin from "./GoogleLogin"
-
-// import SpreadWord from "./SpreadWord"
-// import GoogleLogin from "./GoogleLogin"
 
 const Header = () => {
 	const { currentData, setCurrentData, handleLessonChange, getNextSentence } =
@@ -83,15 +77,26 @@ const Header = () => {
 			}}
 		>
 			<Toolbar className="relative flex items-center justify-between px-6 py-4 h-20">
-				<Box className="flex space-x-3 w-full">
+				<Box className="flex justify-center items-center space-x-3 w-full">
 					<div className="text-secondary font-bold text-4xl w-1/3 text-left">
 						SpanishTester
 					</div>
 					<div className="w-1/3 flex items-center justify-center text-primary">
 						<div className="text-lg space-x-4">
 							{quizTypeSelect}
-							{sentenceSelect}
+							{currentData.randomizedSentences ? sentenceSelect : null}
 						</div>
+						<input
+							type="checkbox"
+							checked={!!currentData.feedbackMode}
+							onChange={(e) =>
+								setCurrentData({
+									...currentData,
+									feedbackMode: e.target.checked,
+								})
+							}
+							className="ml-4"
+						/>
 					</div>
 					{lessonSelect}
 

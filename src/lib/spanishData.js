@@ -3334,7 +3334,7 @@ const spanishData = {
 		12: {
 			lesson: 12,
 			name: "Lesson 12",
-			details: "Verbs: IS in Spanish. ES!",
+			details: "Verbs: ES means IS in Spanish!",
 			wordBank: [verb.ser.present.es],
 			info: [
 				verb.info[4],
