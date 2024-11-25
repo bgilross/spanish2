@@ -484,7 +484,7 @@ export const QuizProvider = ({ children }) => {
 		}
 
 		const randomizedSentences = randomizeSentences(lessonKey)
-		const firstSentenceSections = getCurrentSections(0)
+		const firstSentenceSections = getCurrentSections(Number(0), rand)
 
 		tempLessonNumber = lessonKey
 		setCurrentData((prev) => ({
@@ -515,7 +515,11 @@ export const QuizProvider = ({ children }) => {
 				shuffledSentences[i],
 			] // Swap elements
 		}
-		console.log("finished shuffled sentences!")
+		console.log(
+			"finished shuffled sentences! shuffledSentences: ",
+			shuffledSentences
+		)
+		console.log("sentence Ind: ")
 
 		return shuffledSentences
 	}
@@ -523,9 +527,16 @@ export const QuizProvider = ({ children }) => {
 	const getCurrentSections = (
 		sentenceInd = spanishData.lessons[currentData.lessonNumber].sentences[
 			sentenceIndex
-		]
+		],
+		currentSentences = currentData.randomizedSentences
 	) => {
-		const currentSections = currentData.randomizedSentences[sentenceInd].data
+		if (currentSentences.length === 0) return
+
+		console.log("getting current sections. sentenceInd: ", sentenceInd)
+		console.log("randomized Sentences: ", currentData.randomizedSentences)
+		console.log("currentSentences: ", currentSentences)
+
+		const currentSections = currentSentences[sentenceInd].data
 			.map((section, index) => {
 				if (section.translation) {
 					return { section, index }
