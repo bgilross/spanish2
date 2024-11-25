@@ -42,11 +42,11 @@ export const QuizProvider = ({ children }) => {
 		console.log("useEffect start running:")
 		const randomizedSentences = randomizeSentences(currentData.lessonNumber)
 		console.log("first sentence:: ", randomizedSentences[0])
-		const currentSections = getCurrentSections(0)
+		const currentSections = getCurrentSections(0, randomizedSentences)
 
 		setCurrentData((prev) => ({
 			...prev,
-			sectionIndex: getNextSection(0, []),
+			sectionIndex: 0,
 			showLessonModal: true,
 			randomizedSentences: randomizedSentences,
 			currentSections: currentSections,

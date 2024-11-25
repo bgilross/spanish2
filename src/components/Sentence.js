@@ -10,11 +10,12 @@ const Sentence = () => {
 
 	console.log("Sentence running. CurrentData: ", currentData)
 
-	const currentSentence =
-		spanishData?.lessons[currentData.lessonNumber].sentences?.[
-			currentData.sentenceIndex
-		]
-	const currentSection = currentSentence?.data?.[currentData.sectionIndex]
+	const currentSentence = currentData.randomizedSentences
+		? currentData.randomizedSentences?.[currentData.sentenceIndex]
+		: null
+	const currentSection = currentData.currentSections
+		? currentData.currentSections?.[currentData.sectionIndex]
+		: null
 
 	const wordsInSection = (() => {
 		// Handle cases where currentSection is undefined
@@ -64,7 +65,8 @@ const Sentence = () => {
 						className={`mr-2 ${
 							item.translation ? "text-accent font-bold" : ""
 						} ${
-							index === currentData.sectionIndex
+							index ===
+							currentData.currentSections?.[currentData.sectionIndex].index
 								? "border-4 border-true_blue"
 								: ""
 						} ${isTranslated(index) ? "text-green-700 text-6xl" : ""}`}
