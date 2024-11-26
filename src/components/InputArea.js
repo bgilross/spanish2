@@ -8,12 +8,10 @@ import "../styles/myButton.css"
 import WordBank from "./WordBank"
 import LessonInfo from "./LessonInfo"
 const InputArea = () => {
-	const [userInput, setUserInput] = useState("")
-
 	const [leftModalOpen, setLeftModalOpen] = useState(false)
 	const [rightModalOpen, setRightModalOpen] = useState(false)
 
-	const { handleUserSubmit } = useQuiz()
+	const { handleUserSubmit, userInput, setUserInput } = useQuiz()
 
 	const submit = (event) => {
 		event.preventDefault()

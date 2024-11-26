@@ -27,7 +27,7 @@
 			inset -4px -4px 10px rgba(255, 255, 255, 0.7);
 	}
 	50% {
-		box-shadow: inset 6px 6px 15px var(--accent),
+		box-shadow: inset 6px 6px 15px var(--spanishBlue),
 			inset -6px -6px 15px rgba(255, 255, 255, 0.9);
 	}
 	100% {

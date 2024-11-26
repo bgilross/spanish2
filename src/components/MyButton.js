@@ -32,7 +32,9 @@ const MyButton = ({
 						: "var(--primary)",
 					"--button-border-radius": "0.5rem",
 					"--button-padding": "0.5rem 1rem",
-					"--button-primary-color-hover": "var(--spanishBlue)",
+					"--button-primary-color-hover": isPrimary
+						? "var(--primary-med)"
+						: "var(--secondary-dark)",
 					//  isPrimary
 
 					// ? "var(--cornell)"

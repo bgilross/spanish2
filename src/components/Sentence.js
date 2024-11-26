@@ -88,7 +88,7 @@ const Sentence = () => {
 						} ${
 							index ===
 							currentData.currentSections?.[currentData.sectionIndex].index
-								? "border-4 border-true_blue"
+								? "border-4 border-accent"
 								: ""
 						} ${isTranslated(index) ? "text-green-700 text-6xl" : ""}`}
 					>
@@ -109,7 +109,7 @@ const Sentence = () => {
 		if (currentData.quizType === "full") {
 			// For "full" quiz type, display a single blank line
 			return (
-				<div className="mb-4 border-b-4 border-accent inline-block w-full h-8">
+				<div className="mb-4 border-b-4 border-primary inline-block w-full h-8">
 					{"\u00A0".repeat(currentSentence?.sentence.length + 12 || 20)}
 				</div>
 			)
@@ -160,7 +160,7 @@ const Sentence = () => {
 	if (!currentSentence) return null
 	if (!currentData) return null
 	return (
-		<div className="text-6xl text-amber-700 flex flex-col justify-center items-center space-y-6">
+		<div className="text-6xl text-spanishBlue flex flex-col justify-center items-center space-y-6">
 			<div>{untranslatedSentence}</div>
 			<div>{translatedSentence}</div>
 		</div>

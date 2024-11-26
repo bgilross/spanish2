@@ -6,14 +6,15 @@
 	/* --primary: theme(colors.primary); */
 	--primary: theme(colors.primary);
 	--primary-light: theme(colors.primary_light);
+	--primary-med: theme(colors.primary_med);
 	--secondary: theme(colors.secondary);
 	--secondary-light: theme(colors.secondary_light);
 	--secondary-dark: theme(colors.secondary_dark);
 	--accent: theme(colors.accent);
 	--accent-light: theme(colors.accent_light);
-	--true-blue: theme(colors.true_blue);
+	/* --true-blue: theme(colors.true_blue);
 	--blue-light: theme(colors.blue_light);
-	--cornell: theme(colors.cornell);
+	--cornell: theme(colors.cornell); */
 }
 
 .clip-side {

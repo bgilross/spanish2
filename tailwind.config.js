@@ -27,22 +27,37 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				// primary: persianRed,
-				primary: spanishRed,
-				primary_light: lightCoral,
-				// secondary: sunset,
-				secondary: spanishYellow,
-				secondary_light: "#F9E599",
-				secondary_dark: darkChampagne,
-				// accent: ultraViolet,
-				accent: spanishWhite,
-				accent_light: wisteria,
-				true_blue: trueBlue,
-				blue_light: vistaBlue,
-				cornell: cornellRed,
-				spanishBlue: spanishBlue,
-				spanishWhite: spanishWhite,
+				primary: "#1A202C", // Dark Gray
+				primary_light: "#c3bfdb", // Light Gray
+				primary_med: "#262f40",
+				secondary: "#2B6CB0", // Blue
+				secondary_light: "#90CDF4", // Light Blue
+				secondary_dark: "#1E3A8A", // Darker Blue
+				accent: "#718096", // Neutral Gray
+				accent_light: "#A0AEC0", // Light Neutral
+				background: "#FFFFFF", // White
+				foreground: "#000000", // Black
 			},
+
+			// spanish Theme.:
+
+			// colors: {
+			// 	// primary: persianRed,
+			// 	primary: spanishRed,
+			// 	primary_light: lightCoral,
+			// 	// secondary: sunset,
+			// 	secondary: spanishYellow,
+			// 	secondary_light: "#F9E599",
+			// 	secondary_dark: darkChampagne,
+			// 	// accent: ultraViolet,
+			// 	accent: spanishWhite,
+			// 	accent_light: wisteria,
+			// 	true_blue: trueBlue,
+			// 	blue_light: vistaBlue,
+			// 	cornell: cornellRed,
+			// 	spanishBlue: spanishBlue,
+			// 	spanishWhite: spanishWhite,
+			// },
 
 			// backgroundImage: {
 			// 	background: "url('/media/spanishBG.png')",

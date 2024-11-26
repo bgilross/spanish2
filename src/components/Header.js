@@ -65,7 +65,7 @@ const Header = () => {
 	return (
 		<AppBar
 			position="sticky"
-			className="bg-primary shadow-2xl shadow-red-900"
+			className="bg-primary shadow-2xl shadow-primary"
 			sx={{
 				borderBottomLeftRadius: "1rem",
 				borderBottomRightRadius: "1rem",

@@ -29,7 +29,7 @@ export const QuizProvider = ({ children }) => {
 		wordModalPosition: { top: 0, left: 0 },
 		showWordModal: false,
 	})
-
+	const [userInput, setUserInput] = useState("")
 	let tempErrors = []
 	let tempLessonNumber = 0
 	let tempSentenceIndex = 0
