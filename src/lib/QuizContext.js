@@ -18,9 +18,11 @@ export const QuizProvider = ({ children }) => {
 		errors: [],
 		showScoreModal: false,
 		showLessonModal: false,
+		showFeedbackModal: false,
 		feedbackMode: true,
 		randomizedSentences: [],
 		currentSections: [],
+		lessonLog: [],
 	})
 	const [displayStatus, setDisplayStatus] = useState({
 		showRedFlash: false,
@@ -110,8 +112,7 @@ export const QuizProvider = ({ children }) => {
 		console.log("sectionInd: ", sectionInd)
 		console.log("lessonNum: ", lessonNum)
 		console.log("currentData: ", currentData)
-		const currentSentence =
-			spanishData.lessons[currentData.lessonNumber].sentences[sentenceInd]
+		const currentSentence = currentData.randomizedSentences[sentenceInd]
 		const currentSection = currentSentence.data[sectionInd]
 		// console.log("currentSentence: ", currentSentence)
 		console.log("hanldle submit current section: ", currentSection)
@@ -128,7 +129,7 @@ export const QuizProvider = ({ children }) => {
 			// console.log("currentSection: ", currentSection)
 			// console.log("sectionInd: ", sectionInd)
 
-			handleCorrectAnswer(sentenceInd, currentSection, sectionInd)
+			handleCorrectAnswer(sentenceInd, currentSection, sectionInd, input)
 		} else {
 			handleIncorrectAnswer(input, currentSentence, currentSection, sectionInd)
 		}
@@ -350,7 +351,12 @@ export const QuizProvider = ({ children }) => {
 		return tempRefs
 	}
 
-	const handleCorrectAnswer = (sentenceInd, currentSection, sectionInd) => {
+	const handleCorrectAnswer = (
+		sentenceInd,
+		currentSection,
+		sectionInd,
+		userInput
+	) => {
 		console.log("handlingCorrectAnswer")
 		console.log("sentenceInd: ", sentenceInd)
 		console.log("currentSection: ", currentSection)
@@ -371,6 +377,7 @@ export const QuizProvider = ({ children }) => {
 			if (currentData.quizType === "full") {
 				setCurrentData((prev) => ({
 					...prev,
+					showFeedbackModal: true,
 				}))
 			}
 			if (currentData.quizType === "parts") {
@@ -402,6 +409,23 @@ export const QuizProvider = ({ children }) => {
 				getNextSentence(nextIndex)
 			}
 		}
+		//create log of user submission and details:
+		const submissionLog = {
+			lessonNumber: currentData.lessonNumber,
+			sentenceIndex: sentenceInd,
+			sectionIndex: sectionInd,
+			quizType: currentData.quizType,
+			feedbackMode: currentData.feedbackMode,
+			sentence: currentData.randomizedSentences[sentenceInd],
+			section: currentSection,
+			isCorrect: true,
+			userInput: userInput,
+		}
+
+		setCurrentData((prev) => ({
+			...prev,
+			lessonLog: [...prev.lessonLog, submissionLog],
+		}))
 	}
 	//
 

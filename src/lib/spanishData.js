@@ -258,7 +258,7 @@ const spanishData = {
 				{
 					id: 12,
 					sentence: "That isn't my favorite thing",
-					translation: "ESO NO is my favorite thing",
+					translation: "ESO isn't my favorite thing",
 					data: [
 						{ word: "That", translation: pron.eso },
 						{ word: "isn't my favorite thing" },

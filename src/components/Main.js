@@ -8,12 +8,10 @@ import "../styles/flashOverlay.css"
 import Testing from "./Testing"
 import { useQuiz } from "@/lib/QuizContext"
 import LessonInfoBig from "./LessonInfoBig"
+import FeedBackModal from "./FeedbackModal"
 
 export default function Main() {
 	const {
-		// logData,
-		isScoreModalOpen,
-		setIsScoreModalOpen,
 		isWordModalOpen,
 		setIsWordModalOpen,
 		selectedWord,
@@ -67,6 +65,12 @@ export default function Main() {
 				isOpen={currentData.showLessonModal}
 				onClose={() =>
 					setCurrentData((prev) => ({ ...prev, showLessonModal: false }))
+				}
+			/>
+			<FeedBackModal
+				isOpen={currentData.showFeedbackModal}
+				onClose={() =>
+					setCurrentData((prev) => ({ ...prev, showFeedbackModal: false }))
 				}
 			/>
 		</div>
