@@ -445,6 +445,22 @@ export const QuizProvider = ({ children }) => {
 		console.log("sentenceIndex:", sentenceIndex)
 		console.log("translatedWords:", translatedWords)
 
+		if (currentData.feedbackMode) {
+			if (currentData.sectionIndex + 1 > currentData.currentSections.length) {
+				console.log(
+					"Feedback Mode. Get Next Section. currentData.sectionIndex + 1 > currentData.currentSections.length. returning null"
+				)
+				return null
+			} else {
+				console.log(
+					"Feedback Mode. Get Next Section. returning currentData.sectionIndex + 1",
+					currentData.sectionIndex + 1
+				)
+
+				return currentData.sectionIndex + 1
+			}
+		}
+
 		const currentSentence =
 			spanishData.lessons[currentData.lessonNumber].sentences[sentenceIndex]
 

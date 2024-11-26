@@ -18,20 +18,41 @@ const Sentence = () => {
 		: null
 
 	const wordsInSection = (() => {
+		console.log("wordsInSection running. currentSection: ", currentSection)
 		// Handle cases where currentSection is undefined
-		if (!currentSection) return 0
+		if (!currentSection) {
+			console.log("currentSection is undefined, returning 0")
+			return 0
+		}
 
 		// If the current section's translation is an array, count valid items
-		if (Array.isArray(currentSection.translation)) {
-			return currentSection.translation.filter(
+		if (Array.isArray(currentSection.section.translation)) {
+			console.log(
+				"currentSection.translation is array  ",
+				currentSection.translation
+			)
+
+			return currentSection.section.translation.filter(
 				(translation) => translation.word
 			).length
 		}
 
 		// If the current section's translation is a single object
-		if (currentSection.translation && currentSection.translation.word) {
+		if (
+			currentSection.section.translation &&
+			currentSection.section.translation.word
+		) {
+			console.log(
+				"currentSection.translation is object returning 1",
+				currentSection.section.translation
+			)
+
 			return 1
 		}
+		console.log(
+			"currentSection.translation is null ",
+			currentSection.section.translation
+		)
 
 		// If no translation is needed, return 0
 		return 0
@@ -115,7 +136,8 @@ const Sentence = () => {
 				>
 					{word.translation
 						? translation || // Show translation if available
-						  (index === currentData.sectionIndex ? (
+						  (index ===
+						  currentData.currentSections[currentData.sectionIndex].index ? (
 								<span className="text-primary">
 									{`${wordsInSection} Spanish Word(s)`}
 								</span>
