@@ -2,6 +2,7 @@ import { useQuiz } from "@/lib/QuizContext"
 import spanishData from "@/lib/spanishData"
 import ClickableText from "./ClickableText"
 import LessonButtons from "./LessonButtons"
+import BigModal from "./BigModal"
 
 const LessonInfoBig = ({ isOpen, onClose }) => {
 	const { currentData } = useQuiz()
@@ -11,18 +12,18 @@ const LessonInfoBig = ({ isOpen, onClose }) => {
 	if (!isOpen) return null
 
 	return (
-		<div className="fixed inset-0 flex text-lg items-center bg-black bg-opacity-50 z-50 text-secondary justify-center">
-			<div className="bg-primary flex flex-col w-4/5 h-[90%] rounded-lg shadow-2xl shadow-primary p-4 overflow-hidden">
+		<BigModal isOpen={isOpen}>
+			<div className="bg-primary h-full rounded-s-lg p-2">
 				<div className="flex  items-center">
 					<div className="text-5xl font-bold mb-4">{lesson.name}:</div>
 
-					<div className="h-full w-[70%] text-2xl ml-10 ">
+					<div className="text-2xl ml-10">
 						<span className="text-accent font-bold border-b-2 border-accent">
 							{lesson.details}
 						</span>
 					</div>
 				</div>
-				<div className="p-4 overflow-y-auto h-full">
+				<div className="p-4 overflow-y-auto">
 					{lesson.info?.map((info, index) => (
 						<div
 							key={index}
@@ -44,7 +45,7 @@ const LessonInfoBig = ({ isOpen, onClose }) => {
 					/>
 				</div>
 			</div>
-		</div>
+		</BigModal>
 	)
 }
 export default LessonInfoBig
