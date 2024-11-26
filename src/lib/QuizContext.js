@@ -63,6 +63,7 @@ export const QuizProvider = ({ children }) => {
 		console.log("tempSentenceIndex: ", tempSentenceIndex)
 		console.log("tempSectionIndex: ", tempSectionIndex)
 		console.log("tempTranslatedWords: ", tempTranslatedWords)
+		console.log("userInput: ", userInput)
 	}
 
 	const resetStates = () => {
@@ -121,6 +122,25 @@ export const QuizProvider = ({ children }) => {
 		const correctAnswer = getCorrectAnswer(currentSection, currentSentence)
 
 		console.log("correctAnswer: ", correctAnswer)
+		console.log("clean input: ", cleanInput)
+		console.log("correct answer: ", correctAnswer)
+
+		const submissionLog = {
+			lessonNumber: currentData.lessonNumber,
+			sentenceIndex: sentenceInd,
+			sectionIndex: sectionInd,
+			quizType: currentData.quizType,
+			feedbackMode: currentData.feedbackMode,
+			sentence: currentData.randomizedSentences[sentenceInd],
+			section: currentSection,
+			isCorrect: cleanInput === correctAnswer,
+			userInput: userInput,
+		}
+
+		setCurrentData((prev) => ({
+			...prev,
+			lessonLog: [...prev.lessonLog, submissionLog],
+		}))
 
 		if (cleanInput === correctAnswer) {
 			console.log("calling handleCorrectAnswer")
@@ -153,6 +173,7 @@ export const QuizProvider = ({ children }) => {
 		setCurrentData((prev) => ({
 			...prev,
 			errors: [...prev.errors, errorData],
+			showFeedbackModal: true,
 		}))
 		tempErrors.push(errorData)
 		//ADD: add error to firestore
@@ -203,6 +224,8 @@ export const QuizProvider = ({ children }) => {
 		userWords,
 		sectionInd,
 	}) => {
+		console.log("finding errors. currentSentence: ", currentSentence)
+
 		let errorWords = []
 		if (currentData.quizType === "parts") {
 			if (Array.isArray(currentSection.translation)) {
@@ -246,7 +269,7 @@ export const QuizProvider = ({ children }) => {
 						section.translation.forEach((translation) => {
 							if (!userWords.includes(translation.word.toLowerCase())) {
 								errorWords.push({
-									word: section.translation,
+									word: translation,
 									sectionInd: index,
 									phrase: currentSection.phraseTranslation,
 									currentSection: currentSection,
@@ -410,22 +433,6 @@ export const QuizProvider = ({ children }) => {
 			}
 		}
 		//create log of user submission and details:
-		const submissionLog = {
-			lessonNumber: currentData.lessonNumber,
-			sentenceIndex: sentenceInd,
-			sectionIndex: sectionInd,
-			quizType: currentData.quizType,
-			feedbackMode: currentData.feedbackMode,
-			sentence: currentData.randomizedSentences[sentenceInd],
-			section: currentSection,
-			isCorrect: true,
-			userInput: userInput,
-		}
-
-		setCurrentData((prev) => ({
-			...prev,
-			lessonLog: [...prev.lessonLog, submissionLog],
-		}))
 	}
 	//
 

@@ -4,7 +4,7 @@ import { useQuiz } from "@/lib/QuizContext"
 import MyButton from "./MyButton"
 
 const FeedbackModal = ({ isOpen, onClose }) => {
-	const { currentData, setCurrentData, userInput, getNextSentence } = useQuiz()
+	const { currentData, getNextSentence } = useQuiz()
 
 	console.log(
 		"Feedback modal: currentData.randomizedSentence[currentData.sentenceIndex] = ",
@@ -16,6 +16,8 @@ const FeedbackModal = ({ isOpen, onClose }) => {
 		return null
 	}
 
+	const errorLog = currentData.errors[currentData.errors.length - 1]
+
 	const handleNextSentenceClick = () => {
 		getNextSentence()
 		onClose()
@@ -25,23 +27,96 @@ const FeedbackModal = ({ isOpen, onClose }) => {
 			isOpen={isOpen}
 			onClose={onClose}
 		>
-			<div className="p-2">
-				<div>
-					Current Sentence ID {currentLog.sentence.id}:{" "}
-					{currentLog.sentence.sentence}
-				</div>
-				<div>User Input: {currentLog.userInput}</div>
-
-				<div>Correct Answer: {currentLog.sentence.translation}</div>
-				{currentData.quizType === "parts" && (
-					<MyButton isPrimary={false}>Next Section</MyButton>
-				)}
-				<MyButton
-					isPrimary={false}
-					onClick={handleNextSentenceClick}
+			<div className="p-2 flex flex-col space-y-5 justify-center items-center">
+				<div
+					className={`text-4xl text-center ${
+						currentLog.isCorrect ? "text-green-500" : "text-red-500"
+					} font-bold`}
 				>
-					Next Sentence
-				</MyButton>
+					{" "}
+					{currentLog.isCorrect ? "Correct" : "Incorrect"}
+				</div>
+				<div className="">
+					{" "}
+					<div>
+						<span className="font-bold">
+							Current Sentence ID {currentLog.sentence.id}:{" "}
+						</span>{" "}
+						{currentLog.sentence.sentence}
+					</div>
+					<div>
+						<span className="font-bold">User Input: </span>{" "}
+						{currentLog.userInput}
+					</div>
+					<div>
+						<span className="font-bold">Correct Answer: </span>
+						{currentData.quizType === "full"
+							? currentLog.sentence.translation
+							: currentLog.section.phraseTranslation
+							? currentLog.section.phraseTranslation
+							: currentLog.section.translation.word}
+					</div>
+				</div>
+				{currentLog.isCorrect ? null : (
+					<div>
+						<span className="font-bold">Error Log:</span>
+						{errorLog.errorWords.map((word, index) => (
+							<div key={index}>
+								<span className="font-bold">Error Word {index + 1}: </span>
+								<div>Word: {word.word.word}</div>
+								<div>Translation: {word.word.translation}</div>
+								{word.word.info ? (
+									<div>Word Info: {word.word.info[0]}</div>
+								) : null}
+							</div>
+						))}
+						<div>
+							<span className="font-bold">References: </span>
+						</div>
+						{errorLog.references.map((reference, index) => (
+							<div key={index}>
+								<span>{reference}</span>
+							</div>
+						))}
+					</div>
+				)}
+				<div className="flex space-x-4">
+					{currentLog.isCorrect ? null : (
+						<>
+							<MyButton
+								isPrimary={false}
+								onClick={() =>
+									console.log("Marks this as correct in case of system error?")
+								}
+							>
+								Mark Correct
+							</MyButton>
+							<MyButton
+								isPrimary={false}
+								onClick={onClose}
+							>
+								Try <br />
+								Again
+							</MyButton>
+							<MyButton
+								isPrimary={false}
+								onClick={() => console.log("add sentence back to queue")}
+							>
+								Try <br />
+								Later
+							</MyButton>
+						</>
+					)}
+					{currentData.quizType === "parts" && (
+						<MyButton isPrimary={false}>Next Section</MyButton>
+					)}
+					<MyButton
+						isPrimary={false}
+						onClick={handleNextSentenceClick}
+					>
+						Next Sentence
+					</MyButton>
+				</div>
 			</div>
 		</BigModal>
 	)

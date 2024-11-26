@@ -15,10 +15,10 @@ const InputArea = () => {
 
 	const submit = (event) => {
 		event.preventDefault()
-		if (userInput.trim()) {
-			handleUserSubmit(userInput)
-			setUserInput("")
-		}
+
+		handleUserSubmit(userInput)
+
+		setUserInput("")
 	}
 
 	const toggleLeftModal = () => {
