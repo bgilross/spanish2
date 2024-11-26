@@ -11,6 +11,11 @@ const lightCoral = "#DD9492"
 const cornellRed = "#b3001b"
 const vistaBlue = "#95A8DB"
 
+const spanishRed = "#AA151B"
+const spanishBlue = "#0039F0"
+const spanishWhite = "#CCCCCC"
+const spanishYellow = "#F1BF00"
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: [
@@ -22,16 +27,21 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				primary: persianRed,
+				// primary: persianRed,
+				primary: spanishRed,
 				primary_light: lightCoral,
-				secondary: sunset,
-				secondary_light: champagne,
+				// secondary: sunset,
+				secondary: spanishYellow,
+				secondary_light: "#F9E599",
 				secondary_dark: darkChampagne,
-				accent: ultraViolet,
+				// accent: ultraViolet,
+				accent: spanishWhite,
 				accent_light: wisteria,
 				true_blue: trueBlue,
 				blue_light: vistaBlue,
 				cornell: cornellRed,
+				spanishBlue: spanishBlue,
+				spanishWhite: spanishWhite,
 			},
 
 			// backgroundImage: {
