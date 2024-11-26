@@ -449,8 +449,9 @@ export const QuizProvider = ({ children }) => {
 			setCurrentData((prev) => ({
 				...prev,
 				sentenceIndex: Number(index) + 1,
-				sectionIndex: getNextSection(Number(index) + 1, []),
-				translatedWords: [],
+				// sectionIndex: getNextSection(Number(index) + 1, []),
+				sectionIndex: 0,
+				// translatedWords: [],
 				currentSections: currentSections,
 			}))
 		} else if (

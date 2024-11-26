@@ -4,7 +4,7 @@ import { useQuiz } from "@/lib/QuizContext"
 import MyButton from "./MyButton"
 
 const FeedbackModal = ({ isOpen, onClose }) => {
-	const { currentData, setCurrentData, userInput } = useQuiz()
+	const { currentData, setCurrentData, userInput, getNextSentence } = useQuiz()
 
 	console.log(
 		"Feedback modal: currentData.randomizedSentence[currentData.sentenceIndex] = ",
@@ -15,20 +15,34 @@ const FeedbackModal = ({ isOpen, onClose }) => {
 	if (!currentLog) {
 		return null
 	}
+
+	const handleNextSentenceClick = () => {
+		getNextSentence()
+		onClose()
+	}
 	return (
 		<BigModal
 			isOpen={isOpen}
 			onClose={onClose}
 		>
-			<div>
-				Current Sentence: ID: {currentLog.sentence.id}
-				{currentLog.sentence.sentence}
-			</div>
-			<div>User Input: {currentLog.userInput}</div>
+			<div className="p-2">
+				<div>
+					Current Sentence ID {currentLog.sentence.id}:{" "}
+					{currentLog.sentence.sentence}
+				</div>
+				<div>User Input: {currentLog.userInput}</div>
 
-			<div>Correct Answer: {currentLog.sentence.translation}</div>
-			<MyButton>Next Section</MyButton>
-			<MyButton>Next Sentence</MyButton>
+				<div>Correct Answer: {currentLog.sentence.translation}</div>
+				{currentData.quizType === "parts" && (
+					<MyButton isPrimary={false}>Next Section</MyButton>
+				)}
+				<MyButton
+					isPrimary={false}
+					onClick={handleNextSentenceClick}
+				>
+					Next Sentence
+				</MyButton>
+			</div>
 		</BigModal>
 	)
 }
