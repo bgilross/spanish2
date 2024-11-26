@@ -1,28 +1,28 @@
 const spanishWords = {
-	idioms: [
-		{
-			idiom: "A 2:00",
-			translations: "At 2:00",
-		},
-		{ idiom: "por eso", translations: ["because of that", "that's why"] },
-		{ idiom: "para eso", translations: "intended for that" },
-		{
-			idiom: "para qué",
-			translations: [
-				"intended for what",
-				"for what purposre",
-				"for what intended use",
-			],
-		},
-		{
-			idiom: "por que",
-			translations: ["because of what", "why"],
-		},
-		{
-			idiom: "para que",
-			translations: ["so that", "in order that"],
-		},
-	],
+	// idioms: [
+	// 	{
+	// 		idiom: "A 2:00",
+	// 		translations: "At 2:00",
+	// 	},
+	// 	{ idiom: "por eso", translations: ["because of that", "that's why"] },
+	// 	{ idiom: "para eso", translations: "intended for that" },
+	// 	{
+	// 		idiom: "para qué",
+	// 		translations: [
+	// 			"intended for what",
+	// 			"for what purposre",
+	// 			"for what intended use",
+	// 		],
+	// 	},
+	// 	{
+	// 		idiom: "por que",
+	// 		translations: ["because of what", "why"],
+	// 	},
+	// 	{
+	// 		idiom: "para que",
+	// 		translations: ["so that", "in order that"],
+	// 	},
+	// ],
 
 	artcl: {
 		name: "Article",
@@ -141,6 +141,7 @@ const spanishWords = {
 		info: [
 			"PREPOSITIONS are ALWAYS used directly before a NOUN of some type, that's why they are call PRE-POSITIONS!",
 			"As a rule Prepositions DON'T translate one-to-one between Spanish and English",
+			"Since prepositions must come before a noun, they are not allowed to end sentences in Spanish, leading to phrases like: 'For what is that?' (Para qué es eso?) instead of 'What is that for?'",
 		],
 		de: {
 			id: "prep.de",
@@ -270,7 +271,7 @@ const spanishWords = {
 			"EAT TEST: Verbs are any word that can be replaced by EAT, EATS or ATE! I EAT food!",
 			"What about EATING? EATING or EATEN actually don't behave as verbs in the EAT test! EATING is my Favority activiy, EATING is the NOUN! IS is the VERB!",
 			"Proper Spanish sentence can ONLY have ONE verb! (EATS EAT or ATE (NOT EATING/EATEN(Those function as NOUNS))), \nCONJUNCTIONS allow combining phrases/sentences",
-			"VERB PHRASES are where multiple verbs are functioning as only one verb! 'I want to have more!' looks like two verbs, WANT and HAVE but it counts as one! 'I will continue eating my food' Three verbs which counts as ONE! you could change it to 'I EAT my food'",
+			"VERB PHRASES are where multiple verbs are functioning as only one verb! \n'I want to have more!' looks like two verbs, WANT and HAVE, but it counts as one! \n'I will continue eating my food' Three verbs which counts as ONE! you could change it to 'I EAT my food'",
 			"Verbs are the absolute heart of Spanish sentences, and what makes them so different from English sentences.",
 			"You can make a proper Spanish sentence without any nouns or anything even functioning like a noun! 'It's Impossible' in Spanish would be 'ES/is Impossible!'",
 			"Remember that Verbs are not strictly just 'action words'. Consider: 'Food is my favorite thing' There is no action here, but IS is the Verb. What about 'Eating is my favorite' EATING is an action, but it's actually functioning as a NOUN in this sentence.",

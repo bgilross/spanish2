@@ -80,8 +80,8 @@ const spanishData = {
 				"Nouns and verbs function very much the same in English as in Spanish but not quite exactly. Let's review nouns and verbs, how to identify them, and how to use them in a Spanish sentence template.",
 				noun.info[1],
 				noun.info[0],
-				`ESO ist technically not a NOUN it's a PRONOUN meaning THAT. ${pron.eso.info[0]}`,
-				`Any noun or noun phrase can be replace with ESO and still make sense: 'Losing myself in a new city makes me happy' 'That/ESO makes me happy'`,
+				`ESO is technically not a NOUN it's a PRONOUN meaning THAT. ${pron.eso.info[0]}`,
+				`Any noun or noun phrase can be replaced with ESO and still make sense: 'Losing myself in a new city makes me happy' 'That/ESO makes me happy'`,
 
 				verb.info[0],
 				verb.info[1],
@@ -258,7 +258,7 @@ const spanishData = {
 				{
 					id: 12,
 					sentence: "That isn't my favorite thing",
-					translation: "ESO NO is my favorite thing",
+					translation: "ESO isn't my favorite thing",
 					data: [
 						{ word: "That", translation: pron.eso },
 						{ word: "isn't my favorite thing" },
@@ -3334,7 +3334,7 @@ const spanishData = {
 		12: {
 			lesson: 12,
 			name: "Lesson 12",
-			details: "Verbs: IS in Spanish. ES!",
+			details: "Verbs: ES means IS in Spanish!",
 			wordBank: [verb.ser.present.es],
 			info: [
 				verb.info[4],
@@ -4303,7 +4303,7 @@ const spanishData = {
 						},
 						{
 							phrase: "didn't the girl",
-							translation: [artcl.la, pron.no, dobj.los],
+							translation: [artcl.la, pron.no, dObj.los],
 							phraseTranslation: "LA girl NO",
 							reference: { "pron.no": [7] },
 						},

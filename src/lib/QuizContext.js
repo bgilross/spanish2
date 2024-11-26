@@ -8,7 +8,7 @@ const QuizContext = createContext()
 
 export const QuizProvider = ({ children }) => {
 	const [currentData, setCurrentData] = useState({
-		lessonNumber: 1,
+		lessonNumber: 12,
 		quizType: "full",
 		sentenceIndex: 0,
 		sectionIndex: null,
@@ -18,7 +18,11 @@ export const QuizProvider = ({ children }) => {
 		errors: [],
 		showScoreModal: false,
 		showLessonModal: false,
-		feedBackMode: true,
+		showFeedbackModal: false,
+		feedbackMode: true,
+		randomizedSentences: [],
+		currentSections: [],
+		lessonLog: [],
 	})
 	const [displayStatus, setDisplayStatus] = useState({
 		showRedFlash: false,
@@ -27,29 +31,27 @@ export const QuizProvider = ({ children }) => {
 		wordModalPosition: { top: 0, left: 0 },
 		showWordModal: false,
 	})
-
+	const [userInput, setUserInput] = useState("")
 	let tempErrors = []
 	let tempLessonNumber = 0
 	let tempSentenceIndex = 0
 	let tempSectionIndex = 0
 	let tempTranslatedWords = []
-	let lessonOver = false
 
 	const { user } = useAuth()
 
 	useEffect(() => {
 		console.log("useEffect start running:")
-		console.log(
-			"first sentence:: ",
-			spanishData.lessons[currentData.lessonNumber].sentences[
-				currentData.sentenceIndex
-			]
-		)
+		const randomizedSentences = randomizeSentences(currentData.lessonNumber)
+		console.log("first sentence:: ", randomizedSentences[0])
+		const currentSections = getCurrentSections(0, randomizedSentences)
 
 		setCurrentData((prev) => ({
 			...prev,
-			sectionIndex: getNextSection(0, []),
+			sectionIndex: 0,
 			showLessonModal: true,
+			randomizedSentences: randomizedSentences,
+			currentSections: currentSections,
 		}))
 	}, [])
 
@@ -61,17 +63,6 @@ export const QuizProvider = ({ children }) => {
 		console.log("tempSentenceIndex: ", tempSentenceIndex)
 		console.log("tempSectionIndex: ", tempSectionIndex)
 		console.log("tempTranslatedWords: ", tempTranslatedWords)
-	}
-
-	const getData = () => {
-		return {
-			state: currentData,
-			tempErrors: tempErrors,
-			tempLessonNumber: tempLessonNumber,
-			tempSentenceIndex: tempSentenceIndex,
-			tempSectionIndex: tempSectionIndex,
-			tempTranslatedWords: tempTranslatedWords,
-		}
 	}
 
 	const resetStates = () => {
@@ -121,8 +112,7 @@ export const QuizProvider = ({ children }) => {
 		console.log("sectionInd: ", sectionInd)
 		console.log("lessonNum: ", lessonNum)
 		console.log("currentData: ", currentData)
-		const currentSentence =
-			spanishData.lessons[currentData.lessonNumber].sentences[sentenceInd]
+		const currentSentence = currentData.randomizedSentences[sentenceInd]
 		const currentSection = currentSentence.data[sectionInd]
 		// console.log("currentSentence: ", currentSentence)
 		console.log("hanldle submit current section: ", currentSection)
@@ -139,7 +129,7 @@ export const QuizProvider = ({ children }) => {
 			// console.log("currentSection: ", currentSection)
 			// console.log("sectionInd: ", sectionInd)
 
-			handleCorrectAnswer(sentenceInd, currentSection, sectionInd)
+			handleCorrectAnswer(sentenceInd, currentSection, sectionInd, input)
 		} else {
 			handleIncorrectAnswer(input, currentSentence, currentSection, sectionInd)
 		}
@@ -361,7 +351,12 @@ export const QuizProvider = ({ children }) => {
 		return tempRefs
 	}
 
-	const handleCorrectAnswer = (sentenceInd, currentSection, sectionInd) => {
+	const handleCorrectAnswer = (
+		sentenceInd,
+		currentSection,
+		sectionInd,
+		userInput
+	) => {
 		console.log("handlingCorrectAnswer")
 		console.log("sentenceInd: ", sentenceInd)
 		console.log("currentSection: ", currentSection)
@@ -378,15 +373,16 @@ export const QuizProvider = ({ children }) => {
 						phraseTranslation: currentSection.phraseTranslation || null,
 				  }
 
-		if (currentData.isFeedbackMode) {
+		if (currentData.feedbackMode) {
 			if (currentData.quizType === "full") {
 				setCurrentData((prev) => ({
 					...prev,
+					showFeedbackModal: true,
 				}))
 			}
 			if (currentData.quizType === "parts") {
 			}
-		} else if (!currentData.isFeedbackMode) {
+		} else if (!currentData.feedbackMode) {
 			const updatedTranslatedWords =
 				currentData.quizType === "full"
 					? []
@@ -413,6 +409,23 @@ export const QuizProvider = ({ children }) => {
 				getNextSentence(nextIndex)
 			}
 		}
+		//create log of user submission and details:
+		const submissionLog = {
+			lessonNumber: currentData.lessonNumber,
+			sentenceIndex: sentenceInd,
+			sectionIndex: sectionInd,
+			quizType: currentData.quizType,
+			feedbackMode: currentData.feedbackMode,
+			sentence: currentData.randomizedSentences[sentenceInd],
+			section: currentSection,
+			isCorrect: true,
+			userInput: userInput,
+		}
+
+		setCurrentData((prev) => ({
+			...prev,
+			lessonLog: [...prev.lessonLog, submissionLog],
+		}))
 	}
 	//
 
@@ -431,12 +444,15 @@ export const QuizProvider = ({ children }) => {
 			//if there are more sentences, move to next sentence
 			console.log("There are more sentences, moving to next sentence")
 			console.log("index + 1: ", Number(index) + 1)
+			const currentSections = getCurrentSections(Number(index) + 1)
 
 			setCurrentData((prev) => ({
 				...prev,
 				sentenceIndex: Number(index) + 1,
-				sectionIndex: getNextSection(Number(index) + 1, []),
-				translatedWords: [],
+				// sectionIndex: getNextSection(Number(index) + 1, []),
+				sectionIndex: 0,
+				// translatedWords: [],
+				currentSections: currentSections,
 			}))
 		} else if (
 			index >= spanishData.lessons[currentData.lessonNumber].sentences.length
@@ -453,6 +469,22 @@ export const QuizProvider = ({ children }) => {
 		console.log("getNextSection running")
 		console.log("sentenceIndex:", sentenceIndex)
 		console.log("translatedWords:", translatedWords)
+
+		if (currentData.feedbackMode) {
+			if (currentData.sectionIndex + 1 > currentData.currentSections.length) {
+				console.log(
+					"Feedback Mode. Get Next Section. currentData.sectionIndex + 1 > currentData.currentSections.length. returning null"
+				)
+				return null
+			} else {
+				console.log(
+					"Feedback Mode. Get Next Section. returning currentData.sectionIndex + 1",
+					currentData.sectionIndex + 1
+				)
+
+				return currentData.sectionIndex + 1
+			}
+		}
 
 		const currentSentence =
 			spanishData.lessons[currentData.lessonNumber].sentences[sentenceIndex]
@@ -478,7 +510,7 @@ export const QuizProvider = ({ children }) => {
 			"handleLessonChange running, received newLessonNumber: ",
 			newLessonNumber
 		)
-		if (newLessonNumber > Object.keys(spanishData.lessons).length + 2) {
+		if (newLessonNumber > Object.keys(spanishData.lessons).length + 1) {
 			console.log(
 				"newLessonNumber > lesson.length, length: ",
 				Object.keys(spanishData.lessons).length
@@ -492,13 +524,72 @@ export const QuizProvider = ({ children }) => {
 			return
 		}
 
+		const randomizedSentences = randomizeSentences(lessonKey)
+		const firstSentenceSections = getCurrentSections(
+			Number(0),
+			randomizedSentences
+		)
+
 		tempLessonNumber = lessonKey
 		setCurrentData((prev) => ({
 			...prev,
 			lessonNumber: tempLessonNumber,
 			showLessonModal: true,
+			randomizedSentences: randomizedSentences,
+			currentSections: firstSentenceSections,
 		}))
 		resetStates()
+	}
+
+	const randomizeSentences = (
+		lesson = spanishData.lessons[currentData.lessonNumber].lesson
+	) => {
+		console.log("randomizeSentences running, lesson: ,", lesson)
+
+		const sentences = spanishData.lessons[lesson].sentences
+		console.log("sentences: ", sentences)
+
+		//Fisher-Yates shuffle algo
+		const shuffledSentences = [...sentences] // Create a copy of the sentences array
+		console.log("pre shuffledSentences: ", shuffledSentences)
+		for (let i = shuffledSentences.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1)) // Get a random index
+			;[shuffledSentences[i], shuffledSentences[j]] = [
+				shuffledSentences[j],
+				shuffledSentences[i],
+			] // Swap elements
+		}
+		console.log(
+			"finished shuffled sentences! shuffledSentences: ",
+			shuffledSentences
+		)
+		console.log("sentence Ind: ")
+
+		return shuffledSentences
+	}
+
+	const getCurrentSections = (
+		sentenceInd = spanishData.lessons[currentData.lessonNumber].sentences[
+			sentenceIndex
+		],
+		currentSentences = currentData.randomizedSentences
+	) => {
+		if (currentSentences.length === 0) return
+
+		console.log("getting current sections. sentenceInd: ", sentenceInd)
+		console.log("randomized Sentences: ", currentData.randomizedSentences)
+		console.log("currentSentences: ", currentSentences)
+
+		const currentSections = currentSentences[sentenceInd].data
+			.map((section, index) => {
+				if (section.translation) {
+					return { section, index }
+				}
+				return null // Explicitly return null for non-matching sections
+			})
+			.filter(Boolean) // Filter out any null or undefined values
+
+		return currentSections
 	}
 
 	return (
@@ -513,6 +604,8 @@ export const QuizProvider = ({ children }) => {
 				logData,
 				getNextSection,
 				getNextSentence,
+				userInput,
+				setUserInput,
 			}}
 		>
 			{children}
