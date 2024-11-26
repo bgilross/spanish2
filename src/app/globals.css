@@ -12,9 +12,9 @@
 	--secondary-dark: theme(colors.secondary_dark);
 	--accent: theme(colors.accent);
 	--accent-light: theme(colors.accent_light);
-	/* --true-blue: theme(colors.true_blue);
+	--true-blue: theme(colors.true_blue);
 	--blue-light: theme(colors.blue_light);
-	--cornell: theme(colors.cornell); */
+	--cornell: theme(colors.cornell);
 }
 
 .clip-side {

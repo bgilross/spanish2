@@ -24,15 +24,14 @@
 @keyframes pulse {
 	0% {
 		box-shadow: inset 4px 4px 10px var(--primary),
-			inset -4px -4px 10px rgba(255, 255, 255, 0.7);
+			inset -4px -4px 10px var(--primary_light);
 	}
 	50% {
-		box-shadow: inset 6px 6px 15px var(--spanishBlue),
-			inset -6px -6px 15px rgba(255, 255, 255, 0.9);
+		box-shadow: inset 5px 5px 12px black, inset -6px -6px 15px var(--secondary);
 	}
 	100% {
 		box-shadow: inset 4px 4px 10px var(--primary),
-			inset -4px -4px 10px rgba(255, 255, 255, 0.7);
+			inset -4px -4px 10px var(--primary_light);
 	}
 }
 

@@ -576,6 +576,8 @@ export const QuizProvider = ({ children }) => {
 				logData,
 				getNextSection,
 				getNextSentence,
+				userInput,
+				setUserInput,
 			}}
 		>
 			{children}

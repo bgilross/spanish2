@@ -6,7 +6,7 @@ import spanishData from "@/lib/spanishData"
 import { useEffect } from "react"
 
 const Sentence = () => {
-	const { currentData, setCurrentData } = useQuiz()
+	const { currentData, setCurrentData, userInput } = useQuiz()
 
 	console.log("Sentence running. CurrentData: ", currentData)
 
@@ -107,10 +107,22 @@ const Sentence = () => {
 
 	const translatedSentence = (() => {
 		if (currentData.quizType === "full") {
-			// For "full" quiz type, display a single blank line
 			return (
-				<div className="mb-4 border-b-4 border-primary inline-block w-full h-8">
-					{"\u00A0".repeat(currentSentence?.sentence.length + 12 || 20)}
+				<div className="mb-4 border-b-4 border-secondary w-full h-8 relative flex justify-center items-center">
+					{/* User input text */}
+					<span
+						className="text-black text-5xl absolute inset-0 flex justify-center items-center"
+						style={{
+							whiteSpace: "pre-wrap",
+							transform: "translateY(-10px)", // Move the text up by 10px
+						}}
+					>
+						{userInput}
+					</span>
+					{/* Underline placeholder */}
+					<span className="invisible">
+						{"\u00A0".repeat(currentSentence?.sentence.length + 12 || 20)}
+					</span>
 				</div>
 			)
 		}
@@ -160,7 +172,7 @@ const Sentence = () => {
 	if (!currentSentence) return null
 	if (!currentData) return null
 	return (
-		<div className="text-6xl text-spanishBlue flex flex-col justify-center items-center space-y-6">
+		<div className="text-6xl text-spanishBlue flex flex-col justify-center items-center space-y-12">
 			<div>{untranslatedSentence}</div>
 			<div>{translatedSentence}</div>
 		</div>
