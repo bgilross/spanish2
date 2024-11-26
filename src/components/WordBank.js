@@ -17,6 +17,8 @@ const WordBank = () => {
 
 	console.log("Initial displayedLesson: ", displayedLesson)
 	console.log("Initial currentData.lessonNumber: ", currentData.lessonNumber)
+	console.log("Type of displayedLesson: ,", typeof displayedLesson)
+	console.log("lessons length: ", Object.keys(spanishData.lessons).length)
 
 	useEffect(() => {
 		console.log(
@@ -119,9 +121,7 @@ const WordBank = () => {
 						setDisplayedLesson(displayedLesson + 1)
 						setWordBank(spanishData.lessons[displayedLesson + 1].wordBank)
 					}}
-					disabled={
-						displayedLesson.lesson >= Object.keys(spanishData.lessons).length
-					}
+					disabled={displayedLesson === Object.keys(spanishData.lessons).length}
 					isPrimary={false}
 				>
 					Next Lesson

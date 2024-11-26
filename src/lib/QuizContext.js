@@ -8,7 +8,7 @@ const QuizContext = createContext()
 
 export const QuizProvider = ({ children }) => {
 	const [currentData, setCurrentData] = useState({
-		lessonNumber: 3,
+		lessonNumber: 12,
 		quizType: "full",
 		sentenceIndex: 0,
 		sectionIndex: null,
@@ -525,7 +525,10 @@ export const QuizProvider = ({ children }) => {
 		}
 
 		const randomizedSentences = randomizeSentences(lessonKey)
-		const firstSentenceSections = getCurrentSections(Number(0), rand)
+		const firstSentenceSections = getCurrentSections(
+			Number(0),
+			randomizedSentences
+		)
 
 		tempLessonNumber = lessonKey
 		setCurrentData((prev) => ({

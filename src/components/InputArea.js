@@ -34,7 +34,7 @@ const InputArea = () => {
 			{/* Sliding Window */}
 			<SlidingModal
 				isOpen={leftModalOpen}
-				onClose={() => setLeftModalOpen(falses)}
+				onClose={() => setLeftModalOpen(false)}
 			>
 				<WordBank />
 			</SlidingModal>
