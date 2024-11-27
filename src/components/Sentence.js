@@ -129,11 +129,8 @@ const Sentence = () => {
 
 		// For "parts" quiz type, render each section dynamically
 		return currentSentence?.data?.map((word, index) => {
-			const translation = getTranslationForIndex(index)
-
-			// console.log("Rendering word at index: ", index)
-			// console.log("Current section index: ", currentData.sectionIndex)
-			// console.log("Is translated: ", isTranslated(index))
+			const currentSectionIndex =
+				currentData.currentSections[currentData.sectionIndex].index
 
 			return (
 				<span
@@ -141,24 +138,29 @@ const Sentence = () => {
 					className={`mr-2 ${
 						!word.translation
 							? "text-green-800"
-							: isTranslated(index)
+							: index < currentSectionIndex
 							? "text-green-700 text-6xl"
 							: "border-b-4 border-red-500 text-sm"
-					}`}
+					}
+			`}
 				>
-					{word.translation
-						? translation || // Show translation if available
-						  (index ===
-						  currentData.currentSections[currentData.sectionIndex].index ? (
-								<span className="text-primary">
-									{`${wordsInSection} Spanish Word(s)`}
-								</span>
-						  ) : (
-								"__________________"
-						  ))
-						: word.phrase
-						? word.phrase
-						: word.word}
+					{!word.translation ? (
+						word.phrase ? (
+							word.phrase
+						) : (
+							word.word
+						)
+					) : index === currentSectionIndex ? (
+						<span className="text-primary">
+							{`${wordsInSection} Spanish Word(s)`}
+						</span>
+					) : index > currentSectionIndex ? (
+						"\u00A0".repeat(30)
+					) : word.phraseTranslation ? (
+						word.phraseTranslation
+					) : (
+						word.translation.word
+					)}
 				</span>
 			)
 		})

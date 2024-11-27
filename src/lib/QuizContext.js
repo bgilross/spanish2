@@ -9,7 +9,7 @@ const QuizContext = createContext()
 export const QuizProvider = ({ children }) => {
 	const [currentData, setCurrentData] = useState({
 		lessonNumber: 12,
-		quizType: "full",
+		quizType: "parts",
 		sentenceIndex: 0,
 		sectionIndex: null,
 		sectionsAmt: 0,
@@ -114,9 +114,9 @@ export const QuizProvider = ({ children }) => {
 		console.log("lessonNum: ", lessonNum)
 		console.log("currentData: ", currentData)
 		const currentSentence = currentData.randomizedSentences[sentenceInd]
-		const currentSection = currentSentence.data[sectionInd]
+		const currentSection = currentData.currentSections[sectionInd].section
 		// console.log("currentSentence: ", currentSentence)
-		console.log("hanldle submit current section: ", currentSection)
+		console.log("handle submit current section: ", currentSection)
 
 		const cleanInput = cleanString(input)
 		const correctAnswer = getCorrectAnswer(currentSection, currentSentence)
@@ -404,6 +404,10 @@ export const QuizProvider = ({ children }) => {
 				}))
 			}
 			if (currentData.quizType === "parts") {
+				setCurrentData((prev) => ({
+					...prev,
+					showFeedbackModal: true,
+				}))
 			}
 		} else if (!currentData.feedbackMode) {
 			const updatedTranslatedWords =

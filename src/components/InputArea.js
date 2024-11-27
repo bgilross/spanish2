@@ -11,10 +11,17 @@ const InputArea = () => {
 	const [leftModalOpen, setLeftModalOpen] = useState(false)
 	const [rightModalOpen, setRightModalOpen] = useState(false)
 
-	const { handleUserSubmit, userInput, setUserInput } = useQuiz()
+	const {
+		currentData,
+		setCurrentData,
+		handleUserSubmit,
+		userInput,
+		setUserInput,
+	} = useQuiz()
 
 	const submit = (event) => {
 		event.preventDefault()
+		if (currentData.showFeedbackModal) return
 
 		handleUserSubmit(userInput)
 
