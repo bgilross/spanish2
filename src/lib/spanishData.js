@@ -5262,6 +5262,155 @@ const spanishData = {
 						},
 					],
 				},
+				{
+					id: 17,
+					sentence: "I didn't see you were in line",
+					translation: "I NO saw que you were EN line",
+					data: [
+						{
+							phrase: "I",
+						},
+						{
+							phrase: "Didn't see",
+							translation: [pron.no, conj.que],
+							phraseTranslation: "NO saw QUE",
+							reference: { "conj.que": [0] },
+						},
+						{
+							phrase: "you were",
+						},
+						{
+							phrase: "in",
+							translation: prep.en,
+						},
+						{
+							phrase: "line",
+						},
+					],
+				},
+				{
+					id: 18,
+					sentence: "The man has a young daughter",
+					translation: "EL man has UNA young daughter",
+					data: [
+						{
+							phrase: "The",
+							translation: artcl.el,
+						},
+						{
+							phrase: "man has",
+						},
+						{
+							phrase: "A",
+							translation: artcl.una,
+						},
+						{
+							phrase: "young daughter",
+						},
+					],
+				},
+				{
+					id: 19,
+					sentence: "We need a new butler(M) by this evening",
+					translatoin: "We need UN new butler PARA this evening",
+					data: [
+						{
+							phrase: "We need",
+						},
+						{
+							phrase: "a",
+							translation: artcl.una,
+						},
+						{
+							phrase: "new butler",
+						},
+						{
+							phrase: "by",
+							translation: prep.para,
+							reference: { "prep.para": [2] },
+						},
+						{
+							phrase: "this evening",
+						},
+					],
+				},
+				{
+					id: 20,
+					sentence: "How strange that it was because of the boy",
+					translation: "QUE strange QUE it was POR EL boy",
+					data: [
+						{
+							phrase: "How strange",
+							translation: pron.que,
+							phraseTranslation: "QUE strange",
+							referene: { "pron.que": [0] },
+						},
+						{
+							phrase: "that",
+							translation: conj.que,
+						},
+						{
+							phrase: "it was",
+						},
+						{
+							phrase: "because of",
+							translation: prep.por,
+							reference: { "prep.por": [3] },
+						},
+						{
+							phrase: "the boy",
+							translation: artcl.el,
+							phraseTranslation: "EL boy",
+						},
+					],
+				},
+				{
+					id: 21,
+					sentence: "I(M) want to be the best student",
+					translation: "I want SER EL best student",
+					data: [
+						{
+							phrase: "I want",
+						},
+						{
+							phrase: "to be",
+						},
+						{
+							phrase: "the",
+							translation: artcl.el,
+						},
+						{
+							phrase: "best student",
+						},
+					],
+				},
+				{
+					id: 22,
+					sentence: "That's why they're at the station",
+					translation: "POR ESO they're EN the station",
+					data: [
+						{
+							phrase: "That's why",
+							translation: [prep.por, pron.eso],
+							phraseTranslation: "POR ESO",
+							reference: { "prep.por": [9] },
+						},
+						{
+							phrase: "they're",
+							mixup: verb.ser.present.son,
+						},
+						{
+							phrase: "at",
+							translation: prep.en,
+						},
+						{
+							phrase: "the station",
+						},
+					],
+				},
+				{
+					id: 23,
+				},
 			],
 		},
 	},

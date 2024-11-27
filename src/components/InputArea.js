@@ -7,6 +7,7 @@ import MyButton from "./MyButton"
 import "../styles/myButton.css"
 import WordBank from "./WordBank"
 import LessonInfo from "./LessonInfo"
+
 const InputArea = () => {
 	const [leftModalOpen, setLeftModalOpen] = useState(false)
 	const [rightModalOpen, setRightModalOpen] = useState(false)
@@ -21,11 +22,17 @@ const InputArea = () => {
 
 	const submit = (event) => {
 		event.preventDefault()
-		if (currentData.showFeedbackModal) return
+		if (currentData.showFeedbackModal) return // Prevent form submission if feedback modal is active
 
 		handleUserSubmit(userInput)
 
 		setUserInput("")
+	}
+
+	const handleKeyDown = (event) => {
+		if (currentData.showFeedbackModal) {
+			event.preventDefault() // Prevent key strokes when the feedback modal is open
+		}
 	}
 
 	const toggleLeftModal = () => {
@@ -65,10 +72,12 @@ const InputArea = () => {
 			<form
 				onSubmit={submit}
 				className="flex space-y-4 h-1/3 flex-col w-[80%] space-x-4 justify-center items-center"
+				onKeyDown={handleKeyDown} // Prevent key strokes when feedback modal is active
 			>
 				<InsetInput
 					inputText={userInput}
 					setInputText={setUserInput}
+					disabled={currentData.showFeedbackModal} // Disable input when feedback modal is active
 				/>
 			</form>
 			<div className="flex justify-around w-full h-1/3">
