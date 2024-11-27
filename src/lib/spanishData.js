@@ -4373,6 +4373,897 @@ const spanishData = {
 				},
 			],
 		},
+		14: {
+			lesson: 14,
+			name: "Lesson 14",
+			details: "Disappearing Subject Pronouns",
+			info: [
+				"What is the reason you can form Spanish setntences WITHOUT using nouns OR pronouns? \nIt's all to do with a core difference between English and Spanish VERBS.",
+				"Think about the forms of SER we've learned. Spanish has FIVE different forms all specific to WHOME it's talking about. \nThat isn't true in English where we would say I AM, you ARE, we ARE, they ARE, she IS. Which is only THREE different words.",
+				"In Spanish those words are clearly distinct, specific to who it is that is being talked about. In English if you see 'are' out of context you wouldn't know who it's referring to.",
+				"However if you see the word SOMOS in spanish it can ONLY be referring to 'WE'",
+				"That allows the Subject Pronouns in Spanish to very often just disappear.",
+				"Subject prounouns are any word that is interchangeable with HE, like 'we' 'I' and 'she' etc.. Unlike the previously learned direct object pronouns which are interchangeable with HIM, like 'her' and 'them'.",
+				"Consider the sentence: 'He hugged him' HE is the subj pron. and HIM is the dObj pron.",
+				"In English we don't leave out subject pronouns always saying things like 'We are friends', where is Spanish you could say simply 'SOMOS friends'",
+				"You are allowed to use subject prououns in Spanish, like 'You ERES a nice person' but why bother putting YOU in there, it's already clear from the specificity of ERES who it is you are talking to.",
+				"Whether you use the subject pronoun in Spanish depends on how much information you need in the specific context. Say if the subject of the sentence is a whole named noun, you would still include it. Like: 'My DOG es my best friend', but if you have been talking about your dog and it's clear who you are referring to you would just say 'ES my best friend'",
+				"One situation in which you would make sure to keep the subject pronoun is when you need to differentiate between two people, like 'SHE no es una thief, HE es un thief'.",
+				"Another situation is if you are using emphasis, such as: 'THEY aren't your friends, I am you friend' , They NO SON your friends, I SOY your friend.",
+				"Basically, include a subject prounoun if: it's a named noun, or if you need a subject pronoun for emphasis or clarification.",
+				"This obviously creates a dilemma where there may subjectively be multiple correct answers. We will notate which sentences do not require Subject Pronouns for now, but this will change.",
+			],
+			sentences: [
+				{
+					id: 1,
+					sentence: "They are of wood",
+					translation: "SON DE wood",
+					noPronoun: true,
+					data: [
+						{ phrase: "They are", translation: verb.ser.present.son },
+						{
+							phrase: "of wood",
+							phraseTranslation: "DE wood",
+							translation: prep.de,
+						},
+					],
+				},
+				{
+					id: 2,
+					sentence: "The girls are my daughters",
+					translation: "Las girls SON my daughters",
+					noPronoun: true,
+					data: [
+						{
+							phrase: "The",
+							translation: artcl.las,
+						},
+						{
+							phrase: "girls",
+						},
+						{
+							phrase: "are",
+							mixup: verb.ser.present.son,
+						},
+						{
+							phrase: "my daughters",
+						},
+					],
+				},
+				{
+					id: 3,
+					sentence: "The boys and I are brothers",
+					translation: "LOS boys Y I SOMOS brothers",
+					noPronoun: true,
+					data: [
+						{
+							phrase: "The",
+							translation: artcl.los,
+						},
+						{
+							phrase: "boys",
+						},
+						{
+							phrase: "and",
+							translation: conj.y,
+						},
+						{
+							phrase: "I",
+						},
+						{
+							phrase: "are",
+							translation: verb.ser.present.somos,
+						},
+						{
+							phrase: "brothers",
+						},
+					],
+				},
+				{
+					id: 4,
+					sentence: "I'm a local",
+					translation: "SOY a local",
+					noPronoun: true,
+					data: [
+						{
+							phrase: "I'm",
+							translation: verb.ser.present.soy,
+						},
+						{
+							phrase: "a local",
+						},
+					],
+				},
+				{
+					id: 5,
+					sentence: "He's a thief!",
+					translation: "ES UN thief!",
+					noPronoun: true,
+					data: [
+						{
+							phrase: "He's",
+							translation: verb.ser.present.es,
+						},
+						{
+							phrase: "a",
+							translation: artcl.un,
+						},
+						{
+							phrase: "thief",
+						},
+					],
+				},
+				{
+					id: 6,
+					sentence: "I'm his son",
+					translation: "SOY his son",
+					noPronoun: true,
+					data: [
+						{
+							phrase: "I'm",
+							translation: verb.ser.present.soy,
+						},
+						{
+							phrase: "his son",
+						},
+					],
+				},
+				{
+					id: 7,
+					sentence: "She's not the winner, he's the winner",
+					translation: "She NO ES LA winner, he ES EL winner",
+					data: [
+						{
+							phrase: "She's not",
+							phraseTranslation: "She NO ES",
+							translation: [verb.ser.present.es, pron.no],
+							reference: { "pron.no": [6] },
+						},
+						{
+							phrase: "he's",
+							phraseTranslation: "he ES",
+							translation: verb.ser.present.es,
+						},
+						{
+							phrase: "the",
+							translation: artcl.el,
+						},
+						{
+							phrase: "winner",
+						},
+					],
+				},
+				{
+					id: 8,
+					sentence: "You're the guy that saw him",
+					translation: "ERES EL guy QUE LO saw",
+					noPronoun: true,
+					data: [
+						{
+							phrase: "You're",
+							translation: verb.ser.present.eres,
+						},
+						{
+							phrase: "the",
+							translation: artcl.el,
+						},
+						{
+							phrase: "guy",
+						},
+						{
+							phrase: "that",
+							translation: conj.que,
+						},
+						{
+							phrase: "saw him",
+							translation: dObj.lo,
+							phraseTranslation: "LO saw",
+						},
+					],
+				},
+				{
+					id: 9,
+					sentence: "No, HE is the man that did it",
+					translation: "NO, HE ES EL man QUE LO did",
+					data: [
+						{
+							phrase: "No",
+							translation: pron.no,
+						},
+						{
+							phrase: "HE is",
+							translation: verb.ser.present.es,
+							phraseTranslation: "HE ES",
+						},
+						{
+							phrase: "the",
+							translation: artcl.el,
+						},
+						{
+							phrase: "man",
+						},
+						{
+							phrase: "that",
+							translation: conj.que,
+						},
+						{
+							phrase: "did it",
+							translation: dObj.lo,
+							phraseTranslation: "LO did",
+						},
+					],
+				},
+				{
+					id: 10,
+					sentence: "Yes, that's why you're my friend",
+					translation: "Yes, POR ESO ERES my friend",
+					noPronoun: true,
+					data: [
+						{ phrase: "Yes" },
+						{
+							phrase: "that's why",
+							translation: [prep.por, pron.eso],
+							phraseTranslation: "POR ESO",
+							reference: { "prep.por": [9] },
+						},
+						{
+							phrase: "you're",
+							translation: verb.ser.present.eres,
+						},
+						{
+							phrase: "my friend",
+						},
+					],
+				},
+				{
+					id: 11,
+					sentence: "She isn't the teacher, he is the teacher",
+					translation: "She NO ES LA teacher, he ES EL teacher",
+					data: [
+						{
+							phrase: "She isn't",
+							phraseTranslation: "She NO ES",
+							translation: [verb.ser.present.es, pron.no],
+							reference: { "pron.no": [6] },
+						},
+						{
+							phrase: "the",
+							translation: artcl.la,
+						},
+						{
+							phrase: "teacher",
+						},
+						{
+							phrase: "he is",
+							phraseTranslation: "he ES",
+							translation: verb.ser.present.es,
+						},
+						{
+							phrase: "the",
+							translation: artcl.el,
+						},
+						{
+							phrase: "teacher",
+						},
+					],
+				},
+				{
+					id: 12,
+					sentence: "I brought her so that she could take over",
+					translation: "I LA brought PARA QUE she could take over",
+					data: [
+						{ phrase: "I" },
+						{
+							phrase: "brought her",
+							translation: dObj.la,
+							phraseTranslation: "LA brought",
+						},
+						{
+							phrase: "so that",
+							translation: [prep.para, conj.que],
+							reference: { "prep.para": [4] },
+							phraseTranslation: "PARA QUE",
+						},
+						{
+							phrase: "she could take over",
+						},
+					],
+				},
+				{
+					id: 13,
+					sentence: "We're very good friends",
+					translation: "SOMOS very good friends",
+					noPronoun: true,
+					data: [
+						{
+							phrase: "We're",
+							translation: verb.ser.present.somos,
+						},
+						{
+							phrase: "very good friends",
+						},
+					],
+				},
+				{
+					id: 14,
+					sentence: "To be a student sounds better than that",
+					translation: "SER a student sounds better QUE ESO",
+					data: [
+						{
+							phrase: "To be",
+							translation: verb.ser,
+						},
+						{
+							phrase: "a student sounds better",
+						},
+						{
+							phrase: "than",
+							translation: conj.que,
+						},
+						{
+							phrase: "that",
+							translation: conj.que,
+						},
+					],
+				},
+				{
+					id: 15,
+					sentence: "Wait, they(M) are the winners?",
+					translation: "Wait, they SON LOS winners?",
+					data: [
+						{
+							phrase: "Wait",
+						},
+						{
+							phrase: "they are",
+							phraseTranslation: "they SON",
+							translation: verb.ser.present.son,
+						},
+						{
+							phrase: "the",
+							translation: artcl.los,
+						},
+						{
+							phrase: "winners",
+						},
+					],
+				},
+				{
+					id: 16,
+					sentence: "She isn't my dog, HE is my dog.",
+					translation: "She NO ES my dog, HE ES my dog.",
+					data: [
+						{
+							phrase: "She isn't",
+							phraseTranslation: "She NO ES",
+							translation: [verb.ser.present.es, pron.no],
+							reference: { "pron.no": [6] },
+						},
+						{
+							phrase: "my dog",
+						},
+						{
+							phrase: "HE is",
+							phraseTranslation: "HE ES",
+							translation: verb.ser.present.es,
+						},
+						{
+							phrase: "my dog",
+						},
+					],
+				},
+				{
+					id: 17,
+					sentence: "Not them, WE are the winners(F).",
+					translation: "NO them, WE SOMOS LAS winners.",
+					data: [
+						{
+							phrase: "Not",
+							translation: pron.no,
+						},
+						{
+							phrase: "them",
+						},
+						{
+							phrase: "WE are",
+							translation: verb.ser.present.somos,
+							phraseTranslation: "WE SOMOS",
+						},
+						{
+							phrase: "the",
+							translation: artcl.las,
+						},
+						{
+							phrase: "winners",
+						},
+					],
+				},
+				{
+					id: 18,
+					sentence: "I am your teacher so that you can learn physics.",
+					translation: "I SOY your teacher PARA QUE you can learn physics.",
+					data: [
+						{
+							phrase: "I am",
+							translation: verb.ser.present.soy,
+							phraseTranslation: "I SOY",
+						},
+						{
+							phrase: "your teacher",
+						},
+						{
+							phrase: "so that",
+							translation: [prep.para, conj.que],
+							reference: { "prep.para": [4] },
+							phraseTranslation: "PARA QUE",
+						},
+						{
+							phrase: "you can learn physics",
+						},
+					],
+				},
+				{
+					id: 19,
+					sentence: "How strange that he runs faster than her!",
+					translation: "QUE strange Que he runs faster QUE her!",
+					data: [
+						{
+							phrase: "How strange",
+							translation: pron.que,
+							reference: { "pron.que": [0] },
+							phraseTranslation: "QUE strange",
+						},
+						{
+							phrase: "that",
+							translation: conj.que,
+						},
+						{
+							phrase: "he runs faster",
+						},
+						{
+							phrase: "than",
+							translation: conj.que,
+							reference: { "conj.que": [3] },
+						},
+						{
+							phrase: "her",
+						},
+					],
+				},
+				{
+					id: 20,
+					sentence: "I brought him because he wants to be president!",
+					translation: "I LO brought because he wants SER president!",
+					data: [
+						{
+							phrase: "I brought him",
+							translation: dObj.lo,
+							phraseTranslation: "I LO brought",
+						},
+						{
+							phrase: "because he wants",
+						},
+						{ phrase: "to be", translation: verb.ser },
+						{
+							phrase: "president",
+						},
+					],
+				},
+				{
+					id: 21,
+					sentence: "We(F) are not the teachers, THEY(F) are the teachers.",
+					translation: "We NO SOMOS LAS teachers, they SON LAS teachers.",
+					data: [
+						{
+							phrase: "We are not",
+							translation: [verb.ser.present.somos, pron.no],
+							phraseTranslation: "We NO SOMOS",
+						},
+						{
+							phrase: "the",
+							translation: artcl.las,
+						},
+						{
+							phrase: "teachers",
+						},
+						{
+							phrase: "they are",
+							translation: verb.ser.present.son,
+							phraseTranslation: "they SON",
+						},
+						{
+							phrase: "the",
+							translation: artcl.las,
+						},
+						{
+							phrase: "teachers",
+						},
+					],
+				},
+				{},
+			],
+		},
+		15: {
+			lesson: 15,
+			name: "Lesson 15",
+			details: "REVIEW: Ser and Everything Else!",
+			info: [
+				"I'm sure we're ready to get past Spanglish and on to sentences entirely in Spanish, it will happen soon, just remember this is all part of a proven process.",
+				"If our journey so far has been like climbing a mountain, we are currently on a steep climb through the thick jungle!",
+				"There is a reason for this difficult beginning, and it's that when we do start presenting some sentences entirely in Spanish, which will be SOON, you will actually have an inredibly easy time!!",
+				"Soon we will break through to a high point and see the sun shining through, you'll be able to envision a map of the whole language laid out clearly in front of you.",
+				"For this quiz when we use SER conjugations such as ES or SOMOS we will still specifically mention if the subject pronouns are not included. We will learn the Spanish words for the subject pronouns soon as well!",
+				"Additionally keep an eye out for when SER should be used, if it is SPECIFICALLY referring to WHAT something is, not WHERE, or HOW, or what it is DOING. Just what it is.",
+			],
+			sentences: [
+				{
+					id: 1,
+					sentence: "They're with your dad's sister.",
+					translation: "They're CON LA sister DE your dad.",
+					data: [
+						{ phrase: "They're", mixup: verb.ser.present.son },
+						{
+							phrase: "with",
+							translation: prep.con,
+						},
+						{
+							phrase: "your dad's sister",
+							phraseTranslation: "LA sister DE your dad",
+							translatoin: [artcl.la, conj.de],
+						},
+					],
+				},
+				{
+					id: 2,
+					sentence: "I can see that amused you",
+					translation: "I can see QUE ESO TE amused",
+					data: [
+						{
+							phrase: "I can see",
+							translation: conj.que,
+							reference: { "conj.que": [0] },
+							phraseTranslation: "I can see QUE",
+						},
+
+						{
+							phrase: "that",
+							translation: pron.eso,
+						},
+						{
+							phrase: "amused you",
+							translation: verb.te,
+							phraseTranslation: "TE amused",
+						},
+					],
+				},
+				{
+					id: 3,
+					sentence: "She and I are the first people in the place",
+					translation: "She Y I SOMOS the first people EN the place",
+					data: [
+						{
+							phrase: "She and I are",
+							translation: [verb.ser.present.somos, pron.y],
+							phraseTranslation: "She Y I SOMOS",
+						},
+						{
+							phrase: "the first people",
+						},
+						{
+							phrase: "in",
+							translation: prep.en,
+						},
+						{
+							phrase: "the place",
+						},
+					],
+				},
+				{
+					id: 4,
+					sentence: "You're my best friend",
+					translation: "ERES my best friend",
+					noPronoun: true,
+					data: [
+						{ phrase: "You're", translation: verb.ser.present.eres },
+						{
+							phrase: "my best friend",
+						},
+					],
+				},
+				{
+					id: 5,
+					sentence: "I saw them(M) walking out of the school",
+					translation: "I LOS saw walking out DE the school",
+					data: [
+						{
+							phrase: "I saw them",
+							translation: dObj.los,
+							phraseTranslation: "I LOS saw",
+						},
+						{
+							phrase: "walking out",
+						},
+						{
+							phrase: "of",
+							translation: prep.de,
+						},
+						{
+							phrase: "the school",
+						},
+					],
+				},
+				{
+					id: 6,
+					sentence: "The girls saw me going to the beach",
+					translation: "LAS girls ME saw going A the beach",
+					data: [
+						{ phrase: "The", translation: artcl.las },
+						{ phrase: "girls" },
+						{
+							phrase: "saw me",
+							phraseTranslation: "ME saw",
+							translation: dObj.me,
+						},
+						{
+							phrase: "going",
+						},
+						{
+							phrase: "to",
+							translation: prep.a,
+						},
+						{
+							phrase: "the beach",
+						},
+					],
+				},
+				{
+					id: 7,
+					sentence: "That has been intended for you for a while",
+					translation: "ESO has been PARA you POR a while",
+					data: [
+						{
+							phrase: "that",
+							translation: pron.eso,
+						},
+						{
+							phrase: "has been",
+						},
+						{
+							phrase: "intended for",
+							translation: prep.para,
+						},
+						{
+							phrase: "you",
+						},
+						{
+							phrase: "for",
+							translation: prep.por,
+							reference: { "prep.por": [11] },
+						},
+						{
+							phrase: "a while",
+						},
+					],
+				},
+				{
+					id: 8,
+					sentence: "We're the guys you saw yesterday",
+					translation: "SOMOS LOS guys QUE you saw yesterday",
+					noPronoun: true,
+					data: [
+						{
+							phrase: "We're",
+							translation: verb.ser.present.somos,
+						},
+						{
+							phrase: "the",
+							translation: artcl.los,
+						},
+						{
+							phrase: "guys",
+						},
+						{
+							phrase: "you saw",
+							translation: conj.que,
+							phraseTranslation: "QUE you saw",
+							reference: { "conj.que": [0] },
+						},
+						{
+							phrase: "yesterday",
+						},
+					],
+				},
+				{
+					id: 9,
+					sentence: "I knew her, she was better than that",
+					translation: "I LA knew, she was better QUE ESO",
+					data: [
+						{
+							phrase: "I knew her",
+							translation: dObj.la,
+							phraseTranslation: "I LA knew",
+						},
+						{ phrase: "she was better" },
+
+						{
+							phrase: "than",
+							translation: conj.que,
+							reference: { "conj.que": [3] },
+						},
+						{
+							phrase: "that",
+							translation: pron.eso,
+						},
+					],
+				},
+				{
+					id: 10,
+					sentence: "The thing from the library is my book",
+					translation: "The thing DE the library ES my book",
+					data: [
+						{
+							phrase: "The thing",
+						},
+						{
+							phrase: "from",
+							translation: prep.de,
+						},
+						{
+							phrase: "the library",
+						},
+						{
+							phrase: "is",
+							translation: verb.ser.present.es,
+						},
+						{
+							phrase: "my book",
+						},
+					],
+				},
+				{
+					id: 11,
+					sentence: "You(F) are the best cook",
+					translation: "ERES LA best cook",
+					noPronoun: true,
+					data: [
+						{
+							phrase: "You are",
+							translation: verb.ser.present.eres,
+						},
+						{
+							phrase: "the",
+							translation: artcl.la,
+						},
+						{
+							phrase: "best cook",
+						},
+					],
+				},
+				{
+					id: 12,
+					sentence: "I think my wine glass is around here",
+					translation: "I think QUE my glass DE wine is POR here",
+					data: [
+						{
+							phrase: "I think",
+							translation: conj.que,
+							phraseTranslation: "I think QUE",
+							reference: { "conj.que": [0] },
+						},
+						{
+							phrase: "my",
+						},
+
+						{
+							phrase: "wine glass",
+							phraseTranslation: "my glass DE wine",
+							translation: prep.de,
+						},
+						{
+							phrase: "is",
+							mixup: verb.ser.present.es,
+						},
+						{
+							phrase: "around",
+							translation: prep.por,
+							reference: { "prep.por": [5] },
+						},
+						{
+							phrase: "here",
+						},
+					],
+				},
+				{
+					id: 13,
+					sentence: "He and she are a couple",
+					translation: "He Y she SON a couple",
+					data: [
+						{
+							phrase: "He",
+						},
+						{
+							phrase: "and",
+							translation: conj.y,
+						},
+						{
+							phrase: "she",
+						},
+						{
+							phrase: "are",
+							translation: verb.ser.present.son,
+						},
+						{
+							phrase: "a couple",
+						},
+					],
+				},
+				{
+					id: 14,
+					sentence: "He's here so that you can meet him",
+					translation: "He's here PARA QUE you LO can meet",
+					data: [
+						{
+							phrase: "He's here",
+							mixup: verb.ser.present.es,
+						},
+						{
+							phrase: "so that",
+							phraseTranslation: "PARA QUE",
+							translation: [prep.para, conj.que],
+							reference: { "prep.para": [5] },
+						},
+						{
+							phrase: "you can meet him",
+							phraseTranslation: "you LO can meet",
+							translation: dObj.lo,
+						},
+					],
+				},
+				{
+					id: 15,
+					sentence: "Why did he bring them(F)?",
+					translation: "Por que he LAS brought",
+					data: [
+						{
+							phrase: "Why",
+							translation: [prep.por, pron.que],
+							phraseTranslation: "Por que",
+							reference: { "prep.por": [10] },
+						},
+						{
+							phrase: "did he bring them",
+							translation: dObj.las,
+							phraseTranslation: "he LAS brought",
+						},
+					],
+				},
+				{
+					id: 16,
+					sentence: "This is the book written by my mentor",
+					translation: "This ES the book written POR my mentor",
+					data: [
+						{
+							phrase: "This",
+						},
+						{
+							phrase: "is",
+							translation: verb.ser.present.es,
+						},
+						{
+							phrase: "the book written",
+						},
+						{
+							phrase: "by",
+							translation: prep.por,
+							reference: { "prep.por": [1] },
+						},
+						{
+							phrase: "My mentor",
+						},
+					],
+				},
+			],
+		},
 	},
 }
 
