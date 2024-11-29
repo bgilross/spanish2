@@ -5410,6 +5410,73 @@ const spanishData = {
 				},
 				{
 					id: 23,
+					sentence: "What do you need?",
+					translation: "QUE do you need?",
+					data: [
+						{
+							phrase: "What",
+							translation: pron.que,
+						},
+						{
+							phrase: "do",
+						},
+						{
+							phrase: "you need",
+						},
+					],
+				},
+				{
+					id: 24,
+					sentence: "So THEY(F) are the thieves!",
+					translation: "So THEY SON LAS thieves!",
+					data: [
+						{
+							phrase: "So THEY",
+						},
+						{
+							phrase: "are",
+							translation: verb.ser.present.son,
+						},
+						{
+							phrase: "the",
+							translation: artcl.las,
+						},
+						{
+							phrase: "thieves",
+						},
+					],
+				},
+				{
+					id: 25,
+					sentence: "He isn't the boss, I(M) am the boss ",
+					translation: "He NO ES EL boss, I SOY EL boss",
+					data: [
+						{
+							phrase: "He isn't",
+							phraseTranslation: "He NO ES",
+							translation: [pron.no, verb.ser.present.es],
+							reference: { "pron.no": [6] },
+						},
+						{
+							phrase: "the",
+							translation: artcl.el,
+						},
+						{
+							phrase: "boss",
+						},
+						{
+							phrase: "I am",
+							translation: verb.ser.present.soy,
+							phraseTranslation: "I SOY",
+						},
+						{
+							phrase: "the",
+							translation: artcl.el,
+						},
+						{
+							phrase: "boss",
+						},
+					],
 				},
 			],
 		},
