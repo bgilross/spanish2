@@ -219,8 +219,8 @@ const spanishWords = {
 				`DE seems like a replacement for POR, but POR implies CREATION or CAUSE as opposed to simply origin.`,
 				`Water produced BY/POR the fountain also exists BECAUSE OF the fountain, or POR the fountain!`,
 				`POR is associated with DEEP questions, such as BECAUSE OF WHY something is the case`,
-				`Water is pooling AROUND or NEARBY the fountain also can mean POR`,
-				`The water is running all ALONG/POR the sides of the fountain`,
+				`Water is pooling AROUND, NEAR, or NEARBY the fountain also can mean POR`,
+				`POR can mean ALONG: The water is running all ALONG/POR the sides of the fountain`,
 				`POR and the FOUNTAIN: always remember the image of flowing water produced BY the fountain, AROUND it, ALONG side, NEARBY it, and existing BECASUE of it!`,
 				"POR this Evening means: DURING the evening, in a general way, AROUND this evening.",
 				"POR ESO mean 'Becasue of that', or 'That's Why'",
@@ -288,7 +288,15 @@ const spanishWords = {
 			translations: ["to be, is, am, are, was, will, etc.", "ser"],
 			word: "ser",
 			pos: "Verb",
-			info: [],
+			info: [
+				"The verb SER is unlike the English TO BE, in that it is VERY specifically used to describe WHAT something IS, or WHO someone IS, as a direct part of their Identity. SER includes the whole family of conjugations we learned in the previous lessons. ES, SON, SOMOS, ERES, SOY, as well as many other forms we haven't learned yet. BUT every form of SER is used in the same way, talking about WHAT something IS",
+				"SER and DE/From: WHERE you are from is considered part of your Identity in Spanish, part of WHAT you are",
+				"SER and PARA/FOR: if something is intended for someone that is part of it's identity, or part of WHAT it is.",
+				"SER and POR/BECAUSE OF: When SER is used with POR it clearly defines POR's meaning as NON location based (as in NOT nearby, around, etc,) so It must mean BECASUE OF or BY implying authorship or another part of the objects ID.",
+				"SER and Physical Characteristics: Describing someone, like 'how tall' they are is considered part of their identity, or WHAT they are, and is used with SER.",
+				"SER shouldn't be used to describe something's location, like using CON to say WITH, or EN to say ON, or if POR is meaning NEAR/AROUND",
+				"SER shouldn't be used to describe what something/someone is doing. 'is raining' 'is sitting'",
+			],
 
 			present: {
 				soy: {
@@ -308,7 +316,7 @@ const spanishWords = {
 					person: "second",
 				},
 				es: {
-					id: "verb.ser.past.es",
+					id: "verb.ser.present.es",
 					word: "es",
 					translations: ["is", "He/she/it is"],
 					pos: "Verb",

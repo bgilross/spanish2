@@ -5312,7 +5312,7 @@ const spanishData = {
 				{
 					id: 19,
 					sentence: "We need a new butler(M) by this evening",
-					translatoin: "We need UN new butler PARA this evening",
+					translation: "We need UN new butler PARA this evening",
 					data: [
 						{
 							phrase: "We need",
@@ -5491,12 +5491,516 @@ const spanishData = {
 				"The verb SER is unlike the English TO BE, in that it is VERY specifically used to describe WHAT something IS, or WHO someone IS, as a direct part of their Identity. SER includes the whole family of conjugations we learned in the previous lessons. ES, SON, SOMOS, ERES, SOY, as well as many other forms we haven't learned yet. BUT every form of SER is used in the same way, talking about WHAT something IS",
 				"Think about the ways YOU can be described, as a PERSON, or as part of your IDENTITY. What about people or things in your life, what might they be described as 'being', Not as WHERE they are, or HOW they are doing, but as WHAT they are!",
 				"This is what SER represents, and it's the key to communicating deeply in Spanish, because it's CORE to how English Linking Verbs are different from Spanish Linking Verbs. If you think about SER/To be in the English sense then you are thinking in English, but start thinking about SER/TO BE as as specific to WHAT something is, or WHO somone IS, then you are starting to think in Spanish!!",
+				"So far we've only used SER in the most basic sentences, using straightforwards Nouns or Noun Phrases before and after the form of SER, but it is allowed to follow SER with a preposition in situation where it is directly related to expressing something Identity!",
 				"Let's think about how Spanish treats this concept of Identity, consider: 'My mother is/ES from/DE Mexico'. Here SER isn't being followed by a noun but by a preposition and THEN a noun.",
 				"Spanish treats 'being from a place' as WHAT you are. If you are FROM New York for example, it's considered part of WHAT YOU ARE. This also applies to a product or food being from a certain place. ",
-				"Another Preposition that's used with SER is PARA. For example: 'This give ES/is PARA/for you' If an Item is intended FOR someone that is considered to be part of it's identity.",
+				"Another Preposition that's used with SER is PARA. For example: 'This gift ES/is PARA/for you' If an Item is intended FOR someone that is considered to be part of it's identity.",
 				"Preposition like EN and CON are almost NEVER used after SER, since these two prepositions are almost ALWAYS used to talk about location 'IN/EN the park' or 'WITH/CON my friends'",
 				"What about the preposition POR? Is BY or BECAUSE OF associated with SER? Consider the English 'This book is BY that guy'. In English we aren't sure if this is referring to the book being WRITTEN BY the guy, or that the book is NEARY BY the guy. In Spanish using SER makes this a lot more clear, if the book 'ES POR' that guys that clearly means it's written by him and not referring to location! Because of function in the same manner.",
 				"Another part of Spanish Identity is physical characteristics, such as 'how tall' would use SER because that is part of someones identity. ",
+			],
+			sentences: [
+				{
+					id: 1,
+					sentence: "This gift is for you",
+					translation: "This gift ES PARA you",
+					data: [
+						{
+							phrase: "This gift",
+						},
+						{
+							phrase: "is",
+							translation: verb.ser.present.es,
+							reference: { "verb.ser": [2] },
+						},
+						{
+							phrase: "for",
+							translation: prep.para,
+							reference: { "prep.para": [0] },
+						},
+						{
+							phrase: "you",
+						},
+					],
+				},
+				{
+					id: 2,
+					sentence: "That is because of our party",
+					translation: "ESO ES POR our party",
+					data: [
+						{
+							phrase: "That",
+							translation: pron.eso,
+						},
+						{
+							phrase: "is because of",
+							translation: [verb.ser.present.es, prep.por],
+							reference: { "verb.ser": [3], "prep.por": [3] },
+							phraseTranslation: "ES POR",
+						},
+						{
+							phrase: "our party",
+						},
+					],
+				},
+				{
+					id: 3,
+					sentence: "He is tall but we are short",
+					translation: "He ES tall but we SOMOS short",
+					data: [
+						{
+							phrase: "He is",
+							translation: verb.ser.present.es,
+							phraseTranslation: "He ES",
+							reference: { "verb.ser": [2] },
+						},
+						{
+							phrase: "tall, but",
+						},
+						{
+							phrase: "we are",
+							translation: verb.ser.present.somos,
+							phraseTranslation: "we SOMOS",
+						},
+						{
+							phrase: "short",
+						},
+					],
+				},
+				{
+					id: 4,
+					sentence: "They are from this town?",
+					translation: "SON DE this town?",
+					noPronoun: true,
+					data: [
+						{
+							phrase: "They are from",
+							translation: verb.ser.present.son,
+							reference: { "verb.ser": [1] },
+							phraseTranslation: "SON DE",
+						},
+						{
+							phrase: "this town",
+						},
+					],
+				},
+				{
+					id: 5,
+					sentence: "That is with the pencil on the table",
+					translation: "ESO is CON the pencil EN the table",
+					data: [
+						{
+							phrase: "That is with",
+							translation: [pron.eso, prep.con],
+							phraseTranslation: "ESO is CON",
+							reference: { "verb.ser": [5] },
+						},
+						{
+							phrase: "the pencil",
+						},
+						{
+							phrase: "on",
+							translation: prep.en,
+						},
+						{
+							phrase: "the table",
+						},
+					],
+				},
+				{
+					id: 6,
+					sentence: "The food is for the girls.",
+					translation: "The food ES PARA LAS girls",
+					data: [
+						{
+							phrase: "The food",
+						},
+						{
+							phrase: "is for",
+							translation: [verb.ser.present.es, prep.para],
+							reference: { "verb.ser": [2], "prep.para": [0] },
+							phraseTranslation: "ES PARA",
+						},
+						{
+							phrase: "LAS girls",
+						},
+					],
+				},
+				{
+					id: 7,
+					sentence: "She wants to be a firefighter",
+					translation: "She wants SER a firefighter",
+					data: [
+						{
+							phrase: "She wants",
+						},
+						{
+							phrase: "to be",
+							translation: verb.ser,
+						},
+						{
+							phrase: "a firefighter",
+						},
+					],
+				},
+				{
+					id: 8,
+					sentence: "It's the afternoon",
+					translation: "ES the afternoon",
+					data: [
+						{
+							phrase: "It's",
+							translation: pron.es,
+						},
+						{
+							phrase: "the afternoon",
+						},
+					],
+				},
+				{
+					id: 9,
+					sentence: "They are near the park",
+					translation: "They are POR the park",
+					data: [
+						{
+							phrase: "They are near",
+							phraseTranslation: "They are POR",
+							translation: prep.por,
+							reference: { "verb.ser": [5], "prep.por": [3] },
+						},
+						{
+							phrase: "the park",
+						},
+					],
+				},
+				{
+					id: 10,
+					sentence: "I(M) am the queen's cousin",
+					translation: "SOY EL cousin DE LA queen",
+					data: [
+						{
+							phrase: "I am",
+							translation: verb.ser.present.soy,
+						},
+						{
+							phrase: "the queen's cousin",
+							translation: [artcl.el, prep.de, artcl.la],
+							phraseTranslatoin: "EL cousin DE LA queen",
+						},
+					],
+				},
+				{
+					id: 11,
+					sentence: "The man is driving along the highway",
+					translation: "EL man is driving POR the highway",
+					data: [
+						{
+							phrase: "The man",
+							translation: artcl.el,
+							phraseTranslation: "EL man",
+						},
+						{
+							phrase: "is driving",
+							phraseTranslation: "is driving",
+							reference: { "verb.ser": [6] },
+						},
+						{
+							phrase: "along",
+							translation: prep.por,
+							reference: { "prep.por": [6] },
+						},
+						{
+							phrase: "the highway",
+						},
+					],
+				},
+				{
+					id: 12,
+					sentence: "The car is for the man",
+					translation: "The car ES PARA EL man",
+					data: [
+						{
+							phrase: "The car",
+						},
+						{
+							phrase: "is for",
+							translation: [verb.ser.present.es, prep.para],
+							reference: { "verb.ser": [2], "prep.para": [0] },
+							phraseTranslation: "ES PARA",
+						},
+						{
+							phrase: "the man",
+							translation: artcl.el,
+							phraseTranslation: "EL man",
+						},
+					],
+				},
+				{
+					id: 13,
+					sentence: "That is because of my mistake",
+					translation: "ESO ES POR my mistake",
+					data: [
+						{
+							phrase: "That is becaue of",
+							translation: [pron.eso, prep.por, verb.ser.present.es],
+							reference: { "verb.ser": [3], "prep.por": [3] },
+							phraseTranslation: "ESO ES POR",
+						},
+						{
+							phrase: "my mistake",
+						},
+					],
+				},
+				{
+					id: 14,
+					sentence: "You're not from Argentina",
+					translation: "NO ERES DE Argentina",
+					noPronoun: true,
+					data: [
+						{
+							phrase: "You're not from",
+							translation: [verb.ser.present.eres, prep.de, pron.no],
+							reference: { "verb.ser": [1], "pron.no": [6] },
+							phraseTranslation: "NO ERES DE",
+						},
+						{
+							phrase: "Argentina",
+						},
+					],
+				},
+				{
+					id: 15,
+					sentence: "It's a cheap toy, that's why it's of plastic",
+					translation: "ES a cheap toy, POR ESO ES DE plastic",
+					noPronoun: true,
+					data: [
+						{
+							phrase: "It's",
+							translation: verb.ser.present.es,
+						},
+						{
+							phrase: "a cheap toy",
+						},
+						{
+							phrase: "that's why",
+							translation: [pron.eso, prep.por],
+							phraseTranslation: "POR ESO",
+							reference: { "prep.por": [9] },
+						},
+						{
+							phrase: "it's",
+							translation: verb.ser.present.es,
+						},
+						{
+							phrase: "of plastic",
+							translation: prep.de,
+							phraseTranslation: "DE plastic",
+						},
+					],
+				},
+				{
+					id: 16,
+					sentence: "That is for you!",
+					translation: "ESO ES PARA you!",
+					data: [
+						{
+							phrase: "That is for",
+							phraseTranslation: "ESO ES PARA",
+							translation: [verb.ser.present.es, prep.para, pron.eso],
+							reference: { "verb.ser": [2], "prep.para": [0] },
+						},
+						{
+							phrase: "you",
+						},
+					],
+				},
+				{
+					id: 17,
+					sentence: "These books are by my favorite author.",
+					translation: "These books SON POR my favorite author.",
+					data: [
+						{
+							phrase: "These books",
+						},
+						{
+							phrase: "are by",
+							translation: [verb.ser.present.son, prep.por],
+							phraseTranslation: "SON POR",
+							reference: { "verb.ser": [3], "prep.por": [1] },
+						},
+						{
+							phrase: "my favorite author",
+						},
+					],
+				},
+				{
+					id: 18,
+					sentence: "I am telling her he is at home",
+					translation: "I am telling her QUE he is EN home",
+					data: [
+						{ phrase: "I am telling", phraseTranslation: "I am telling" },
+						{
+							phrase: "her",
+						},
+						{
+							phrase: "he is",
+							phraseTranslation: "QUE he is",
+							translation: conj.que,
+							reference: { "conj.que": [0] },
+						},
+						{
+							phrase: "at home",
+							phraseTranslation: "EN home",
+							translation: prep.en,
+						},
+					],
+				},
+				{
+					id: 19,
+					sentence: "They aren't from Chile, WE are from Chile!",
+					translation: "They NO SON DE Chile, WE SOMOE DE CHile!",
+					data: [
+						{
+							phrase: "They aren't from",
+							phraseTranslation: "They NO SON DE",
+							translation: [verb.ser.present.son, prep.d, pron.no],
+							reference: { "verb.ser": [1], "pron.no": [6] },
+						},
+						{
+							phrase: "Chile,",
+						},
+						{
+							phrase: "WE are from",
+							phraseTranslation: "WE SOMOS DE",
+							translation: [verb.ser.present.somos, prep.de],
+						},
+						{
+							phrase: "Chile!",
+						},
+					],
+				},
+				{
+					id: 20,
+					sentence: "It's the lady's",
+					translation: "ES DE LA Lady",
+					noPronoun: true,
+					data: [
+						{
+							phrase: "It's",
+							translation: verb.ser.present.es,
+							reference: { "verb.ser": [1] },
+						},
+						{
+							phrase: "the lady's",
+							translation: [prep.de, artcl.la],
+							phraseTranslation: "DE LA Lady",
+						},
+					],
+				},
+				{
+					id: 21,
+					sentence: "The girls are by the lady's car over there",
+					translation: "LAS girls are POR the car DE LA lady over there",
+					data: [
+						{
+							phrase: "The girls are by",
+							translation: [artcl.las, prep.por],
+							phraseTranslation: "LAS girls are POR",
+							reference: { "verb.ser": [5] },
+						},
+						{
+							phrase: "the lady's car",
+							translation: [prep.de, artcl.la],
+							phraseTranslation: "the car DE LA lady",
+						},
+						{
+							phrase: "over there",
+						},
+					],
+				},
+				{
+					id: 22,
+					sentence: "I am at the party",
+					translation: "I am EN the party",
+					data: [
+						{
+							phrase: "I am at",
+							translation: prep.en,
+							phraseTranslation: "I am EN",
+							reference: { "verb.ser": [5] },
+						},
+						{
+							phrase: "the party",
+						},
+					],
+				},
+				{
+					id: 23,
+					sentence: "HE isn't Jose's son!",
+					translation: "HE NO ES EL son DE Jose!",
+					data: [
+						{
+							phrase: "HE isn't",
+							phraseTranslation: "HE NO ES",
+							translation: [verb.ser.present.es, pron.no],
+							reference: { "pron.no": [6] },
+						},
+						{
+							phrase: "Jose's son",
+							translation: [artcl.el, prep.de],
+							phraseTranslation: "EL son DE Jose",
+						},
+					],
+				},
+				{
+					id: 24,
+					sentence: "They are with the lady at 3:00 every day.",
+					translation: "They are CON LA lady A 3:00 every day.",
+					data: [
+						{
+							phrase: "They are with",
+							phraseTranslation: "They are CON",
+							reference: { "verb.ser": [5] },
+						},
+						{
+							phrase: "the lady",
+							phraseTranslation: "LA lady",
+							translation: artcl.la,
+						},
+						{
+							phrase: "at 3:00",
+							phraseTranslation: "A 3:00",
+							translation: prep.a,
+							reference: { "prep.a": [0] },
+						},
+					],
+				},
+				{
+					id: 25,
+					sentence: "It is staying in the car for a while",
+					translation: "It is staying EN the car POR a while",
+					data: [
+						{
+							phrase: "It is staying",
+							phraseTranslation: "It is staying",
+						},
+						{
+							phrase: "in",
+							translation: prep.en,
+						},
+						{
+							phrase: "the car",
+						},
+						{
+							phrase: "for",
+							translation: prep.por,
+							reference: { "prep.por": [11] },
+						},
+						{
+							phrase: "a while",
+						},
+					],
+				},
 			],
 		},
 	},
