@@ -5480,6 +5480,25 @@ const spanishData = {
 				},
 			],
 		},
+		16: {
+			id: 16,
+			lesson: "Lesson 16",
+			details: "New ways to use SER. SER and Prepositions",
+			info: [
+				"To give this lesson some context, taks a step back and consider specificaly why you are learning Spanish. \nIs there someone close to you that you want to connect to, or are there specific activities that would be easier, also what specific convsersation topics do you, personall, wish to be able to talk about in fluid spontaneous Spanish?",
+				"Go ahead and vividly imagine a conversation you'd like to have in Spanish. Picture who you're talking to, where you are, and what you're talking about. Imagine this conversation being fluid and spontaneous, going in unexpected directions, but imagine that you never get lost! Picture this because our goal is to be there in a few months!",
+				"There are some abstract concepts to cover in this lesson, and sometimes this is the most frustrating to get through, especially if you're impatient to start having conversations, but these abstract ideas will be directly applicable to having that conversation you've just imagined",
+				"The verb SER is unlike the English TO BE, in that it is VERY specifically used to describe WHAT something IS, or WHO someone IS, as a direct part of their Identity. SER includes the whole family of conjugations we learned in the previous lessons. ES, SON, SOMOS, ERES, SOY, as well as many other forms we haven't learned yet. BUT every form of SER is used in the same way, talking about WHAT something IS",
+				"Think about the ways YOU can be described, as a PERSON, or as part of your IDENTITY. What about people or things in your life, what might they be described as 'being', Not as WHERE they are, or HOW they are doing, but as WHAT they are!",
+				"This is what SER represents, and it's the key to communicating deeply in Spanish, because it's CORE to how English Linking Verbs are different from Spanish Linking Verbs. If you think about SER/To be in the English sense then you are thinking in English, but start thinking about SER/TO BE as as specific to WHAT something is, or WHO somone IS, then you are starting to think in Spanish!!",
+				"Let's think about how Spanish treats this concept of Identity, consider: 'My mother is/ES from/DE Mexico'. Here SER isn't being followed by a noun but by a preposition and THEN a noun.",
+				"Spanish treats 'being from a place' as WHAT you are. If you are FROM New York for example, it's considered part of WHAT YOU ARE. This also applies to a product or food being from a certain place. ",
+				"Another Preposition that's used with SER is PARA. For example: 'This give ES/is PARA/for you' If an Item is intended FOR someone that is considered to be part of it's identity.",
+				"Preposition like EN and CON are almost NEVER used after SER, since these two prepositions are almost ALWAYS used to talk about location 'IN/EN the park' or 'WITH/CON my friends'",
+				"What about the preposition POR? Is BY or BECAUSE OF associated with SER? Consider the English 'This book is BY that guy'. In English we aren't sure if this is referring to the book being WRITTEN BY the guy, or that the book is NEARY BY the guy. In Spanish using SER makes this a lot more clear, if the book 'ES POR' that guys that clearly means it's written by him and not referring to location! Because of function in the same manner.",
+				"Another part of Spanish Identity is physical characteristics, such as 'how tall' would use SER because that is part of someones identity. ",
+			],
+		},
 	},
 }
 

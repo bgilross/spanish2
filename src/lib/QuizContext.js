@@ -593,6 +593,8 @@ export const QuizProvider = ({ children }) => {
 
 		const currentSections = currentSentences[sentenceInd].data
 			.map((section, index) => {
+				console.log("mapping currentSentences.")
+
 				if (section.translation) {
 					return { section, index }
 				}
