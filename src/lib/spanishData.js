@@ -4901,7 +4901,11 @@ const spanishData = {
 					sentence: "They're with your dad's sister.",
 					translation: "They're CON LA sister DE your dad.",
 					data: [
-						{ phrase: "They're", mixup: verb.ser.present.son },
+						{
+							phrase: "They're",
+							phraseTranslation: ["They're", "They are"],
+							mixup: verb.ser.present.son,
+						},
 						{
 							phrase: "with",
 							translation: prep.con,
